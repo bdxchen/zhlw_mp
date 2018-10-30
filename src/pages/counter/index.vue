@@ -4,6 +4,7 @@
     <p>
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
+      <button @click="editCounts">+5</button>
     </p>
 
     <a href="/pages/index/main" class="home">去往首页</a>
@@ -12,22 +13,26 @@
 
 <script>
 // Use Vuex
-import store from './store'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   computed: {
-    count () {
-      return store.state.count
-    }
+    // ...mapGetters(['count'])
+    ...mapState(['count'])
   },
   methods: {
+    // ...mapActions(['editCount']),
+    editCounts() {
+      this.$store.dispatch('editCount', {param: 5})
+    },
     increment () {
-      store.commit('increment')
+      this.$store.commit('increment')
     },
     decrement () {
-      store.commit('decrement')
+      this.$store.commit('decrement')
     }
-  }
+  },
+  
 }
 </script>
 
