@@ -17,8 +17,8 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   computed: {
-    // ...mapGetters(['count'])
-    ...mapState(['count'])
+    ...mapGetters(['count'])
+    // ...mapState(['count'])
   },
   methods: {
     // ...mapActions(['editCount']),
