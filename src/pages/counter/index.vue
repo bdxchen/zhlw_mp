@@ -13,27 +13,25 @@
 
 <script>
 // Use Vuex
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(['count'])
-    // ...mapState(['count'])
+    ...mapGetters(["count"])
   },
   methods: {
-    // ...mapActions(['editCount']),
+    ...mapActions(["editCount"]),
     editCounts() {
-      this.$store.dispatch('editCount', {param: 5})
+      this.$store.dispatch("editCount", { param: 5 });
     },
-    increment () {
-      this.$store.commit('increment')
+    increment() {
+      this.$store.commit("increment");
     },
-    decrement () {
-      this.$store.commit('decrement')
+    decrement() {
+      this.$store.commit("decrement");
     }
-  },
-  
-}
+  }
+};
 </script>
 
 <style>

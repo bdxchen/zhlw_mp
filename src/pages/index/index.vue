@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import card from '@/components/card'
-import mpButton from 'mpvue-weui/src/button'
+import card from "@/components/card";
+import mpButton from "mpvue-weui/src/button";
 export default {
-  data () {
+  data() {
     return {
-      motto: 'Hello World',
+      motto: "Hello World",
       userInfo: {}
-    }
+    };
   },
 
   components: {
@@ -38,32 +38,33 @@ export default {
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
+    bindViewTap() {
+      const url = "../logs/main";
+      
+      wx.navigateTo({ url });
     },
-    getUserInfo () {
+    getUserInfo() {
       // 调用登录接口
       wx.login({
         success: () => {
           wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
+            success: res => {
+              this.userInfo = res.userInfo;
             }
-          })
+          });
         }
-      })
+      });
     },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
+    clickHandle(msg, ev) {
+      console.log("clickHandle:", msg, ev);
     }
   },
 
-  created () {
+  created() {
     // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+    this.getUserInfo();
   }
-}
+};
 </script>
 
 <style scoped>
