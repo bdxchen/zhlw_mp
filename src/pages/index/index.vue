@@ -40,8 +40,12 @@ export default {
   methods: {
     bindViewTap() {
       const url = "../logs/main";
-      
-      wx.navigateTo({ url });
+
+      //mpvue-router跳转
+      this.$router.push({path:url,query:{}});
+
+      // 微信小程序原生跳转
+      // wx.navigateTo({ url });
     },
     getUserInfo() {
       // 调用登录接口
@@ -67,7 +71,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$b2: #f4f4f4;
+$b3: #ccc;
+$b5: #333;
+$b4: #999;
+$b1: #2da4ff;
+$y2: #ff7b33;
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -82,7 +92,7 @@ export default {
 }
 
 .userinfo-nickname {
-  color: #aaa;
+  color: $b4;
 }
 
 .usermotto {
@@ -91,7 +101,7 @@ export default {
 
 .form-control {
   display: block;
-  padding: 0 12px;
+  padding: 0 0.2rem;
   margin-bottom: 5px;
   border: 1px solid #ccc;
 }
