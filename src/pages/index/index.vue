@@ -40,8 +40,12 @@ export default {
   methods: {
     bindViewTap() {
       const url = "../logs/main";
-      
-      wx.navigateTo({ url });
+
+      //mpvue-router跳转
+      this.$router.push({path:url,query:{}});
+
+      // 微信小程序原生跳转
+      // wx.navigateTo({ url });
     },
     getUserInfo() {
       // 调用登录接口
