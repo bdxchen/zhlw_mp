@@ -1,13 +1,12 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-
+  <div class="container">
     <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+      <open-data type="userAvatarUrl"></open-data>
       <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
+        <open-data type="groupName" open-gid="xxxxxx"></open-data>
       </div>
     </div>
-  <mp-button type="primary" size="large" btnClass="mb15">这是一个weui的按钮</mp-button>
+    <mp-button type="primary" size="large" btnClass="mb15">这是一个weui的按钮</mp-button>
     <div class="usermotto">
       <div class="user-motto">
         <card :text="motto"></card>
@@ -39,25 +38,13 @@ export default {
 
   methods: {
     bindViewTap() {
-      const url = "../logs/main";
-
+      const url = "../counter/main";
+      console.log(123);
       //mpvue-router跳转
-      this.$router.push({path:url,query:{}});
+      this.$router.push({ path: url, query: {} });
 
       // 微信小程序原生跳转
       // wx.navigateTo({ url });
-    },
-    getUserInfo() {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: res => {
-              this.userInfo = res.userInfo;
-            }
-          });
-        }
-      });
     },
     clickHandle(msg, ev) {
       console.log("clickHandle:", msg, ev);
@@ -65,8 +52,7 @@ export default {
   },
 
   created() {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo();
+
   }
 };
 </script>
