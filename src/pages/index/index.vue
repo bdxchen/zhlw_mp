@@ -17,6 +17,13 @@
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
     <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+    <a href="/pages/activity/main" class="counter">去往活动页面</a>
+    <a href="/pages/appointment/main" class="counter">去往预约页面</a>
+    <a href="/pages/appointmentComplete/main" class="counter">去往预约成功页面</a>
+    <a href="/pages/cascadeFlow/main" class="counter">去往瀑布流页面</a>
+    <a href="/pages/designerList/main" class="counter">去往设计师列表页面</a>
+    <a href="/pages/downloadPic/main" class="counter">去往下载图片页面</a>
+    <a href="/pages/userCenter/main" class="counter">去往用户中心页面</a>
   </div>
 </template>
 

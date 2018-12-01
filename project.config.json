@@ -7,9 +7,9 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"miniprogramRoot": "./dist/",
+	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wx946203c4c576cbb5",
 	"projectname": "zhlw_mp",
 	"condition": {
 		"search": {

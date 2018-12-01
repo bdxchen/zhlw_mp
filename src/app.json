@@ -2,21 +2,20 @@
   "pages": [
     "pages/index/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/counter/main",
+    "pages/activity/main",
+    "pages/appointment/main",
+    "pages/appointmentComplete/main",
+    "pages/cascadeFlow/main",
+    "pages/designerList/main",
+    "pages/downloadPic/main",
+    "pages/userCenter/main"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/main",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/logs/main",
-      "text": "日志"
-    }]
   }
 }
