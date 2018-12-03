@@ -1,21 +1,20 @@
 <template>
   <div>
     用户中心页面
-    <img src="../../../static/banner.jpg"/>
-    <div>{{testname}}</div>
-    <button @click="changeName">testname</button>
-    <!-- <div v-for="(item, index) in imgList" :key="index">{{item}}</div> -->
+    <div>{{nowIdx}}</div>
+    
     <swiper class="swiper"  
-            @change="getHeight"
+            @change="swiperChange"
             :previous-margin="50"
             :next-margin="50"
-            
             :indicator-dots="true" 
             :autoplay="false" 
             :interval="5000" 
             :duration="800">
         
-            <swiper-item v-for="(item, index) in images" :key="index">
+            <swiper-item v-for="(item, index) in images"
+                          :class="{ active: nowIdx===index }" 
+                          :key="index">
                 <image :src="item.url" class="slide-image" />
             </swiper-item>
         
@@ -25,6 +24,7 @@
 </template>
 
 <script>
+//import { swiper } from "@/common/js/swiper.js";
 export default {
   components: {},
 
@@ -55,22 +55,24 @@ export default {
 
   created() {},
   methods: {
-    swiperchange() {
-      console.log("change");
-    },
-    getHeight(e) {
-      console.log("swiper change");
+    
+    getHeight(event) {
+      
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
-      console.log(e,winWid);
+      console.log(event,winWid);
       // let imgh = e.detail.height; //图片高度
       // let imgw = e.detail.width;
       // let sH = winWid * imgh / imgw + "px";
       // this.swiperH = sH;
     },
-    changeName() {
-      console.log(this);
-      this.testname = "夏洛语";
+    swiperChange(e) {
+      console.log("eee", e);
+      this.nowIdx = e.target.current;
+      // this.setData({
+      //     nowIdx: e.detail.current
+      // })
     }
+    
   }
 };
 </script>
@@ -79,13 +81,14 @@ export default {
 swiper {
   padding-top: 30px;
 }
-.slide-image {
+.le-img {
   width: 100%;
   display: block;
   transform: scale(0.8);
   transition: all 0.3s ease;
+  border-radius: 6px;
 }
-.slide-image.le-active {
+.le-img.le-active {
   transform: scale(1);
 }
 </style>
