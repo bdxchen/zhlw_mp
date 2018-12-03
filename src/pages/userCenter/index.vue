@@ -1,7 +1,7 @@
 <template>
   <div>
     用户中心页面
-    <div>{{nowIdx}}</div>
+    <div :class="{test: test===false}">{{nowIdx}}</div>
     
     <swiper class="swiper"  
             @change="swiperChange"
@@ -32,6 +32,7 @@ export default {
     return {
       testname: "张瀚文",
       swiperH: "", //swiper高度
+      test: true,
       nowIdx: 0, //当前swiper索引
       imgList: [
         //图片列表
@@ -80,6 +81,9 @@ export default {
 <style>
 swiper {
   padding-top: 30px;
+}
+.test {
+  background: #ccc;
 }
 .le-img {
   width: 100%;
