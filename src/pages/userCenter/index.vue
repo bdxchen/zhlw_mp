@@ -23,7 +23,7 @@
         
     </swiper> 
 
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -65,11 +65,12 @@ export default {
   created() {},
   methods: {
     
-    getHeight(event) {
+    getHeight(e) {
       
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
-      let imgh = event.target.height; //图片高度
-      let imgw = event.target.width;
+      console.log(e,winWid);
+      let imgh = e.target.height; //图片高度
+      let imgw = e.target.width;
       let sH = winWid * imgh / imgw + "px";
       this.swiperH = sH;
     },
@@ -83,7 +84,7 @@ export default {
 
 <style>
 swiper {
-  /* padding-top: 30px; */
+  padding-top: 30px;
 }
 .test {
   background: #ccc;
