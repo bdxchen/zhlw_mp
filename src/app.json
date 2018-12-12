@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index1/main",
     "pages/index/main",
+    "pages/index1/main",
+    
     "pages/counter/main",
     "pages/activity/main",
     "pages/appointment/main",

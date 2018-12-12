@@ -15,12 +15,12 @@
             <swiper-item v-for="(item, index) in images"
                          
                           :key="index">
-                <image  :class="{ 'le-active': nowIdx===index }"  :src="item.url" class="le-img" />
+                <image  :class="{ 'le-active': nowIdx===index }" @load='getHeight'  :src="item.url" class="le-img" :style='{height: swiperH}' />
             </swiper-item>
         
     </swiper> 
 
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -57,21 +57,18 @@ export default {
   created() {},
   methods: {
     
-    getHeight(event) {
+    getHeight(e) {
       
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
-      console.log(event,winWid);
-      // let imgh = e.detail.height; //图片高度
-      // let imgw = e.detail.width;
-      // let sH = winWid * imgh / imgw + "px";
-      // this.swiperH = sH;
+      console.log(e,winWid);
+      let imgh = e.target.height; //图片高度
+      let imgw = e.target.width;
+      let sH = winWid * imgh / imgw + "px";
+      this.swiperH = sH;
     },
     swiperChange(e) {
       console.log("eee", e);
       this.nowIdx = e.target.current;
-      // this.setData({
-      //     nowIdx: e.detail.current
-      // })
     }
     
   }
@@ -80,7 +77,7 @@ export default {
 
 <style>
 swiper {
-  /* padding-top: 30px; */
+  padding-top: 30px;
 }
 .test {
   background: #ccc;
