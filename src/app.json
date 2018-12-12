@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/userCenter/main",
     "pages/index1/main",
     "pages/index/main",
     "pages/counter/main",
@@ -8,8 +9,8 @@
     "pages/appointmentComplete/main",
     "pages/cascadeFlow/main",
     "pages/designerList/main",
-    "pages/downloadPic/main",
-    "pages/userCenter/main"
+    "pages/downloadPic/main"
+    
     
   ],
   "window": {
