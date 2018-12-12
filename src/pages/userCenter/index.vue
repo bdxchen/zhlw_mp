@@ -1,7 +1,7 @@
 <template>
   <div>
     用户中心页面
-    <div :class="{test: test===false}">{{nowIdx}}</div>
+    <div :class="{test: test===true}">{{nowIdx}}</div>
     
     <swiper class="swiper"  
             @change="swiperChange"
@@ -13,9 +13,9 @@
             :duration="800">
         
             <swiper-item v-for="(item, index) in images"
-                          :class="{ active: nowIdx===index }" 
+                         
                           :key="index">
-                <image :src="item.url" class="slide-image" />
+                <image  :class="{ 'le-active': nowIdx===index }"  :src="item.url" class="le-img" />
             </swiper-item>
         
     </swiper> 
@@ -80,7 +80,7 @@ export default {
 
 <style>
 swiper {
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 .test {
   background: #ccc;
@@ -90,7 +90,6 @@ swiper {
   display: block;
   transform: scale(0.8);
   transition: all 0.3s ease;
-  border-radius: 6px;
 }
 .le-img.le-active {
   transform: scale(1);
