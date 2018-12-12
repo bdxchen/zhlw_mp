@@ -4,9 +4,11 @@ import "mpvue-weui/src/style/weui.css";
 import MpvueRouterPatch from "mpvue-router-patch";
 import store from "./store/index";
 
+
+
 Vue.config.productionTip = false;
 App.mpType = "app";
-
+// Vue.prototype.$http=fly
 Vue.prototype.$store = store;
 Vue.use(MpvueRouterPatch);
 

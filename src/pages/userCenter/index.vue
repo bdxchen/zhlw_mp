@@ -13,23 +13,29 @@
             :duration="800">
         
             <swiper-item v-for="(item, index) in images"
-                          :class="{ active: nowIdx===index }" 
+                           
                           :key="index">
-                <image :src="item.url" class="slide-image" />
+                <image :src="item.url" :class="{ 'le-active': nowIdx===index }" class="slide-image" />
             </swiper-item>
         
     </swiper> 
+
+    
+
 
   </div>
 </template>
 
 <script>
+import Swiper from "swiper"; 
+
 //import { swiper } from "@/common/js/swiper.js";
 export default {
   components: {},
 
   data() {
     return {
+      swiper: null,
       testname: "张瀚文",
       swiperH: "", //swiper高度
       test: true,
@@ -53,7 +59,13 @@ export default {
       ]
     };
   },
-
+  mounted() {
+     new Swiper('.swiper-container', {
+      autoplay:true,
+      loop:true
+    })
+   
+  },
   created() {},
   methods: {
     
@@ -78,9 +90,14 @@ export default {
 };
 </script>
 
-<style>
+<style leng="scss" scoped>
+@import "./swiper.css";
+.swiper-container {
+  width: 100%;
+  height: 200px;
+}
 swiper {
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 .test {
   background: #ccc;
@@ -88,8 +105,8 @@ swiper {
 .le-img {
   width: 100%;
   display: block;
-  transform: scale(0.8);
-  transition: all 0.3s ease;
+  transform: scale(0.7);
+  transition: all 0.2s ease;
   border-radius: 6px;
 }
 .le-img.le-active {
