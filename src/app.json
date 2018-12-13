@@ -1,16 +1,16 @@
 {
   "pages": [
+    "pages/designerList/main",
+    "pages/index/main",
     "pages/index1/main",
     "pages/userCenter/main",
-    "pages/index/main",
-    
     
     "pages/counter/main",
     "pages/activity/main",
     "pages/appointment/main",
     "pages/appointmentComplete/main",
     "pages/cascadeFlow/main",
-    "pages/designerList/main",
+
     "pages/downloadPic/main"
     
     
