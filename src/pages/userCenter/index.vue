@@ -98,6 +98,7 @@ export default {
 }
 swiper {
   /* padding-top: 30px; */
+  height: 200rpx;
 }
 .test {
   background: #ccc;
