@@ -1,7 +1,7 @@
 <template>
   <div>
     用户中心页面
-    <div :class="{test: test===false}">{{nowIdx}}</div>
+    <div :style="{background: color}" :class="{test: test===false}">{{nowIdx}}</div>
     
     <swiper class="swiper"  
             @change="swiperChange"
@@ -10,20 +10,20 @@
             :indicator-dots="true" 
             :autoplay="false" 
             :interval="5000" 
+            :style="{height:swiperH}"
             :duration="800">
-        
+            
             <swiper-item v-for="(item, index) in images"
-                           
                           :key="index">
-                <image :src="item.url" :class="{ 'le-active': nowIdx===index }" class="slide-image" />
+                <image  @load="getHeight" 
+                        :style="{height:swiperH}"
+                        :class="{ 'le-active': nowIdx===index }"  
+                        :src="item.url" class="le-img" />
             </swiper-item>
         
     </swiper> 
 
-    
-
-
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
 
   data() {
     return {
-      swiper: null,
+      color: 'red',
       testname: "张瀚文",
       swiperH: "", //swiper高度
       test: true,
@@ -44,9 +44,13 @@ export default {
         //图片列表
         "/assets/img/banner.jpg",
         "/assets/img/banner.jpg",
+        "/assets/img/banner.jpg",
         "/assets/img/banner.jpg"
       ],
       images: [
+        {
+          url: "../../../static/banner.jpg"
+        },
         {
           url: "../../../static/banner.jpg"
         },
@@ -69,21 +73,17 @@ export default {
   created() {},
   methods: {
     
-    getHeight(event) {
+    getHeight(e) {
       
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
-      console.log(event,winWid);
-      // let imgh = e.detail.height; //图片高度
-      // let imgw = e.detail.width;
-      // let sH = winWid * imgh / imgw + "px";
-      // this.swiperH = sH;
+      console.log(e,winWid);
+      let imgh = e.target.height; //图片高度
+      let imgw = e.target.width;
+      let sH = winWid * imgh / imgw + "px";
+      this.swiperH = sH;
     },
     swiperChange(e) {
-      console.log("eee", e);
       this.nowIdx = e.target.current;
-      // this.setData({
-      //     nowIdx: e.detail.current
-      // })
     }
     
   }
@@ -105,11 +105,11 @@ swiper {
 .le-img {
   width: 100%;
   display: block;
-  transform: scale(0.7);
-  transition: all 0.2s ease;
-  border-radius: 6px;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
 }
 .le-img.le-active {
   transform: scale(1);
+  z-index: 10
 }
 </style>
