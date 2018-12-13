@@ -106,7 +106,7 @@ page {
   flex-direction: column;
   .top{
     width: 100%;
-    height: 350rpx;
+    height: 300rpx;
     position: relative;
     display: flex;
     align-items: center;

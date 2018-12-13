@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import Swiper from "swiper"; 
 
-//import { swiper } from "@/common/js/swiper.js";
+
+
 export default {
   components: {},
 
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style leng="scss" scoped>
-@import "./swiper.css";
+
 .swiper-container {
   width: 100%;
   height: 200px;

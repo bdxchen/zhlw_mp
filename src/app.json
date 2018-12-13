@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/designerList/main",
+    "pages/designerInfo/main",
+    
     "pages/index/main",
     "pages/index1/main",
     "pages/userCenter/main",
