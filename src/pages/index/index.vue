@@ -31,6 +31,7 @@
 <script>
 import card from "@/components/card";
 import mpButton from "mpvue-weui/src/button";
+import {get, post} from "@/http/api"
 export default {
   data() {
     return {
@@ -56,9 +57,38 @@ export default {
     },
     clickHandle(msg, ev) {
       console.log("clickHandle:", msg, ev);
+    },
+
+    // 调取摄影师列表
+    getPhotographersList() {
+      
+      let params = {
+        url: '/list/',
+        data: {
+          value: "wang"
+        }
+      }
+      get(params).then(res=>{ console.log(res) })
+    },
+
+    // 创建摄影师
+    createPhotographers() {
+      let params = {
+        url: '/list/',
+        data: {
+          Cameraman_style: "aaa",
+          Cameraman_name: "bbb"
+        }
+      }
+      post(params).then(res=>{ console.log(res) })
     }
   },
 
+  
+  mounted(){
+    this.getPhotographersList()
+    this.createPhotographers()
+  },
   created() {
 
   }
