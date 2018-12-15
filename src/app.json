@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/appointmentComplete/main",
+    "pages/index/main",
     "pages/designerList/main",
+    "pages/appointmentComplete/main",
     "pages/designerInfo/main",
     
-    "pages/index/main",
     "pages/index1/main",
     "pages/userCenter/main",
     
@@ -20,7 +20,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#f4c51c",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   }

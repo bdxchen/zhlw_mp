@@ -1,6 +1,7 @@
 //引入 fly
 var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
+var config = require("@/config")
 
 //配置请求基地址
 // //定义公共headers

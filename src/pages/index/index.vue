@@ -88,8 +88,6 @@ export default {
 
   
   mounted(){
-    this.getPhotographersList()
-    this.createPhotographers()
   },
   created() {
 
