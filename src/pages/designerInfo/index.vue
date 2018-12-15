@@ -3,29 +3,19 @@
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
       <img class="back" src="/static/img/back.png" />
+      <img class="avatar" src="/static/img/avatar.jpg"/>
     </div>
     <div class="main">
-      
-      <div class="success-box" style="">
-        <img class="success-img" src="/static/img/wancheng.png"/>
-        <div class="success-info">
-          预约完成！您的专属设计师将在1个小时内联系您，请保持手机畅通。
-        </div>
-      </div>
-      <div class="designer-list">
-        <div class="designer-avatar">
-          <img src="/static/img/avatar.jpg"/>
-        </div>
-        <div class="designer-info">
-          <div class="name">逆袭东东</div>
+      <div class="designer-info">
+        <div class="name">逆袭东东</div>
           <div class="position">拍摄总监</div>
-          <div class="style">日系风格</div>
           <div class="number">
             <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
             <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
           </div>
-        </div>
       </div>
+
+      
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -69,7 +59,15 @@ page {
     position: relative;
     display: flex;
     align-items: center;
-    
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -50px;
+    }
     .back {
       
       width: 80rpx;
@@ -103,70 +101,36 @@ page {
     flex: 1;
     overflow: auto;
     
-    .success-box {
-      text-align:center;
-      margin-top:-10px;
-      .success-img {
-        width: 50px;
-        height: 50px;
-        
-        
+    .designer-info {
+      margin-top: 20px;
+      // display: flex;
+      // justify-content: center;
+      .name {
+        text-align: center;
       }
-      .success-info {
-        padding: 0 15px;
-        font-size: 18px;
+      .position {
+        text-align: center;
+        font-size: 16px;
+        color:  #959999;
       }
-      
-    }
-    .designer-list {
-      width: 95%;
-      height: 250rpx;
-      margin: 0 auto;
-      box-shadow:2px 2px 5px #ccc;
-      display: flex;
-      flex-direction: row;
-      margin-bottom: 15px;
-      .designer-avatar {
-        width: 250rpx;
-        height: 250rpx;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .designer-info {
-        flex: 1;
-        background: #fff;
-        .name {
-          text-align: center;
-        }
-        .position,.style {
-          font-size: 16px;
-          text-align: center;
-          color: #1b4a5d;
-        }
-        .number {
-          color: #959999;
-          font-size: 16px;
-          .yuyue {
+      .number {
+        color: #959999;
+        font-size: 16px;
+        .yuyue {
             float: left;
-            margin-left: 15px;
+            margin-left: 20%;
           }
-          .haoping {
-            float: right;
-            margin-right: 15px;
-          }
-          .icon {
-            display: inline;
-            font-size:38rpx;
-            margin-right:5px;
-          }
+        .haoping {
+          float: right;
+          margin-right: 20%;
         }
-       
+        .icon {
+          display: inline;
+          font-size:38rpx;
+          margin-right:5px;
+        }
       }
-      
     }
-    
     
   }
   .bottom {

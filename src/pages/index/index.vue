@@ -68,7 +68,9 @@ export default {
           value: "wang"
         }
       }
-      get(params).then(res=>{ console.log(res) })
+      get(params).then(res=>{ 
+        console.log(res) 
+      })
     },
 
     // 创建摄影师
