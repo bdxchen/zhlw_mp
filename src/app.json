@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/index1/main",
     "pages/cascadeFlow/main",
     "pages/index/main",
     "pages/designerList/main",
     "pages/appointmentComplete/main",
     "pages/designerInfo/main",
     
-    "pages/index1/main",
     "pages/userCenter/main",
     
     "pages/counter/main",

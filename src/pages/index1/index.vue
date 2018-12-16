@@ -8,24 +8,15 @@
       </div>
     </div>
     <div class="main">
+
       <div class="menu-wrapper">
-        <div class="menu-item">
-          <img src="/static/img/zuopin.png" />
-          <p>作品</p>
+        <div  v-for="(item,index) in menuData" :key="index" class="menu-item">
+          <img :src="item.imgUrl" @click="goTargetPath(item.targetPath)" />
+          <p>{{item.name}}</p>
         </div>
-        <div class="menu-item">
-          <img src="/static/img/yuyue.png" />
-          <p>预约</p>
-        </div>
-        <div class="menu-item">
-          <img src="/static/img/huodong.png" />
-          <p>活动</p>
-        </div>
-        <div class="menu-item">
-          <img src="/static/img/gengduo.png" />
-          <p>更多</p>
-        </div>
+       
       </div>
+     
       <swiper class="swiper"  
             @change="swiperChange"
             :previous-margin="50"
@@ -56,6 +47,23 @@
 export default {
   data() {
     return {
+      menuData: [{
+        name:'作品',
+        imgUrl: '/static/img/zuopin.png',
+        targetPath:'cascadeFlow/main'
+      },{
+        name:'预约',
+        imgUrl: '/static/img/yuyue.png',
+        targetPath:'designerList/main'
+      },{
+        name:'活动',
+        imgUrl: '/static/img/huodong.png',
+        targetPath:'activity/main'
+      },{
+        name:'更多',
+        imgUrl: '/static/img/gengduo.png',
+        targetPath:'userCenter/main'
+      }],
       motto: "Hello World",
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
@@ -84,10 +92,12 @@ export default {
       let imgw = e.target.width;
       let sH = winWid * imgh / imgw + "px";
       this.swiperH = sH;
-      console.log('hhhhhhh',sH)
     },
     swiperChange(e) {
       this.nowIdx = e.target.current;
+    },
+    goTargetPath(path) {
+       this.$router.push({ path: `../${path}`, query: {} });
     }
   },
 

@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
 		"minified": true,
@@ -10,7 +10,7 @@
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"appid": "wx91ea52200d395e75",
-	"projectname": "zhlw_mp",
+	"projectname": "zhlw_mp1",
 	"condition": {
 		"search": {
 			"current": -1,
