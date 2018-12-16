@@ -2,7 +2,7 @@
   <div class="content">
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
-      <img class="back" src="/static/img/back.png" />
+      <!-- <img class="back" src="/static/img/back.png" /> -->
     </div>
     <div class="main">
       
@@ -19,13 +19,18 @@
         <div class="designer-info">
           <div class="name">逆袭东东</div>
           <div class="position">拍摄总监</div>
-          <div class="style">日系风格</div>
+          
           <div class="number">
             <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
             <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
           </div>
         </div>
       </div>
+      <div class="designer-time">
+        <div class="time1">预约时间</div>
+        <div class="time2">2018/11/11</div>
+      </div>
+      <div class="goIndex">返回首页</div>
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -65,7 +70,7 @@ page {
   background: #faecc7;
   .top{
     width: 100%;
-    height: 300rpx;
+    height: 200rpx;
     position: relative;
     display: flex;
     align-items: center;
@@ -107,18 +112,50 @@ page {
       text-align:center;
       margin-top:-10px;
       .success-img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         
         
       }
       .success-info {
+        margin: 20rpx 0px;
         padding: 0 15px;
         font-size: 18px;
+        
       }
       
     }
+    .goIndex {
+      width: 50%;
+      background: #fff;
+      border-radius: 5rpx;
+      text-align: center;
+      height: 80rpx;
+      line-height: 80rpx;
+      font-size: 14px;
+      margin: 20rpx auto;
+      
+    }
+    .designer-time {
+      box-sizing: border-box;
+      height:80rpx;
+      line-height: 80rpx;
+      width: 95%;
+      margin: 0 auto;
+      
+      color: #1b4a5d;
+      padding: 0 80rpx;
+      background:#fff;
+      font-size: 14px;
+      .time1 {
+        float: left;
+      }
+      .time2 {
+        float: right;
+      }
+    }
     .designer-list {
+     
       width: 95%;
       height: 250rpx;
       margin: 0 auto;
@@ -126,17 +163,24 @@ page {
       display: flex;
       flex-direction: row;
       margin-bottom: 15px;
+      background:#fff;
       .designer-avatar {
         width: 250rpx;
         height: 250rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
         img {
-          width: 100%;
-          height: 100%;
+           border-radius: 200rpx;
+          width: 200rpx;
+          height: 200rpx;
         }
       }
       .designer-info {
         flex: 1;
         background: #fff;
+        padding-top: 35rpx;
         .name {
           text-align: center;
         }
