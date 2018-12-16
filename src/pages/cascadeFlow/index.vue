@@ -163,6 +163,7 @@ export default {
           { pic: "/static/banner3.png", height: 0 },
           { pic: "/static/banner4.png", height: 0 },
           { pic: "/static/banner5.png", height: 0 },
+          { pic: "/static/banner.jpg", height: 0}
         ];
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
