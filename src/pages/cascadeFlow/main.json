@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "地图导航",
+    "usingComponents": {
+        "brickLayout": "plugin://brickLayout/brickLayout"
+    }
+}
