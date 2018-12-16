@@ -12,20 +12,10 @@
     "pages/counter/main",
     "pages/activity/main",
     "pages/appointment/main",
-    
-    
-
     "pages/downloadPic/main"
     
     
   ],
-  "plugins": {
-    
-    "brickLayout": {
-      "version": "0.2.0",
-      "provider": "wx3c042630f3cdc175"
-    }
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f4c51c",
