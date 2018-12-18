@@ -2,7 +2,7 @@
   <div class="content">
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
-      <img class="back" src="/static/img/back.png" />
+      
       <img class="avatar" src="/static/img/avatar.jpg"/>
     </div>
     <div class="main">
@@ -14,7 +14,18 @@
             <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
           </div>
       </div>
+      <div class="date-wrapper">
+        <picker 
+          mode="date" 
+          :value="date" 
+          start="2015-09-01" 
+          @change="bindDateChange"> 
+                <p class="picker">
+                        当前选择: {{date}}
+                  </p>
+        </picker>
 
+      </div>
       
     </div>
     <div class="bottom">
@@ -33,10 +44,15 @@ export default {
 
   data() {
     return {
-
+      date:'',
     };
   },
-
+  methods: {
+    bindDateChange(e) {
+      console.log(e)
+      this.date = e.target.value
+    }
+  },
   created() {
 
   }
@@ -55,7 +71,7 @@ page {
   background: #faecc7;
   .top{
     width: 100%;
-    height: 300rpx;
+    height: 200rpx;
     position: relative;
     display: flex;
     align-items: center;
@@ -65,7 +81,7 @@ page {
       border-radius: 100px;
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 25%;
       margin-left: -50px;
     }
     .back {
@@ -100,7 +116,11 @@ page {
     padding-top:15px; 
     flex: 1;
     overflow: auto;
-    
+    .date-wrapper {
+      width: 100%;
+      height: 200rpx;
+      background: wheat;
+    }
     .designer-info {
       margin-top: 20px;
       // display: flex;

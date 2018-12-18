@@ -3,8 +3,10 @@
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
       <div class="avatar-wrapper">
-        <div class="avatar"></div>
-        <div class="name">逆袭懂得</div>
+        <div class="avatar">
+          <img :src="userInfo.avatarUrl"/>
+        </div>
+        <div class="name">{{userInfo.nickName}}</div>
       </div>
     </div>
     <div class="main">
@@ -44,9 +46,11 @@
 </template>
 
 <script>
+import {get, post} from "@/http/api"
 export default {
   data() {
     return {
+      userInfo: null,
       menuData: [{
         name:'作品',
         imgUrl: '/static/img/zuopin.png',
@@ -98,10 +102,56 @@ export default {
     },
     goTargetPath(path) {
        this.$router.push({ path: `../${path}`, query: {} });
-    }
+    },
+    getJwt(code,encryptedData,iv) {
+      let params = {
+        url: '/api/enter/',
+        data: {
+          code: code,
+          encryptedData:encryptedData,
+          iv: iv
+        }
+      }
+      post(params).then(res=>{ 
+        console.log('getJwt',res)
+        
+      })
+    },
+    login() {
+      let code ;
+      let that = this;
+      wx.login({
+        success(res) {
+          console.log('login',res)
+          code = res.code
+          if (res.code) {
+            
+            wx.getUserInfo({
+              success(res) {
+                console.log('getUserInfo',res)
+                that.userInfo = res.userInfo
+                
+                that.getJwt(code,res.encryptedData,res.iv);
+                // const userInfo = res.userInfo
+                // const nickName = userInfo.nickName
+                // const avatarUrl = userInfo.avatarUrl
+                // const gender = userInfo.gender // 性别 0：未知、1：男、2：女
+                // const province = userInfo.province
+                // const city = userInfo.city
+                // const country = userInfo.country
+              }
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      })
+    },
   },
-
-  created() {}
+  
+  created() {
+    this.login()
+  }
 };
 </script>
 
@@ -116,7 +166,7 @@ page {
   flex-direction: column;
   .top{
     width: 100%;
-    height: 300rpx;
+    height: 250rpx;
     position: relative;
     display: flex;
     align-items: center;
@@ -126,13 +176,22 @@ page {
       display: flex;
       align-items: center;
       margin-left: 50rpx;
+      margin-top:-50rpx;
+
       .avatar {
-        background: wheat;
+        
         float: left;
-        width: 150rpx;
-        height: 150rpx;
+        width: 140rpx;
+        height: 140rpx;
         border-radius: 150rpx;
-        border: 1px solid #fff;
+        margin-right:10rpx;
+
+        img {
+          border-radius: 150rpx;
+          border: 2px solid #fff;
+          width: 100%;
+          height: 100%;
+        }
       }
       .name {
         margin-left: 20rpx;

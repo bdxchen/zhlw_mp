@@ -74,6 +74,7 @@ export default {
   },
   data() {
     return {
+     
       currentTab: 0,
       scroll_height: '',
       scrollH: 0,
@@ -104,7 +105,8 @@ export default {
 
   methods: {
     swiperTab(e) {
-      this.currentTab = e.currentTarget.dataset.current
+      console.log(e)
+      this.currentTab = e.target.current;
     },
     //点击切换
     clickTab(e) {

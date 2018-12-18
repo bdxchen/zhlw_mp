@@ -11,7 +11,7 @@
       :style="{height:scroll_height}"
       class="scrollview">
       <view style="height: 80rpx"></view>
-      <view class="designer-list" v-for="item in photoGraphersList" :key="item.id">
+      <view @click="chooseDesigner(item)" class="designer-list" v-for="item in photoGraphersList" :key="item.id">
         <div class="designer-avatar">
           <img src="/static/img/avatar.jpg"/>
         </div>
@@ -48,6 +48,11 @@ export default {
     this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx'
   },
   methods: {
+    chooseDesigner(item) {
+      console.log(item)
+      const path = 'designerInfo/main'
+      this.$router.push({ path: `../${path}`, query: {} });
+    },
     getPhotographersList() {
       let params = {
         url: '/edit_cameraman_info/',
