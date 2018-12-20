@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/designerWorks/main",
     "pages/index1/main",
     "pages/cascadeFlow/main",
     "pages/index/main",
