@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/check/main",
+    "pages/getUserInfo/main",
     "pages/index1/main",
     "pages/activity/main",
     "pages/designerWorks/main",
