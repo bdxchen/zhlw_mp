@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/index1/main",
+    "pages/activity/main",
     "pages/designerWorks/main",
+    
+    
     
     "pages/cascadeFlow/main",
     "pages/index/main",
@@ -12,7 +15,7 @@
     "pages/userCenter/main",
     
     "pages/counter/main",
-    "pages/activity/main",
+    
     "pages/appointment/main",
     "pages/downloadPic/main"
     

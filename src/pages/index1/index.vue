@@ -113,7 +113,11 @@ export default {
         }
       }
       post(params).then(res=>{ 
-        console.log('getJwt',res)
+        //console.log('getJwt',res)
+        wx.setStorage({
+          key:"jwt",
+          data:res.access
+        })
         
       })
     },
@@ -122,13 +126,13 @@ export default {
       let that = this;
       wx.login({
         success(res) {
-          console.log('login',res)
+          //console.log('login',res)
           code = res.code
           if (res.code) {
             
             wx.getUserInfo({
               success(res) {
-                console.log('getUserInfo',res)
+                //console.log('getUserInfo',res)
                 that.userInfo = res.userInfo
                 
                 that.getJwt(code,res.encryptedData,res.iv);
@@ -148,9 +152,11 @@ export default {
       })
     },
   },
-  
-  created() {
+  onLoad(options) {
     this.login()
+  },
+  created() {
+    
   }
 };
 </script>

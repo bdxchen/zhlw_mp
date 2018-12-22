@@ -3,33 +3,37 @@
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
       
-      <img class="avatar" src="/static/img/avatar.jpg"/>
+     
     </div>
     <div class="main">
-      <div class="designer-info">
-        <div class="name">逆袭东东</div>
-          <div class="position">拍摄总监</div>
-          <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
-            <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
+      
+      <div class="main-top">
+        <div class="work-wrapper">
+          <img class="work" src="/static/banner.jpg"/>
+          <img class="like" src="/static/img/xinxin.png">
+        </div>
+      </div>
+       <div class="main-bottom">
+         <div class="btns-wrapper">
+           <div class="download-btn">
+            <img class="btn" src="/static/img/btn-1.png"/>
+            <div class="text">转发</div>
           </div>
-      </div>
-      <div class="date-wrapper">
-        <picker 
-          mode="date" 
-          :value="date" 
-          start="2015-09-01" 
-          @change="bindDateChange"> 
-                <p class="picker">
-                        当前选择: {{date}}
-                  </p>
-        </picker>
+          <div class="complete-btn">
+            <img class="btn" src="/static/img/btn1.png"/>
+            <div class="text">下载</div>
+          </div>
+          
+        </div>
 
-      </div>
+       </div>
       
     </div>
     <div class="bottom">
+      
       <img src="/static/img/bottombg.png" />
+      
+      
     </div>
     
   </div>
@@ -116,38 +120,102 @@ page {
     padding-top:15px; 
     flex: 1;
     overflow: auto;
-    .date-wrapper {
+    .main-top {
+      height: 30%;
       width: 100%;
-      height: 200rpx;
-      background: wheat;
-    }
-    .designer-info {
-      margin-top: 20px;
-      // display: flex;
-      // justify-content: center;
-      .name {
-        text-align: center;
-      }
-      .position {
-        text-align: center;
-        font-size: 16px;
-        color:  #959999;
-      }
-      .number {
-        color: #959999;
-        font-size: 16px;
-        .yuyue {
-            float: left;
-            margin-left: 20%;
-          }
-        .haoping {
-          float: right;
-          margin-right: 20%;
+      
+      .work-wrapper {
+        position: relative;
+        
+        width: 100%;
+        height: 300rpx;
+
+        .work {
+          position:absolute;
+          width:80%;
+          height:500rpx;
+          margin-left: 10%;
+          z-index:1;
+          box-shadow:15rpx 15rpx 15rpx rgba(15,16,15,0.13);
+
         }
-        .icon {
-          display: inline;
-          font-size:38rpx;
-          margin-right:5px;
+        .like {
+          position:absolute;
+          width: 120rpx;
+          height: 120rpx;
+          bottom: -250rpx;
+          left: 50%;
+          margin-left: -60rpx;
+          z-index:2;
+        }
+      }
+      
+    }
+    .main-bottom {
+      height: 70%;
+      width: 100%;
+      background: #f4c51c;
+      position: relative;
+      .btns-wrapper {
+        width: 100%;
+        position: absolute;
+        bottom: 10rpx;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-around;
+        .download-btn {
+          margin: 20px auto;
+          width: 330rpx;
+          height: 90rpx;
+          text-align: center;
+          line-height: 90rpx;
+          
+          // box-shadow:8rpx 8rpx 8rpx rgba(15,16,15,0.13);
+          position: relative;
+          .btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 330rpx;
+            height: 90rpx;
+          
+          }
+          .text {
+            width: 200rpx;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -100rpx;
+          }
+        }
+        .complete-btn {
+          margin: 20px auto;
+          width: 330rpx;
+          height: 90rpx;
+          text-align: center;
+          line-height: 90rpx;
+          
+          // box-shadow:8rpx 8rpx 8rpx rgba(15,16,15,0.13);
+          position: relative;
+          .btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 330rpx;
+            height: 90rpx;
+          
+          }
+          .text {
+            width: 200rpx;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -100rpx;
+          }
+
+
         }
       }
     }
@@ -157,6 +225,7 @@ page {
     width: 100%;
     height: 50px;
     position: relative;
+    background: #f4c51c;
     img {
       position: absolute;
       top: 0;

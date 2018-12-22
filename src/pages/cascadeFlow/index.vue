@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import {get, post} from "@/http/api"
 export default {
   components: {
 
@@ -100,10 +101,24 @@ export default {
             this.scrollH = scrollH
             this.loadImages();
         }
-    })
+    });
+    this.getMyLikes()
   },
-
+  created() {
+    
+  },
   methods: {
+    getMyLikes() {
+      console.log('aaaaaaaaaa')
+      let params = {
+        url: '/get_user_like/',
+       
+      }
+      post(params).then(res=>{ 
+        console.log('getMyLikes',res)
+        
+      })
+    },
     swiperTab(e) {
       console.log(e)
       this.currentTab = e.target.current;
@@ -175,8 +190,7 @@ export default {
         this.images = images
     }
   },
-  mounted() {
-  }
+  
 };
 </script>
 
