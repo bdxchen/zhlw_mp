@@ -30,7 +30,7 @@
        </div>
      </div>
     <div class="from-item">
-      <div class="item-lable">手机好</div>
+      <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
               @blur="blurHandle" 

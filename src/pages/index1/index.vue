@@ -4,9 +4,9 @@
       <img class="topbg" src="/static/img/topbg.png" />
       <div class="avatar-wrapper">
         <div class="avatar">
-          <img :src="userInfo.avatarUrl"/>
+          <open-data type="userAvatarUrl"></open-data>
         </div>
-        <div class="name">{{userInfo.nickName}}</div>
+        <open-data class="name" type="userNickName"></open-data>
       </div>
     </div>
     <div class="main">
@@ -129,20 +129,10 @@ export default {
           //console.log('login',res)
           code = res.code
           if (res.code) {
-            
             wx.getUserInfo({
               success(res) {
-                //console.log('getUserInfo',res)
                 that.userInfo = res.userInfo
-                
                 that.getJwt(code,res.encryptedData,res.iv);
-                // const userInfo = res.userInfo
-                // const nickName = userInfo.nickName
-                // const avatarUrl = userInfo.avatarUrl
-                // const gender = userInfo.gender // 性别 0：未知、1：男、2：女
-                // const province = userInfo.province
-                // const city = userInfo.city
-                // const country = userInfo.country
               }
             })
           } else {
@@ -189,10 +179,11 @@ page {
         float: left;
         width: 140rpx;
         height: 140rpx;
-        border-radius: 150rpx;
+        border-radius: 50%;
         margin-right:10rpx;
+        overflow: hidden;
 
-        img {
+        .img {
           border-radius: 150rpx;
           border: 2px solid #fff;
           width: 100%;
