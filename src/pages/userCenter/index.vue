@@ -69,14 +69,14 @@
               type="text"/>
       </div>
     </div>
-     <div class="complete-btn">
+     <div  @click="putUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">完成</div>
      </div>
     </div>
       
     <div class="bottom">
-      <img src="/static/img/bottombg.png" />
+      <img  src="/static/img/bottombg.png" />
       
     </div>
     
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-
+import {get, post,postJSON} from "@/http/api"
 export default {
   components: {
 
@@ -105,6 +105,23 @@ export default {
 
   },
   methods: {
+    putUserInfo() {
+      
+      let params = {
+        url: '/edit_student_info/10/',
+        data: {
+          student_sex: 1,
+          student_name: '宋伟',
+          student_phone: '1234567890',
+          student_school: '农大',
+          student_speciality: 'test',
+          student_info: 'test'
+        }
+      }
+      postJSON(params).then(res=>{ 
+        console.log(res)
+      }) 
+    },
     focusHandle() {
       console.log('aaaaaaaaaa')
     },

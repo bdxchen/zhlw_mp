@@ -25,15 +25,20 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" ></image>
-                <div class="imgbottom"></div>
+                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
+                <div class="imgbottom">
+                  <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
+                  <div class="more">...</div>
+                </div>
               </div>
             </view>
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col2" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" ></image>
-                <div class="imgbottom"></div>
+                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
+                <div class="imgbottom">
+
+                </div>
               </div>
             </view>
           </view>
@@ -102,19 +107,38 @@ export default {
             this.loadImages();
         }
     });
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        console.log(12345,res.data)
+        this.getUserImg(res.data.user_id)
+      }
+    })
     this.getMyLikes()
   },
   created() {
     
   },
   methods: {
+    getUserImg(user_id) {
+      let params = {
+        url: `/get_student_image/${user_id}/`,
+        
+        
+      }
+      get(params).then(res=>{ 
+        console.log('getMyLikes',res)
+        
+      })
+    },
     getMyLikes() {
-      console.log('aaaaaaaaaa')
+      
       let params = {
         url: '/get_user_like/',
-       
+        
+        
       }
-      post(params).then(res=>{ 
+      get(params).then(res=>{ 
         console.log('getMyLikes',res)
         
       })
@@ -264,6 +288,16 @@ page {
           .imgbottom{
             height: 80rpx;
             background: #FFF;
+            .like {
+              width: 50%;
+              height: 80rpx;
+              line-height: 80rpx;
+              float: left;
+            }
+            .more {
+              width: 50%;
+              float: right;
+            }
           }
         }
       }

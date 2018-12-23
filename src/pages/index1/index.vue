@@ -38,6 +38,10 @@
             </swiper-item>
         
     </swiper> 
+    <div class="activeimg-wrapper">
+      <div style="margin-right:-70px" class="active-img"></div>
+      <div style="margin-left:-70px" class="active-img"></div>
+    </div>
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -94,14 +98,28 @@ export default {
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
       let imgh = e.target.height; //图片高度
       let imgw = e.target.width;
-      let sH = winWid * imgh / imgw + "px";
-      this.swiperH = sH;
+      let h = winWid * imgh / imgw ;
+      let sH = (h-20) + "px"
+
+      this.swiperH = sH ;
     },
     swiperChange(e) {
       this.nowIdx = e.target.current;
     },
     goTargetPath(path) {
        this.$router.push({ path: `../${path}`, query: {} });
+    },
+    getUserInfo() {
+      let params = {
+        url: '/get_student/',
+      }
+      get(params).then(res=>{
+        console.log('get_student',res)
+        wx.setStorage({
+          key:"userInfo",
+          data: res//JSON.stringify(res)
+        })
+      })
     },
     getJwt(code,encryptedData,iv) {
       let params = {
@@ -113,7 +131,8 @@ export default {
         }
       }
       post(params).then(res=>{ 
-        //console.log('getJwt',res)
+        console.log('getJwt',res)
+        this.getUserInfo();
         wx.setStorage({
           key:"jwt",
           data:res.access
@@ -126,7 +145,7 @@ export default {
       let that = this;
       wx.login({
         success(res) {
-          //console.log('login',res)
+          console.log('login',res)
           code = res.code
           if (res.code) {
             wx.getUserInfo({
@@ -154,6 +173,10 @@ export default {
 <style lang="scss">
 page {
   height: 100%;
+}
+swiper {
+  margin-top: 20rpx;
+ 
 }
 .content{
   width: 100%;
@@ -214,6 +237,7 @@ page {
       width: 100%;
       display: block;
       transform: scale(0.8);
+      border-radius: 15rpx;
       transition: all 0.3s ease;
     }
     .le-img.le-active {
@@ -240,6 +264,21 @@ page {
         }
       }
       
+    }
+    .activeimg-wrapper {
+      margin-top: 50rpx;
+      width: 100%;
+      height: 340rpx;
+      display: flex;
+      flex-direction: row;
+      justify-content:space-around;
+
+      .active-img {
+        width: 220rpx;
+        height: 220rpx;
+        border-radius: 15rpx;
+        border: 2px solid #efcd6d;
+      }
     }
   }
   .bottom {

@@ -3,12 +3,16 @@
     <div class="top">
       <img class="topbg" src="/static/img/active-1.jpg" />
       
-     
+      <div class="active-title">
+        活动标题
+      </div>
+
+      <div class="active-content">
+        啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+      </div>
     </div>
     <div class="main">
-      <div class="active-content">
-        
-      </div>
+      
       
       
     </div>
@@ -80,6 +84,13 @@ page {
       left: 10px;
 
     }
+    .active-title {
+      padding: 5px 10px;
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
+      margin: 0 auto;
+      z-index: 10;
+    }
     .title {
       width: 100%;
       color: #fff;
@@ -96,6 +107,18 @@ page {
       left: 0;
      
     }
+    .active-content {
+      box-shadow:10rpx 10rpx 10rpx rgba(15,16,15,0.13);
+       box-sizing: border-box;
+       padding: 20rpx;
+       width: 80%;
+       height: 80%;
+       position: absolute;
+       bottom:-60%;
+       z-index: 10;
+       margin-left: 10%;
+       background: #fae29d;
+     } 
   }
   
   .main{
@@ -104,13 +127,7 @@ page {
     flex: 1;
     overflow: auto;
     position: relative;
-     .active-content {
-       width: 80%;
-       height: 80%;
-       position: absolute;
-       margin-left: 10%;
-       background: #fae29d;
-     } 
+     
     
     
     

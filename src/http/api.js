@@ -30,7 +30,16 @@ export const get = (params) => {
 
 // 通用的post请求
 export const post = (params) => {
+    //console.log(qs.stringify(params.data))
     return fly.post(`${host}${params.url}`, qs.stringify(params.data))
+};
+export const postJSON = (params) => {
+    //console.log(qs.stringify(params.data))
+    return fly.post(`${host}${params.url}`, JSON.stringify(params.data))
+};
+// 通用的post请求
+export const put = (params) => {
+    return fly.put(`${host}${params.url}`, qs.stringify(params.data))
 };
 // 封装的登录请求，根据后台接收方式选择是否加qs.stringify
 export const login = params => {

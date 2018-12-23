@@ -51,13 +51,16 @@ export default {
     chooseDesigner(item) {
       console.log(item)
       const path = 'designerInfo/main'
-      this.$router.push({ path: `../${path}`, query: {} });
+      this.$router.push({ path: `../${path}`, query: {
+        Cameraman_id: item.Cameraman_id
+      } });
     },
     getPhotographersList() {
       let params = {
         url: '/edit_cameraman_info/',
       }
       get(params).then(res=>{ 
+        console.log(res)
         this.photoGraphersList = res
       })
     },
