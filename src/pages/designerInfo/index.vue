@@ -84,10 +84,10 @@ export default {
     };
   },
   onLoad(options) {
-    this.Cameraman_id = this.$router.currentRoute.query.Cameraman_id
-    // this.getDesignerInfo(this.Cameraman_id);
-    // this.getDesignerImg(this.Cameraman_id);
-    console.log(this.$router.currentRoute)
+    this.Cameraman_id = this.$route.query.Cameraman_id
+    this.getDesignerInfo(this.Cameraman_id);
+    this.getDesignerImg(this.Cameraman_id);
+    console.log(this.$route)
     
   },
   methods: {
@@ -120,7 +120,7 @@ export default {
     },
     getDesignerImg(Cameraman_id) {
       let params = {
-        url: `/get_camerman_image/${Cameraman_id}/`,
+        url: `/get_cameraman_image/${Cameraman_id}/`,
         
       };
       get(params).then(res=>{ 

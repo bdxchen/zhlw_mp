@@ -69,13 +69,13 @@
               type="text"/>
       </div>
     </div>
-     <div  @click="putUserInfo" class="complete-btn">
+     <div  @click="postUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">完成</div>
      </div>
     </div>
       
-    <div class="bottom">
+    <div  class="bottom">
       <img  src="/static/img/bottombg.png" />
       
     </div>
@@ -92,6 +92,11 @@ export default {
 
   data() {
     return {
+      student_name: '',
+      student_sex: 1,
+      student_phone: '',
+      student_school: '',
+      student_speciality: '',
       items: [
        
         {name: 'women', value: '女'},
@@ -105,17 +110,17 @@ export default {
 
   },
   methods: {
-    putUserInfo() {
+    postUserInfo() {
       
       let params = {
         url: '/edit_student_info/10/',
         data: {
-          student_sex: 1,
           student_name: '宋伟',
+          student_sex: 1,
           student_phone: '1234567890',
           student_school: '农大',
-          student_speciality: 'test',
-          student_info: 'test'
+          student_speciality: '计算机',
+          student_info: 'web前端开发工程师'
         }
       }
       postJSON(params).then(res=>{ 
