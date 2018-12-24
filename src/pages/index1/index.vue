@@ -110,10 +110,12 @@ export default {
        this.$router.push({ path: `../${path}`, query: {} });
     },
     getUserInfo() {
+     
       let params = {
-        url: '/get_student/',
+        url: '/get_student/'
+       
       }
-      get(params).then(res=>{
+      post(params).then(res=>{
         console.log('get_student',res)
         wx.setStorage({
           key:"userInfo",
@@ -132,10 +134,13 @@ export default {
       }
       post(params).then(res=>{ 
         console.log('getJwt',res)
-        this.getUserInfo();
+        
         wx.setStorage({
           key:"jwt",
-          data:res.access
+          data:res.access,
+          success:() => {
+            this.getUserInfo();
+          }
         })
         
       })
@@ -150,6 +155,7 @@ export default {
           if (res.code) {
             wx.getUserInfo({
               success(res) {
+                console.log(res)
                 that.userInfo = res.userInfo
                 that.getJwt(code,res.encryptedData,res.iv);
               }

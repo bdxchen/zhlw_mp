@@ -85,8 +85,8 @@ export default {
   },
   onLoad(options) {
     this.Cameraman_id = this.$router.currentRoute.query.Cameraman_id
-    this.getDesignerInfo(this.Cameraman_id);
-    this.getDesignerImg(this.Cameraman_id);
+    // this.getDesignerInfo(this.Cameraman_id);
+    // this.getDesignerImg(this.Cameraman_id);
     console.log(this.$router.currentRoute)
     
   },
@@ -108,6 +108,7 @@ export default {
       this.date = e.target.value
     },
     getDesignerInfo(Cameraman_id) {
+      console.log(Cameraman_id)
       let params = {
         url: `/edit_cameraman_info/${Cameraman_id}/`,
         

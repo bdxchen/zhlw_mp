@@ -50,9 +50,13 @@ export default {
   methods: {
     chooseDesigner(item) {
       console.log(item)
+    
       const path = 'designerInfo/main'
       this.$router.push({ path: `../${path}`, query: {
-        Cameraman_id: item.Cameraman_id
+        Cameraman_id: item.Cameraman_id,
+        aaa: 'test'
+      },params: {
+        name: 'zhanghw'
       } });
     },
     getPhotographersList() {
