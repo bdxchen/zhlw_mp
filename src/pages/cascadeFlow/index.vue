@@ -21,7 +21,7 @@
           scroll-y="true" 
           :style="{height:scrollH + 'px'}" 
           @scrolltolower="loadImages">
-          <view style="width:100%">
+-          <view style="width:100%">
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
@@ -37,7 +37,8 @@
               <div class="flowPic" v-for="item in col2" :key="item.id">
                 <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-
+                  <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
+                  <div class="more">...</div>
                 </div>
               </div>
             </view>
@@ -54,7 +55,7 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" ></image>
+                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom"></div>
               </div>
             </view>
@@ -80,7 +81,8 @@ export default {
   },
   data() {
     return {
-     
+      myImgs: [],
+      myLikes: [],
       currentTab: 0,
       scroll_height: '',
       scrollH: 0,
@@ -110,7 +112,7 @@ export default {
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
-        console.log(12345,res.data)
+       
         this.getUserImg(res.data.user_id)
       }
     })
@@ -123,11 +125,11 @@ export default {
     getUserImg(user_id) {
       let params = {
         url: `/get_student_image/${user_id}/`,
-        
-        
       }
       get(params).then(res=>{ 
-        console.log('getMyLikes',res)
+        console.log('getUserImg',res)
+        this.myImgs = res
+       // this.col1 = res
         
       })
     },
@@ -135,12 +137,11 @@ export default {
       
       let params = {
         url: '/get_user_like/',
-        
-        
       }
       get(params).then(res=>{ 
         console.log('getMyLikes',res)
-        
+        this.myLikes = res
+        //this.col2 = res
       })
     },
     swiperTab(e) {

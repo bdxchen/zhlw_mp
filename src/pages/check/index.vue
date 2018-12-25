@@ -9,12 +9,16 @@ export default {
   data() {
     return {}
   },
-
+  onLoad() {
+    this.getSetting()
+  },
   methods: {
     getSetting(){
+      console.log('getSettinggetSetting111')
       let that = this
       wx.getSetting({
         success: function(res){
+          console.log('getSetting',res)
           if (res.authSetting['scope.userInfo']) {
             //用户已经授权过
             that.$router.push({ path: `../index1/main`, query: {} });
@@ -26,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.getSetting()
+    
   }
 };
 </script>

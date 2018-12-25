@@ -33,18 +33,28 @@
         </swiper-item>
         
       </swiper> 
-      <!-- <div class="date-wrapper">
+      <div class="date-wrapper">
         <picker 
           mode="date" 
           :value="date" 
-          start="2015-09-01" 
+          start="2018-01-01" 
           @change="bindDateChange"> 
                 <p class="picker">
-                        当前选择: {{date}}
+                        选择预约日期： {{date}}
                   </p>
         </picker>
 
-      </div> -->
+      </div>
+      <div class="time-wrapper">
+        <picker @change="bindTimeChange" :value="index" :range="timeArray">
+          <view class="picker">选择预约时间： {{timeArray[index]}}</view>
+        </picker>
+       
+      </div>
+      <div @click="postTest" class="complete-btn">
+       <img class="btn" src="/static/img/btn1.png"/>
+       <div class="text">预 约</div>
+     </div>
       
     </div>
     <div class="bottom">
@@ -64,6 +74,9 @@ export default {
   data() {
     return {
       date:'',
+      index: '',
+      timeArray: ['08:00 - 10:00', '10:00 - 12:00', '14:00 - 16:00', '16:00 - 18:00'],
+      
       Cameraman_id: '',
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
@@ -87,6 +100,7 @@ export default {
     this.Cameraman_id = this.$route.query.Cameraman_id
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
+    this.getCameramanTime(1);
     console.log(this.$route)
     
   },
@@ -106,6 +120,53 @@ export default {
     bindDateChange(e) {
       console.log(e)
       this.date = e.target.value
+      this.getDateStatus(this.Cameraman_id,e.target.value)
+    },
+    bindTimeChange(e) {
+      this.index = e.target.value
+     
+    },
+    getDateStatus(Cameraman_id,date) {
+      let params = {
+        url: /get_cameraman_time/,
+        data: {
+          Cameraman_id: Cameraman_id,
+          date: date
+        }
+        
+      };
+      postJSON(params).then(res=>{ 
+        console.log(res)
+       
+      }) 
+    },
+    getCameramanTime(Cameraman_id) {
+      let params = {
+        url: `/get_cameraman_time/${Cameraman_id}/`,
+        
+      };
+      get(params).then(res=>{ 
+        console.log(res)
+       
+      }) 
+    },
+    postTest() {
+      this.postCameramanTime(this.Cameraman_id)
+    },
+    postCameramanTime(Cameraman_id) {
+      let params = {
+        url: `/edit_cameraman_time/`,
+        data: {
+          Cameraman_id: Cameraman_id,
+          date: '2018-12-25',
+          time_code: 1,
+          user_id: 10
+        }
+      };
+      postJSON(params).then(res=>{ 
+        console.log(res)
+       
+      }) 
     },
     getDesignerInfo(Cameraman_id) {
       console.log(Cameraman_id)
@@ -115,7 +176,7 @@ export default {
       };
       get(params).then(res=>{ 
         console.log(res)
-       
+        
       }) 
     },
     getDesignerImg(Cameraman_id) {
@@ -208,9 +269,20 @@ swiper {
       z-index: 10
     }
     .date-wrapper {
+      margin-top: 50rpx;
       width: 100%;
-      height: 200rpx;
+      height: 100rpx;
+      line-height: 100rpx;
       background: wheat;
+      text-align: center;
+    }
+    .time-wrapper {
+      margin-top: 20rpx;
+      width: 100%;
+      height: 100rpx;
+       line-height: 100rpx;
+      background: wheat;
+      text-align: center;
     }
     .designer-info {
       margin-top: 20px;
@@ -240,6 +312,34 @@ swiper {
           margin-right:5px;
         }
       }
+    }
+    .complete-btn {
+      margin: 20px auto;
+      width: 350rpx;
+      height: 100rpx;
+      text-align: center;
+      line-height: 100rpx;
+      
+      // box-shadow:8rpx 8rpx 8rpx rgba(15,16,15,0.13);
+      position: relative;
+      .btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 350rpx;
+        height: 100rpx;
+       
+      }
+      .text {
+        width: 200rpx;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -100rpx;
+      }
+
+
     }
     
   }
