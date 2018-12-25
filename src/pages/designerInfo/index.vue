@@ -46,8 +46,8 @@
 
       </div>
       <div class="time-wrapper">
-        <picker @change="bindTimeChange" :value="index" :range="timeArray">
-          <view class="picker">选择预约时间： {{timeArray[index]}}</view>
+        <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
+          <view v-if="timeShow" class="picker">选择预约时间： {{time}}</view>
         </picker>
        
       </div>
@@ -75,8 +75,15 @@ export default {
     return {
       date:'',
       index: '',
-      timeArray: ['08:00 - 10:00', '10:00 - 12:00', '14:00 - 16:00', '16:00 - 18:00'],
-      
+      time: '',
+      time_code: '',
+      timeArray: [
+        // {time:'08:00 - 10:00',time_code: 1},
+        // {time:'10:00 - 12:00',time_code: 2},
+        // {time:'14:00 - 16:00',time_code: 3},
+        // {time:'16:00 - 18:00',time_code: 4}
+      ],
+      timeShow: false,
       Cameraman_id: '',
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
@@ -100,7 +107,7 @@ export default {
     this.Cameraman_id = this.$route.query.Cameraman_id
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
-    this.getCameramanTime(1);
+    //this.getCameramanTime(1);
     console.log(this.$route)
     
   },
@@ -118,13 +125,49 @@ export default {
       this.nowIdx = e.target.current;
     },
     bindDateChange(e) {
-      console.log(e)
+     
       this.date = e.target.value
       this.getDateStatus(this.Cameraman_id,e.target.value)
     },
     bindTimeChange(e) {
+      console.log(e)
+      
       this.index = e.target.value
+      this.time = this.timeArray[e.target.value].time
+      this.time_code = this.timeArray[e.target.value].time_code
+      console.log(this.timeArray[e.target.value].time_code)
      
+    },
+    bindTimeCancel() {
+      //this.timeShow = false
+    },
+    parseDateStatus(arr) {
+      console.log(111,arr)
+      let box = [];
+      let timearr = [
+        {time:'08:00 - 10:00',time_code: 1},
+        {time:'10:00 - 12:00',time_code: 2},
+        {time:'14:00 - 16:00',time_code: 3},
+        {time:'16:00 - 18:00',time_code: 4}
+      ]
+      if(arr.length==0) {
+        this.timeArray = timearr;
+      }else{
+        timearr.forEach((item,index)=> {
+          arr.forEach(i => {
+            if(item.time_code!=i.time_code){
+              box.push(item)
+              
+            }
+          })
+        })
+        this.timeArray = box
+      }
+      console.log(this.timeArray)
+      
+      
+      
+
     },
     getDateStatus(Cameraman_id,date) {
       let params = {
@@ -137,6 +180,8 @@ export default {
       };
       postJSON(params).then(res=>{ 
         console.log(res)
+        this.parseDateStatus(res)
+        this.timeShow = true
        
       }) 
     },
@@ -151,21 +196,28 @@ export default {
       }) 
     },
     postTest() {
-      this.postCameramanTime(this.Cameraman_id)
+      wx.getStorage({
+        key: 'userInfo',
+        success: (res) => {
+          //console.log(res)
+          this.postCameramanTime(this.Cameraman_id,this.date,this.time_code,res.data.user_id)
+        }
+      })
+      
     },
-    postCameramanTime(Cameraman_id) {
+    postCameramanTime(Cameraman_id,date,time_code,user_id) {
       let params = {
         url: `/edit_cameraman_time/`,
         data: {
           Cameraman_id: Cameraman_id,
-          date: '2018-12-25',
-          time_code: 1,
-          user_id: 10
+          date: date,
+          time_code: time_code,
+          user_id: user_id
         }
       };
-      postJSON(params).then(res=>{ 
-        console.log(res)
-       
+      post(params).then(res=>{ 
+        console.log(res,'提交成功')
+        this.time = ''
       }) 
     },
     getDesignerInfo(Cameraman_id) {
@@ -273,7 +325,7 @@ swiper {
       width: 100%;
       height: 100rpx;
       line-height: 100rpx;
-      background: wheat;
+      // background: wheat;
       text-align: center;
     }
     .time-wrapper {
@@ -281,7 +333,7 @@ swiper {
       width: 100%;
       height: 100rpx;
        line-height: 100rpx;
-      background: wheat;
+      // background: wheat;
       text-align: center;
     }
     .designer-info {

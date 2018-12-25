@@ -62,7 +62,8 @@ export default {
       },{
         name:'预约',
         imgUrl: '/static/img/yuyue.png',
-        targetPath:'designerList/main'
+        targetPath: 'myYuyue/main',
+        // targetPath:'designerList/main'
       },{
         name:'活动',
         imgUrl: '/static/img/huodong.png',

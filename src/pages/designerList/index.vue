@@ -55,8 +55,6 @@ export default {
       this.$router.push({ path: `../${path}`, query: {
         Cameraman_id: item.Cameraman_id,
         aaa: 'test'
-      },params: {
-        name: 'zhanghw'
       } });
     },
     getPhotographersList() {

@@ -69,6 +69,12 @@
               type="text"/>
       </div>
     </div>
+    <div @click="goMyyuyue" class="from-item">
+      <div class="item-lable">查看我的预约信息</div>
+      <div class="item-box">
+        
+      </div>
+    </div>
      <div  @click="postUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">完成</div>
@@ -110,6 +116,12 @@ export default {
 
   },
   methods: {
+    goMyyuyue() {
+      const path = 'myYuyue/main'
+      this.$router.push({ path: `../${path}`, query: {
+        
+      } });
+    },
     postUserInfo() {
       
       let params = {
