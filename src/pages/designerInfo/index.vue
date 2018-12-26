@@ -77,6 +77,7 @@ export default {
       index: '',
       time: '',
       time_code: '',
+      wxInfo: {},
       timeArray: [
         // {time:'08:00 - 10:00',time_code: 1},
         // {time:'10:00 - 12:00',time_code: 2},
@@ -109,6 +110,13 @@ export default {
     this.getDesignerImg(this.Cameraman_id);
     //this.getCameramanTime(1);
     console.log(this.$route)
+    wx.getStorage({
+      key: 'wxInfo',
+      success: (res) => {
+        console.log(res.data)
+        this.wxInfo = res.data;
+      }
+    })
     
   },
   methods: {
@@ -142,7 +150,7 @@ export default {
       //this.timeShow = false
     },
     parseDateStatus(arr) {
-      console.log(111,arr)
+      console.log('调整某一天的时间',arr)
       let box = [];
       let timearr = [
         {time:'08:00 - 10:00',time_code: 1},
@@ -179,7 +187,7 @@ export default {
         
       };
       postJSON(params).then(res=>{ 
-        console.log(res)
+        console.log('查看某一天的时间',res)
         this.parseDateStatus(res)
         this.timeShow = true
        
@@ -206,6 +214,10 @@ export default {
       
     },
     postCameramanTime(Cameraman_id,date,time_code,user_id) {
+      if(time_code==''||date=='') {
+        console.log('时间不完全')
+        return
+      }
       let params = {
         url: `/edit_cameraman_time/`,
         data: {
@@ -216,8 +228,34 @@ export default {
         }
       };
       post(params).then(res=>{ 
-        console.log(res,'提交成功')
-        this.time = ''
+        console.log(res)
+        if(res.code==1) {
+          //去完善信息 userCenter/main
+          const path = 'userCenter/main'
+          this.$router.push({ path: `../${path}`, query: {
+            Cameraman_id: Cameraman_id,
+          
+          } });
+          console.log('完善信息')
+        }else if(res.code==0) {
+          let params = {
+            url: '/api/pay/',
+            data: {
+              code: this.wxInfo.code,
+              encryptedData: this.wxInfo.encryptedData,
+              iv: this.wxInfo.iv,
+              Cameraman_id:this.Cameraman_id,
+              id: res.id
+            }
+
+          }
+          post(params).then(res => {
+            console.log('支付',res)
+          })
+          this.time = ''
+          this.date = ''
+        }
+        
       }) 
     },
     getDesignerInfo(Cameraman_id) {
@@ -227,7 +265,7 @@ export default {
         
       };
       get(params).then(res=>{ 
-        console.log(res)
+        console.log('getDesignerInfo',res)
         
       }) 
     },
@@ -321,20 +359,26 @@ swiper {
       z-index: 10
     }
     .date-wrapper {
+      box-sizing: border-box;
+      padding: 0 80rpx;
       margin-top: 50rpx;
       width: 100%;
       height: 100rpx;
       line-height: 100rpx;
       // background: wheat;
-      text-align: center;
+      // text-align: center;
+      color: #366f7e;
     }
     .time-wrapper {
+      box-sizing: border-box;
+      padding: 0 80rpx;
       margin-top: 20rpx;
       width: 100%;
       height: 100rpx;
        line-height: 100rpx;
       // background: wheat;
-      text-align: center;
+      // text-align: center;
+      color: #366f7e;
     }
     .designer-info {
       margin-top: 20px;
@@ -366,7 +410,7 @@ swiper {
       }
     }
     .complete-btn {
-      margin: 20px auto;
+      margin: 10px auto;
       width: 350rpx;
       height: 100rpx;
       text-align: center;

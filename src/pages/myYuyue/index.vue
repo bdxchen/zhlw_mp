@@ -8,19 +8,23 @@
       <div @click="godesignerList" class="add">添加预约</div>
       <div v-for="(item,index) in arr" :key="index" class="appointment">
         <div class="time">
-          <div>{{item.name}}<span>{{item.date}}</span> </div>
+          <div class="name-box">摄影师：{{item.name}} </div>
+          <div class="time-box">时 间：{{item.date}} {{timeObj[item.time_code]}}</div>
         </div>
         <div @click="cancel(item)" class="btn">
           取消预约
         </div>
       </div>
-      <div class="appointment">
+      <!-- <div class="appointment">
         <div class="time">
           <div>张瀚文 20171239</div>
         </div>
         <div class="btn">
           取消预约
         </div>
+      </div> -->
+      <div v-show="arr.length==0" class="tip">
+        还没有预约摄影师，请先去预约摄影师!
       </div>
     </div>
     <div class="bottom">
@@ -131,6 +135,19 @@ page {
     margin-top:130rpx; 
     flex: 1;
     overflow: auto;
+    .tip {
+      background: #fff;
+      color: #366f7e;
+      box-sizing: border-box;
+      padding:50rpx;
+      width: 95%;
+      margin: 0 auto;
+      height: 300rpx;
+      border-radius:15rpx;
+
+      border: 2px solid  #efcd6d
+
+    }
     .add {
       height: 110rpx;
       line-height: 110rpx;
@@ -147,19 +164,33 @@ page {
       padding: 0 20px;
       margin: 0 auto 20rpx;
       box-shadow:10rpx 10rpx 10rpx rgba(15,16,15,0.13);
-      height: 110rpx;
-      line-height: 110rpx;
+      height: 180rpx;
+     
       
       .time {
         width: 70%;
-         height: 110rpx;
+         height: 180rpx;
         float: left;
-       
+        
+        .name-box {
+          height: 90rpx;
+          line-height: 90rpx;
+         
+           color: #1b4a5d;
+        }
+        .time-box {
+           font-size: 14px;
+          height: 90rpx;
+          line-height: 90rpx;
+          color: #1b4a5d;
+        }
       }
       .btn {
-        text-align: center;
+        
+        text-align: right;
         width: 30%;
-        height: 110rpx;
+        height: 180rpx;
+        line-height: 180rpx;
         float: right;
         
       }

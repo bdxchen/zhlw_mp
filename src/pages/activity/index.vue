@@ -4,11 +4,11 @@
       <img class="topbg" src="/static/img/active-1.jpg" />
       
       <div class="active-title">
-        活动标题
+        {{title}}
       </div>
 
       <div class="active-content">
-        啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+       {{content}}
       </div>
     </div>
     <div class="main">
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import {get, post} from "@/http/api"
 export default {
   components: {
 
@@ -35,14 +35,32 @@ export default {
 
   data() {
     return {
+      title: '',
+      content: '',
       date:'',
     };
   },
   methods: {
+    getActivity(id) {
+      let params = {
+        url: `/get_event/${id}/`,
+      }
+      get(params).then(res=>{ 
+        console.log(res)
+        this.title = res.title;
+        this.content = res.content;
+        
+      })
+    },
     bindDateChange(e) {
       console.log(e)
       this.date = e.target.value
     }
+  },
+  onLoad() {
+    console.log(this.$route.query)
+    this.id= this.$route.query.id
+    this.getActivity(this.id);
   },
   created() {
 

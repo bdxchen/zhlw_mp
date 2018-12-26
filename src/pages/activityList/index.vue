@@ -3,7 +3,7 @@
     <div class="top">
       <image class="topbg" src="/static/img/topbg.png" mode="widthFix"/>
     </div>
-    <div class="title">预约设计师</div>
+    <div class="title">活动列表</div>
     <scroll-view
       scroll-y
       @scrolltoupper="upper"
@@ -11,18 +11,15 @@
       :style="{height:scroll_height}"
       class="scrollview">
       <view style="height: 80rpx"></view>
-      <view @click="chooseDesigner(item)" class="designer-list" v-for="item in photoGraphersList" :key="item.id">
+      <view @click="chooseDesigner(item)" class="designer-list" v-for="item in activityList" :key="item.id">
         <div class="designer-avatar">
-          <img src="/static/img/avatar.jpg"/>
+          <img :src="item.img_url"/>
         </div>
         <div class="designer-info">
-          <div class="name">{{item.Cameraman_name}}</div>
-          <div class="position">拍摄总监</div>
-          <div class="style">{{item.Cameraman_style}}</div>
-          <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
-            <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
-          </div>
+          <div class="name">{{item.title}}</div>
+         
+          
+          
         </div>
       </view>
     </scroll-view>
@@ -39,23 +36,39 @@ export default {
   data() {
     return {
       scroll_height: '',
-      photoGraphersList: []
+      photoGraphersList: [],
+      activityList: []
     };
   },
   onLoad(options) {
     let windowHeight = wx.getSystemInfoSync().screenHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().screenWidth // 屏幕的宽度
-    this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx'
+    this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx';
+    this.getPhotographersList();
+    this.getActivityList();
   },
   methods: {
     chooseDesigner(item) {
       console.log(item)
     
-      const path = 'designerInfo/main'
+      const path = 'activity/main'
       this.$router.push({ path: `../${path}`, query: {
-        Cameraman_id: item.Cameraman_id,
+        id: item.id,
        
       } });
+    },
+    getActivityList() {
+      let params = {
+        url: '/get_event_list/',
+        data: {
+          event_type: 'base'
+        }
+      }
+      get(params).then(res=>{ 
+        console.log(res)
+        this.activityList = res
+      
+      })
     },
     getPhotographersList() {
       let params = {
@@ -75,7 +88,7 @@ export default {
     }
   },
   mounted(){
-    this.getPhotographersList()
+    
   },
 }
 </script>

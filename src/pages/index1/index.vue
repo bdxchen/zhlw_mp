@@ -29,12 +29,12 @@
             :style="{height:swiperH}"
             :duration="800">
             
-            <swiper-item v-for="(item, index) in images"
+            <swiper-item v-for="(item, index) in bannerList"
                           :key="index">
                 <image  @load="getHeight" 
                         :style="{height:swiperH}"
                         :class="{ 'le-active': nowIdx===index }"  
-                        :src="item.url" class="le-img" />
+                        :src="item.image" class="le-img" />
             </swiper-item>
         
     </swiper> 
@@ -67,7 +67,7 @@ export default {
       },{
         name:'活动',
         imgUrl: '/static/img/huodong.png',
-        targetPath:'activity/main'
+        targetPath:'activityList/main'
       },{
         name:'更多',
         imgUrl: '/static/img/gengduo.png',
@@ -76,6 +76,7 @@ export default {
       motto: "Hello World",
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
+      bannerList: [],
       images: [
         {
           url: "/static/banner.jpg"
@@ -148,6 +149,8 @@ export default {
     },
     login() {
       let code ;
+      let encryptedData;
+      let iv;
       let that = this;
       wx.login({
         success(res) {
@@ -156,7 +159,20 @@ export default {
           if (res.code) {
             wx.getUserInfo({
               success(res) {
-                console.log(res)
+                console.log('getUserInfo',res)
+                encryptedData = res.encryptedData
+                iv = res.iv
+
+                wx.setStorage({
+                  key:"wxInfo",
+                  data:{
+                    code:code,
+                    encryptedData:encryptedData,
+                    iv:iv
+                  },
+                  
+                })
+
                 that.userInfo = res.userInfo
                 that.getJwt(code,res.encryptedData,res.iv);
               }
@@ -167,9 +183,19 @@ export default {
         }
       })
     },
+    getBanner() {
+      let params = {
+        url: '/get_rotation_chart/',
+      }
+      get(params).then(res => {
+        console.log('banner',res)
+        this.bannerList = res
+      })
+    }
   },
   onLoad(options) {
-    this.login()
+    this.login();
+    this.getBanner();
   },
   created() {
     

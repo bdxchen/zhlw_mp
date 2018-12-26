@@ -13,6 +13,7 @@
        <div class="item-lable">姓名</div>
        <div class="item-box">
          <input class="ipt" 
+                v-model="modelName"
                 @blur="blurHandle" 
                 @focus="focusHandle" 
                 placeholder="请输入姓名"
@@ -24,7 +25,7 @@
        <div class="item-box">
          <radio-group class="radio-group" @change="radioChange">
           <label class="radio radio-item" v-for="(item,index) in items" :key="index">
-            <radio :color="red" value="item.name" checked="item.checked" />{{item.value}}
+            <radio :color="red" :value="item.name" :checked="item.checked" />{{item.value}}
           </label>
         </radio-group>
        </div>
@@ -33,8 +34,8 @@
       <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
-              @blur="blurHandle" 
-              @focus="focusHandle" 
+              v-model="modelPhone"
+              
               placeholder="请输入手机号"
               type="text"/>
       </div>
@@ -43,8 +44,8 @@
       <div class="item-lable">学校</div>
       <div class="item-box">
         <input class="ipt" 
-              @blur="blurHandle" 
-              @focus="focusHandle" 
+              v-model="modelSchool"
+             
               placeholder="请输入学校名称"
               type="text"/>
       </div>
@@ -53,8 +54,8 @@
       <div class="item-lable">专业</div>
       <div class="item-box">
         <input class="ipt" 
-              @blur="blurHandle" 
-              @focus="focusHandle" 
+              v-model="modelSpeciality"
+             
               placeholder="请输入专业名称"
               type="text"/>
       </div>
@@ -63,18 +64,18 @@
       <div class="item-lable">微信</div>
       <div class="item-box">
         <input class="ipt" 
-              @blur="blurHandle" 
-              @focus="focusHandle" 
+              v-model="modelWechat"
+              
               placeholder="请输入微信"
               type="text"/>
       </div>
     </div>
-    <div @click="goMyyuyue" class="from-item">
+    <!-- <div @click="goMyyuyue" class="from-item">
       <div class="item-lable">查看我的预约信息</div>
       <div class="item-box">
         
       </div>
-    </div>
+    </div> -->
      <div  @click="postUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">完成</div>
@@ -98,56 +99,72 @@ export default {
 
   data() {
     return {
-      student_name: '',
-      student_sex: 1,
-      student_phone: '',
-      student_school: '',
-      student_speciality: '',
+      user_id: '',
+      modelName: '',
+      modelSex: true,
+      modelPhone: '',
+      modelSchool: '',
+      modelSpeciality: '',
+      modelWechat: '',
       items: [
        
-        {name: 'women', value: '女'},
-         {name: 'wan', value: '男'},
+        {name: false, value: '女'},
+        {name: true, value: '男',checked: true},
         
       ]
     };
   },
-
-  created() {
-
+  onLoad() {
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        //console.log(res)
+        this.user_id = res.data.user_id;
+      }
+    })
   },
+ 
   methods: {
     goMyyuyue() {
+      
       const path = 'myYuyue/main'
       this.$router.push({ path: `../${path}`, query: {
         
       } });
     },
     postUserInfo() {
-      
-      let params = {
-        url: '/edit_student_info/10/',
-        data: {
-          student_name: '宋伟',
-          student_sex: 1,
-          student_phone: '1234567890',
-          student_school: '农大',
-          student_speciality: '计算机',
-          student_info: 'web前端开发工程师'
+      if(this.modelName!=""&&this.modelPhone!=""&&this.modelSchool!=""&&this.modelSpeciality!=""&&this.modelWechat!="") {
+        let params = {
+          url: `/edit_student_info/${this.user_id}/`,
+          data: {
+            student_name: this.modelName,
+            student_sex: this.modelSex,
+            student_phone: this.modelPhone,
+            student_school: this.modelSchool,
+            student_speciality: this.modelSpeciality,
+            student_weixin: this.modelWechat,
+            student_info: '我是一个test'
+            
+          }
+        
         }
+        postJSON(params).then(res=>{ 
+          console.log(res)
+        }) 
+        console.log('提交')
+        console.log(params)
+      } else {
+        console.log('不全')
       }
-      postJSON(params).then(res=>{ 
-        console.log(res)
-      }) 
-    },
-    focusHandle() {
-      console.log('aaaaaaaaaa')
-    },
+      
+      
 
-    blurHandle() {
-      console.log('vvvvvvvvvvvvv')
     },
+   
     radioChange(e) {
       console.log(e)
+      this.modelSex = e.target.value
+      
     }
   },
 };
