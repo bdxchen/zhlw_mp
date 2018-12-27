@@ -252,7 +252,7 @@ export default {
           post(params).then(res => {
             console.log('支付',res)
             wx.requestPayment({
-              timeStamp: Date.now(),
+              timeStamp: Date.now().toString(),
               nonceStr: res.nonce_str,
               package: res.prepay_id,
               // signType: 'MD5',
