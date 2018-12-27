@@ -252,7 +252,7 @@ export default {
           }
           post(params).then(res => {
             console.log('支付',res)
-            //let md5str = `appId=${res.appid}&nonceStr=${res.nonce_str}&package=prepay_id=${res.prepay_id}&signType=MD5&timeStamp=${Date.now()}`
+           
             wx.requestPayment({
               'timeStamp': Math.round(new Date().getTime()/1000).toString(),
               'nonceStr': res.nonce_str,

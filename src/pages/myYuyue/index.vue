@@ -11,7 +11,7 @@
           <div class="name-box">摄影师：{{item.name}} </div>
           <div class="time-box">时 间：{{item.date}} {{timeObj[item.time_code]}}</div>
         </div>
-        <div @click="cancel(item)" class="btn">
+        <div @click="cancel(item,index)" class="btn">
           取消预约
         </div>
       </div>
@@ -61,13 +61,14 @@ export default {
     
   },
   methods: {
-    cancel(item) {
+    cancel(item,index) {
       console.log(item.id)
       let params = {
         url: `/delete_cameraman_time/${item.id}/`,
        
       }
       get(params).then(res=>{ 
+        //this.arr = this.arr.splice(index, 1);
         console.log('delete_cameraman_time',res)
        
       }) 

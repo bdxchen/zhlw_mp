@@ -151,6 +151,13 @@ export default {
         }
         postJSON(params).then(res=>{ 
           console.log(res)
+          if(this.$route.query.Cameraman_id){
+            const path = 'designerInfo/main'
+            this.$router.push({ path: `../${path}`, query: {
+              Cameraman_id: this.$route.query.Cameraman_id,
+            
+            } });
+          }
         }) 
         console.log('提交')
         console.log(params)
