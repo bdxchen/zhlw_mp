@@ -66,6 +66,7 @@
 
 <script>
 import {get, post,postJSON} from "@/http/api"
+import MD5 from 'md5.js'
 export default {
   components: {
 
@@ -251,16 +252,17 @@ export default {
           }
           post(params).then(res => {
             console.log('支付',res)
+            //let md5str = `appId=${res.appid}&nonceStr=${res.nonce_str}&package=prepay_id=${res.prepay_id}&signType=MD5&timeStamp=${Date.now()}`
             wx.requestPayment({
-              timeStamp: Date.now().toString(),
-              nonceStr: res.nonce_str,
-              package: res.prepay_id,
-              // signType: 'MD5',
-              paySign: res.sign,
-              success: (res) =>{ 
+              'timeStamp': Math.round(new Date().getTime()/1000).toString(),
+              'nonceStr': res.nonce_str,
+              'package': `prepay_id=${res.prepay_id}`,
+              'signType': 'MD5',
+              'paySign': res.sign,
+              'success': (res) =>{ 
                 console.log('requestPayment',res)
               },
-              fail:(res) =>{ 
+              'fail':(res) =>{ 
                 console.log(res)
               }
             })

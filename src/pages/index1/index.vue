@@ -50,7 +50,9 @@
 </template>
 
 <script>
-import {get, post} from "@/http/api"
+import {get, post} from "@/http/api";
+import MD5 from 'md5.js'
+
 export default {
   data() {
     return {
@@ -196,6 +198,7 @@ export default {
   onLoad(options) {
     this.login();
     this.getBanner();
+    console.log('md555555555555555',new MD5().update('42').digest('hex'))
   },
   created() {
     
