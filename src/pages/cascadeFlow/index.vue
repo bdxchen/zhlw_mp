@@ -14,7 +14,7 @@
       :style="{height:scroll_height}">
       <swiper-item >
         <view style="display:none">
-          <image v-for="item in images" :key="item.id" :id="item.id" :src="item.pic" @load="onImageLoad"></image>
+          <image v-for="item in images" :key="item.id" :id="item.id" :src="item.image" @load="onImageLoad"></image>
         </view>
         <scroll-view 
           class="scrollview" 
@@ -25,7 +25,7 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
+                <image :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
                   <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
                   <div class="more">...</div>
@@ -35,7 +35,7 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col2" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
+                <image :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
                   <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
                   <div class="more">...</div>
@@ -55,14 +55,14 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" />
+                <image :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom"></div>
               </div>
             </view>
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col2" :key="item.id">
-                <image :src="item.pic" :style="{height:item.height + 'rpx'}" ></image>
+                <image :src="item.image" :style="{height:item.height + 'rpx'}" ></image>
                 <div class="imgbottom"></div>
               </div>
             </view>
@@ -134,7 +134,6 @@ export default {
       })
     },
     getMyLikes() {
-      
       let params = {
         url: '/get_user_like/',
       }
@@ -198,15 +197,9 @@ export default {
         this.col1 = col1;
         this.col2 = col2;
     },
-    loadImages: function () {
-        let images = [
-          { pic: "/static/banner1.png", height: 0 },
-          { pic: "/static/banner2.png", height: 0 },
-          { pic: "/static/banner3.png", height: 0 },
-          { pic: "/static/banner4.png", height: 0 },
-          { pic: "/static/banner5.png", height: 0 },
-          { pic: "/static/banner.jpg", height: 0}
-        ];
+
+    loadImages() {
+        let images = this.myImgs
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
             images[i].id = baseId + "-" + i;
@@ -214,6 +207,7 @@ export default {
         this.loadingCount = images.length,
         this.images = images
     }
+    
   },
   
 };
