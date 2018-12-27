@@ -3,7 +3,7 @@
     <div class="top">
       <image class="topbg" src="/static/img/topbg.png" mode="widthFix"/>
     </div>
-    <div class="title">活动列表</div>
+    <div class="title">拓展列表</div>
     <scroll-view
       scroll-y
       @scrolltoupper="upper"

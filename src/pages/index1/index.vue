@@ -29,7 +29,7 @@
             :style="{height:swiperH}"
             :duration="800">
             
-            <swiper-item v-for="(item, index) in bannerList"
+            <swiper-item v-for="(item, index) in images"
                           :key="index">
                 <image  @load="getHeight" 
                         :style="{height:swiperH}"
@@ -79,16 +79,16 @@ export default {
       bannerList: [],
       images: [
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         }
       ]
     };

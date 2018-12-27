@@ -171,7 +171,7 @@ export default {
         })
         this.timeArray = box
       }
-      console.log(this.timeArray)
+      console.log('要显示是time',this.timeArray)
       
       
       
@@ -241,9 +241,9 @@ export default {
           let params = {
             url: '/api/pay/',
             data: {
-              code: this.wxInfo.code,
-              encryptedData: this.wxInfo.encryptedData,
-              iv: this.wxInfo.iv,
+              // code: this.wxInfo.code,
+              // encryptedData: this.wxInfo.encryptedData,
+              // iv: this.wxInfo.iv,
               Cameraman_id:this.Cameraman_id,
               id: res.id
             }
@@ -251,6 +251,20 @@ export default {
           }
           post(params).then(res => {
             console.log('支付',res)
+            wx.requestPayment({
+              timeStamp: Date.now(),
+              nonceStr: res.nonce_str,
+              package: res.prepay_id,
+              // signType: 'MD5',
+              paySign: res.sign,
+              success: (res) =>{ 
+                console.log('requestPayment',res)
+              },
+              fail:(res) =>{ 
+                console.log(res)
+              }
+            })
+
           })
           this.time = ''
           this.date = ''
