@@ -50,7 +50,7 @@ export default {
     testHandle() {
       wx.showModal({
         //title: '弹窗标题',
-        content: '请先完善您的个人信息，才可以预约摄影师。',
+        content: '请先完善您的个人信息 才可以预约摄影师',
         confirmText: "确定",
         cancelText: "取消",
         success:  (res) => {
@@ -65,7 +65,7 @@ export default {
     },
     testHandle1() {
       wx.showModal({
-        content: '提交成功，谢谢。',
+        content: '提交成功',
         showCancel: false,
         success:  (res) => {
           if (res.confirm) {
