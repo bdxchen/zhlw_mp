@@ -123,6 +123,7 @@ export default {
         this.user_id = res.data.user_id;
       }
     })
+    this.getUserInfo();
   },
  
   methods: {
@@ -132,6 +133,16 @@ export default {
       this.$router.push({ path: `../${path}`, query: {
         
       } });
+    },
+    getUserInfo() {
+     
+      let params = {
+        url: '/get_student/'
+       
+      }
+      post(params).then(res=>{
+        console.log('get_student',res)
+      })
     },
     postUserInfo() {
       if(this.modelName!=""&&this.modelPhone!=""&&this.modelSchool!=""&&this.modelSpeciality!=""&&this.modelWechat!="") {
@@ -151,13 +162,25 @@ export default {
         }
         postJSON(params).then(res=>{ 
           console.log(res)
-          if(this.$route.query.Cameraman_id){
-            const path = 'designerInfo/main'
-            this.$router.push({ path: `../${path}`, query: {
-              Cameraman_id: this.$route.query.Cameraman_id,
-            
-            } });
-          }
+           wx.showModal({
+            content: '提交成功',
+            showCancel: false,
+            success:  (res) => {
+              if (res.confirm) {
+                console.log('用户点击确定')
+
+                if(this.$route.query.Cameraman_id){
+                  const path = 'designerInfo/main'
+                  this.$router.push({ path: `../${path}`, query: {
+                    Cameraman_id: this.$route.query.Cameraman_id,
+                  
+                  } });
+                }
+
+              }
+            }
+          });
+          
         }) 
         console.log('提交')
         console.log(params)

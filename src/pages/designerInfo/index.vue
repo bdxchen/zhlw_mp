@@ -231,13 +231,29 @@ export default {
       post(params).then(res=>{ 
         console.log(res)
         if(res.code==1) {
-          //去完善信息 userCenter/main
-          const path = 'userCenter/main'
-          this.$router.push({ path: `../${path}`, query: {
-            Cameraman_id: Cameraman_id,
+
+          wx.showModal({
+            //title: '弹窗标题',
+            content: '请先完善您的个人信息，才可以预约摄影师。',
+            confirmText: "确定",
+            cancelText: "取消",
+            success:  (res) => {
+              console.log(res);
+              if (res.confirm) {
+                console.log('确定')
+                //去完善信息 userCenter/main
+                const path = 'userCenter/main'
+                this.$router.push({ path: `../${path}`, query: {
+                  Cameraman_id: Cameraman_id,
+                } });
+              } else {
+                console.log('取消')
+              }
+            }
+          });
+
           
-          } });
-          console.log('完善信息')
+        
         }else if(res.code==0) {
           let params = {
             url: '/api/pay/',
