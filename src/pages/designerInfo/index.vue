@@ -183,13 +183,8 @@ export default {
           }
         }
         this.timeArray = timearr
-
       }
       console.log('要显示是time',this.timeArray)
-      
-      
-      
-
     },
     getDateStatus(Cameraman_id,date) {
       let params = {
