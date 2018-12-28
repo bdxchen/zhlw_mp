@@ -6,12 +6,12 @@
     <div class="title">我的预约</div>
     <div class="main">
       <div @click="godesignerList" class="add">添加预约</div>
-      <div v-for="(item,index) in arr" :key="index" class="appointment">
+      <div v-for="(item,index,arr) in arr" :key="index" class="appointment">
         <div class="time">
           <div class="name-box">摄影师：{{item.name}} </div>
           <div class="time-box">时 间：{{item.date}} {{timeObj[item.time_code]}}</div>
         </div>
-        <div @click="cancel(item,index)" class="btn">
+        <div @click="cancel(arr,index)" class="btn">
           取消预约
         </div>
       </div>
@@ -61,14 +61,14 @@ export default {
     
   },
   methods: {
-    cancel(item,index) {
+    cancel(item,index,arr) {
       console.log(item.id)
       let params = {
         url: `/delete_cameraman_time/${item.id}/`,
        
       }
       get(params).then(res=>{ 
-        //this.arr = this.arr.splice(index, 1);
+        arr.splice(index,1);
         console.log('delete_cameraman_time',res)
        
       }) 

@@ -3,10 +3,11 @@
     <div class="userinfo" @click="bindViewTap">
       <open-data type="userAvatarUrl"></open-data>
       <div class="userinfo-nickname">
-        <open-data type="groupName" open-gid="xxxxxx"></open-data>
+        <!-- <open-data type="groupName" open-gid="xxxxxx"></open-data> -->
       </div>
     </div>
-    <mp-button type="primary" size="large" btnClass="mb15">这是一个weui的按钮</mp-button>
+    <mp-button @click="testHandle" type="primary" size="large" btnClass="mb15">确定/取消</mp-button>
+    <mp-button @click="testHandle1" type="primary" size="large" btnClass="mb15">提示窗口</mp-button>
     <div class="usermotto">
       <div class="user-motto">
         <card :text="motto"></card>
@@ -46,6 +47,34 @@ export default {
   },
 
   methods: {
+    testHandle() {
+      wx.showModal({
+        title: '弹窗标题',
+        content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+        confirmText: "确定",
+        cancelText: "取消",
+        success:  (res) => {
+          console.log(res);
+          if (res.confirm) {
+            console.log('确定')
+          } else {
+            console.log('取消')
+          }
+        }
+      });
+    },
+    testHandle1() {
+      wx.showModal({
+        content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+        showCancel: false,
+        success:  (res) => {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
+
+    },
     bindViewTap() {
       const url = "../counter/main";
       console.log(123);
