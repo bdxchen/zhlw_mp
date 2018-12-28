@@ -162,15 +162,16 @@ export default {
       if(arr.length==0) {
         this.timeArray = timearr;
       }else{
-        timearr.forEach((item,index)=> {
-          arr.forEach(i => {
-            if(item.time_code!=i.time_code){
-              box.push(item)
-              
+        for(let i = timearr.length - 1; i >= 0; i--) {
+          for(let n=0; n<arr.length; n++) {
+            if(timearr[i].time_code == arr[n].time_code) {
+              console.log(timearr)
+              timearr.splice(i, 1)
+              break
             }
-          })
-        })
-        this.timeArray = box
+          }
+        }
+        this.timeArray = timearr
       }
       console.log('要显示是time',this.timeArray)
       
@@ -254,7 +255,7 @@ export default {
             console.log('支付',res)
            
             wx.requestPayment({
-              'timeStamp': Math.round(new Date().getTime()/1000).toString(),
+              'timeStamp': res.time_stamp.toString(),
               'nonceStr': res.nonce_str,
               'package': `prepay_id=${res.prepay_id}`,
               'signType': 'MD5',

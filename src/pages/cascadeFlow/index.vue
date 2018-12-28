@@ -19,9 +19,9 @@
         <scroll-view 
           class="scrollview" 
           scroll-y="true" 
-          :style="{height:scrollH + 'px'}" 
-          @scrolltolower="loadImages">
--          <view style="width:100%">
+          :style="{height:scrollH + 'px'}">
+          <!-- @scrolltolower="loadImages" -->
+          <view style="width:100%">
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
@@ -97,6 +97,13 @@ export default {
   },
 
   onLoad(options) {
+    this.col1H = 0
+    this.col2H = 0
+    this.col1 = []
+    this.col2 = []
+    this.images = []
+    this.loadingCount = 0
+    this.scrollH = 0
     let windowHeight = wx.getSystemInfoSync().screenHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().screenWidth // 屏幕的宽度
     this.scroll_height = windowHeight * 750 / windowWidth - 200 - 40 + 'rpx'
@@ -106,13 +113,11 @@ export default {
             let wh = res.windowHeight;
             let scrollH = wh;
             this.scrollH = scrollH
-            this.loadImages();
         }
     });
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
-       
         this.getUserImg(res.data.user_id)
       }
     })
@@ -129,8 +134,7 @@ export default {
       get(params).then(res=>{ 
         console.log('getUserImg',res)
         this.myImgs = res
-       // this.col1 = res
-        
+        this.loadImages()
       })
     },
     getMyLikes() {
@@ -140,12 +144,15 @@ export default {
       get(params).then(res=>{ 
         console.log('getMyLikes',res)
         this.myLikes = res
-        //this.col2 = res
+        this.loadImages()
       })
     },
     swiperTab(e) {
       console.log(e)
       this.currentTab = e.target.current;
+      if(this.currentTab == 0) {
+        
+      }
     },
     //点击切换
     clickTab(e) {
@@ -155,13 +162,8 @@ export default {
         this.currentTab = e.currentTarget.dataset.current
       }
     },
-    upper() {
-      console.log('下拉刷新！')
-    },
-    lower() {
-      console.log('上拉加载！')
-    },
     onImageLoad(e) {
+        console.log(e.target.height)
         let imageId = e.target.id;
         let oImgW = e.target.width;         //图片原始宽度
         let oImgH = e.target.height;        //图片原始高度
@@ -178,7 +180,7 @@ export default {
                 break;
             }
         }
-        
+
         imageObj.height = imgHeight;
         let loadingCount = this.loadingCount - 1;
         let col1 = this.col1;
@@ -206,6 +208,7 @@ export default {
         }
         this.loadingCount = images.length,
         this.images = images
+        console.log(this.images)
     }
     
   },
