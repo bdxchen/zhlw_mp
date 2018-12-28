@@ -29,9 +29,11 @@
             :style="{height:swiperH}"
             :duration="800">
             
-            <swiper-item v-for="(item, index) in images"
+            <swiper-item v-for="(item, index) in bannerList"
+                          
                           :key="index">
-                <image  @load="getHeight" 
+                <image  @load="getHeight"
+                        
                         :style="{height:swiperH}"
                         :class="{ 'le-active': nowIdx===index }"  
                         :src="item.image" class="le-img" />
@@ -97,6 +99,9 @@ export default {
   },
 
   methods: {
+    goBannerInfo(item) {
+      console.log(item)
+    },
     getHeight(e) {
       
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
@@ -105,7 +110,7 @@ export default {
       let h = winWid * imgh / imgw ;
       let sH = (h-20) + "px"
 
-      this.swiperH = sH ;
+      this.swiperH = '188px' ;
     },
     swiperChange(e) {
       this.nowIdx = e.target.current;

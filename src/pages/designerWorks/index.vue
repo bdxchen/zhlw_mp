@@ -9,7 +9,7 @@
       
       <div class="main-top">
         <div class="work-wrapper">
-          <img class="work" src="/static/banner.jpg"/>
+          <img class="work" :src="image"/>
           <img class="like" src="/static/img/xinxin.png">
         </div>
       </div>
@@ -49,7 +49,11 @@ export default {
   data() {
     return {
       date:'',
+      image: ''
     };
+  },
+  onLoad() {
+    this.image = this.$route.query.image
   },
   methods: {
     bindDateChange(e) {

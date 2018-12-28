@@ -3,12 +3,12 @@
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
       
-      <img class="avatar" src="/static/img/avatar.jpg"/>
+      <img class="avatar" :src="designerInfo.Cameraman_img"/>
     </div>
     <div class="main">
       <div class="designer-info">
-        <div class="name">逆袭东东</div>
-          <div class="position">拍摄总监</div>
+        <div class="name">{{designerInfo.Cameraman_name}}</div>
+          <div class="position">{{designerInfo.Cameraman_style}}</div>
           <div class="number">
             <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
             <!-- <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div> -->
@@ -24,12 +24,13 @@
         :style="{height:swiperH}"
         :duration="800">
         
-        <swiper-item v-for="(item, index) in images"
+        <swiper-item v-for="(item, index) in designerImgs"
+                     @click="goBannerInfo(item)" 
                       :key="index">
             <image  @load="getHeight" 
                     :style="{height:swiperH}"
                     :class="{ 'le-active': nowIdx===index }"  
-                    :src="item.url" class="le-img" />
+                    :src="item.image" class="le-img" />
         </swiper-item>
         
       </swiper> 
@@ -79,6 +80,8 @@ export default {
       time: '',
       time_code: '',
       wxInfo: {},
+      designerInfo: {},
+      designerImgs:[],
       timeArray: [
         // {time:'08:00 - 10:00',time_code: 1},
         // {time:'10:00 - 12:00',time_code: 2},
@@ -91,16 +94,16 @@ export default {
       nowIdx: 0, //当前swiper索引
       images: [
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         },
         {
-          url: "/static/banner.jpg"
+          image: "/static/banner.jpg"
         }
       ]
     };
@@ -110,7 +113,7 @@ export default {
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
     //this.getCameramanTime(1);
-    console.log(this.$route)
+    
     wx.getStorage({
       key: 'wxInfo',
       success: (res) => {
@@ -121,6 +124,14 @@ export default {
     
   },
   methods: {
+     goBannerInfo(item) {
+      console.log(item)
+      const path = 'designerWorks/main'
+      this.$router.push({ path: `../${path}`, query: {
+        id: item.id,
+        image: item.image
+      } });
+    },
     getHeight(e) {
       let winWid = wx.getSystemInfoSync().windowWidth - 2 * 50; //获取当前屏幕的宽度
       let imgh = e.target.height; //图片高度
@@ -128,7 +139,7 @@ export default {
       let h = winWid * imgh / imgw ;
       let sH = (h-20) + "px"
 
-      this.swiperH = sH ;
+      this.swiperH = '188px' ;
     },
     swiperChange(e) {
       this.nowIdx = e.target.current;
@@ -162,15 +173,17 @@ export default {
       if(arr.length==0) {
         this.timeArray = timearr;
       }else{
-        timearr.forEach((item,index)=> {
-          arr.forEach(i => {
-            if(item.time_code!=i.time_code){
-              box.push(item)
-              
+        for(let i = timearr.length - 1; i >= 0; i--) {
+          for(let n=0; n<arr.length; n++) {
+            if(timearr[i].time_code == arr[n].time_code) {
+              console.log(timearr)
+              timearr.splice(i, 1)
+              break
             }
-          })
-        })
-        this.timeArray = box
+          }
+        }
+        this.timeArray = timearr
+
       }
       console.log('要显示是time',this.timeArray)
       
@@ -270,7 +283,7 @@ export default {
             console.log('支付',res)
            
             wx.requestPayment({
-              'timeStamp': Math.round(new Date().getTime()/1000).toString(),
+              'timeStamp': res.time_stamp.toString(),
               'nonceStr': res.nonce_str,
               'package': `prepay_id=${res.prepay_id}`,
               'signType': 'MD5',
@@ -298,7 +311,7 @@ export default {
       };
       get(params).then(res=>{ 
         console.log('getDesignerInfo',res)
-        
+        this.designerInfo = res
       }) 
     },
     getDesignerImg(Cameraman_id) {
@@ -307,7 +320,8 @@ export default {
         
       };
       get(params).then(res=>{ 
-        console.log(res)
+        this.designerImgs = res
+        console.log('摄影师作品',res)
        
       }) 
     }
@@ -323,7 +337,7 @@ page {
   height: 100%;
 }
 swiper {
-  margin-top: 20rpx;
+  margin-top: 50rpx;
  
 }
 .content{
@@ -395,8 +409,8 @@ swiper {
       padding: 0 80rpx;
       margin-top: 50rpx;
       width: 100%;
-      height: 100rpx;
-      line-height: 100rpx;
+      height: 80rpx;
+      line-height: 80rpx;
       // background: wheat;
       // text-align: center;
       color: #366f7e;
@@ -404,10 +418,10 @@ swiper {
     .time-wrapper {
       box-sizing: border-box;
       padding: 0 80rpx;
-      margin-top: 20rpx;
+     
       width: 100%;
-      height: 100rpx;
-       line-height: 100rpx;
+      height: 80rpx;
+       line-height: 80rpx;
       // background: wheat;
       // text-align: center;
       color: #366f7e;
