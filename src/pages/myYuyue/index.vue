@@ -6,12 +6,12 @@
     <div class="title">我的预约</div>
     <div class="main">
       <div @click="godesignerList" class="add">添加预约</div>
-      <div v-for="(item,index,arr) in arr" :key="index" class="appointment">
+      <div v-for="(item,index) in arr" :key="index" class="appointment">
         <div class="time">
           <div class="name-box">摄影师：{{item.name}} </div>
           <div class="time-box">时 间：{{item.date}} {{timeObj[item.time_code]}}</div>
         </div>
-        <div @click="cancel(arr,index)" class="btn">
+        <div @click="cancel(item,index,arr)" class="btn">
           取消预约
         </div>
       </div>
@@ -62,7 +62,8 @@ export default {
   },
   methods: {
     cancel(item,index,arr) {
-      console.log(item.id)
+      console.log(arr)
+     
       let params = {
         url: `/delete_cameraman_time/${item.id}/`,
        
@@ -146,8 +147,8 @@ page {
       height: 300rpx;
       border-radius:15rpx;
 
-      border: 2px solid  #efcd6d
-
+      border: 2px solid  #efcd6d;
+       box-shadow:10rpx 10rpx 10rpx rgba(15,16,15,0.13);
     }
     .add {
       height: 110rpx;
@@ -157,6 +158,7 @@ page {
       width: 95%;
       margin: 0 auto 20rpx;
       color: #fff;
+      border-radius:5rpx;
     }
     .appointment {
       background: #fff;

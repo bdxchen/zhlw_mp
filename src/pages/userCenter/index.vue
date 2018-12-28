@@ -3,8 +3,11 @@
     <div class="top">
       <div class="title">个人资料</div>
       <img class="topbg" src="/static/img/topbg.png" />
-      <!-- <open-data class="avatar"  type="userAvatarUrl"></open-data> -->
-      <img class="avatar" src="/static/img/avatar.jpg"/>
+      <div class="avatar">
+        <open-data   type="userAvatarUrl"></open-data>
+      </div>
+      
+      <!-- <img class="avatar" src="/static/img/avatar.jpg"/> -->
       <!-- <img class="back" src="/static/img/back.png" /> -->
       
     </div>
@@ -223,6 +226,7 @@ page {
       border: 2px solid #fff;
       width:160rpx;
       height:160rpx;
+      overflow:hidden;
 
       position: absolute;
       top: 60rpx;
