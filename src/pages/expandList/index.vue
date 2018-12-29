@@ -61,7 +61,7 @@ export default {
       let params = {
         url: '/get_event_list/',
         data: {
-          event_type: 'base'
+          event_type: 'more'
         }
       }
       get(params).then(res=>{ 

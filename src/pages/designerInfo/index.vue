@@ -10,8 +10,8 @@
         <div class="name">{{designerInfo.Cameraman_name}}</div>
           <div class="position">{{designerInfo.Cameraman_style}}</div>
           <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
-            <!-- <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div> -->
+            <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div>
+            <!-- <div class="haoping"><i class="icon iconfont">&#xec7f;</i>123人好评</div> -->
           </div>
       </div>
       <swiper class="swiper"  
@@ -285,9 +285,28 @@ export default {
               'paySign': res.sign,
               'success': (res) =>{ 
                 console.log('requestPayment',res)
+                wx.showModal({
+                  content: '支付并预约成功',
+                  showCancel: false,
+                  success:  (res) => {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                    }
+                  }
+                });
+                
               },
               'fail':(res) =>{ 
                 console.log(res)
+                wx.showModal({
+                  content: '取消预约',
+                  showCancel: false,
+                  success:  (res) => {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                    }
+                  }
+                });
               }
             })
 

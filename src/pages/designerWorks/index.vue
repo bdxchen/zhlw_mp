@@ -8,9 +8,12 @@
     <div class="main">
       
       <div class="main-top">
-        <div class="work-wrapper">
+        <div class="work-wrapper" @click="wxImgShow">
           <img class="work" :src="image"/>
-          <img class="like" src="/static/img/xinxin.png">
+          <!-- <img class="like" src="/static/img/xinxin.png"> -->
+          <div @click="likeClick" class="like" >
+           <i class="icon iconfont" :class="{ 'like-active': likeFlag }">&#xe632;</i>
+          </div>
         </div>
       </div>
        <div class="main-bottom">
@@ -40,7 +43,7 @@
 </template>
 
 <script>
-
+import {get, post} from "@/http/api"
 export default {
   components: {
 
@@ -49,16 +52,58 @@ export default {
   data() {
     return {
       date:'',
-      image: ''
+      image: '',
+      id: '',
+      likeFlag: false
     };
   },
   onLoad() {
     this.image = this.$route.query.image
+    this.id = this.$route.query.id
   },
   methods: {
     bindDateChange(e) {
       console.log(e)
       this.date = e.target.value
+    },
+    likeClick() {
+      if(this.likeFlag) {
+        
+
+         let params = {
+          url: '/delete_user_like/',
+          data: {
+            id: this.id
+          }
+        }
+        get(params).then(res=>{ 
+          console.log(res)
+          this.likeFlag = false
+        
+        })
+      }else{
+        
+        //喜欢
+        let params = {
+          url: '/make_user_like/',
+          data: {
+            id: this.id
+          }
+        }
+        get(params).then(res=>{ 
+          console.log(res)
+          this.likeFlag = true
+        
+        })
+      }
+      console.log(this.likeFlag)
+    },
+    wxImgShow() {
+      console.log(1234)
+      wx.previewImage({
+        current: this.image, // 当前显示图片的http链接
+        urls: [this.image] // 需要预览的图片http链接列表
+      })
     }
   },
   created() {
@@ -151,6 +196,17 @@ page {
           left: 50%;
           margin-left: -60rpx;
           z-index:2;
+          background: #61b8c0;
+          border-radius: 100rpx;
+          text-align: center;
+          line-height: 120rpx;
+          .icon {
+            font-size: 70rpx;
+            color: #fff;
+          }
+          .like-active{
+            color: #f4c51c;
+          }
         }
       }
       

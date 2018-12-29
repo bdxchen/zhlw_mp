@@ -6,18 +6,16 @@
     "pages/activity/main",
     "pages/designerWorks/main",
     "pages/activityList/main",
-    
-    
+    "pages/bannerList/main",
+
     "pages/cascadeFlow/main",
     "pages/index/main",
     "pages/designerList/main",
     "pages/appointmentComplete/main",
     "pages/designerInfo/main",
-    
+    "pages/expandList/main",
     "pages/userCenter/main",
-    
     "pages/counter/main",
-    
     "pages/appointment/main",
     "pages/downloadPic/main",
     "pages/myYuyue/main"

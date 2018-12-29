@@ -3,7 +3,7 @@
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
       <div class="avatar-wrapper">
-        <div class="avatar">
+        <div class="avatar" @click="goUserCenter">
           <open-data type="userAvatarUrl"></open-data>
         </div>
         <open-data class="name" type="userNickName"></open-data>
@@ -30,7 +30,7 @@
             :duration="800">
             
             <swiper-item v-for="(item, index) in bannerList"
-                          
+                          @click="goBannerList"
                           :key="index">
                 <image  @load="getHeight"
                         
@@ -40,9 +40,13 @@
             </swiper-item>
         
     </swiper> 
-    <div class="activeimg-wrapper">
-      <div style="margin-right:-70px" class="active-img"></div>
-      <div style="margin-left:-70px" class="active-img"></div>
+    <div class="activeimg-wrapper" >
+      <div style="margin-right:-70px" class="active-img" @click="goActive">
+        <img :src="activityList.img_url"/>
+      </div>
+      <div style="margin-left:-70px" class="active-img" @click="goMore">
+         <img :src="moreList.img_url"/>
+      </div>
     </div>
     </div>
     <div class="bottom">
@@ -75,12 +79,14 @@ export default {
       },{
         name:'更多',
         imgUrl: '/static/img/gengduo.png',
-        targetPath:'userCenter/main'
+        targetPath:'expandList/main'
       }],
       motto: "Hello World",
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
       bannerList: [],
+      activityList:{},
+      moreList: {},
       images: [
         {
           image: "/static/banner.jpg"
@@ -99,8 +105,14 @@ export default {
   },
 
   methods: {
-    goBannerInfo(item) {
-      console.log(item)
+    goUserCenter() {
+      this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
+    },
+    goBannerList() {
+      console.log(123456)
+      this.$router.push({ path: `../${'bannerList/main'}`, query: {
+         
+      } });
     },
     getHeight(e) {
       
@@ -142,7 +154,7 @@ export default {
         }
       }
       post(params).then(res=>{ 
-        console.log('getJwt',res)
+        //console.log('getJwt',res)
         
         wx.setStorage({
           key:"jwt",
@@ -161,12 +173,12 @@ export default {
       let that = this;
       wx.login({
         success(res) {
-          console.log('login',res)
+          //console.log('login',res)
           code = res.code
           if (res.code) {
             wx.getUserInfo({
               success(res) {
-                console.log('getUserInfo',res)
+                //console.log('getUserInfo',res)
                 encryptedData = res.encryptedData
                 iv = res.iv
 
@@ -198,12 +210,51 @@ export default {
         console.log('banner',res)
         this.bannerList = res
       })
+    },
+    getActivityList() {
+      let params = {
+        url: '/get_event_list/',
+        data: {
+          event_type: 'base'
+        }
+      }
+      get(params).then(res=>{ 
+        console.log('getActivityList',res)
+        this.activityList = res[0]
+      
+      })
+    },
+    getMoreList() {
+      let params = {
+        url: '/get_event_list/',
+        data: {
+          event_type: 'more'
+        }
+      }
+      get(params).then(res=>{ 
+        console.log('getMoreList',res)
+        this.moreList = res[0]
+      
+      })
+    },
+    
+    goActive() {
+      this.$router.push({ path: `../${'activity/main'}`, query: {
+        id: this.activityList.id
+      } });
+    },
+    goMore() {
+      this.$router.push({ path: `../${'activity/main'}`, query: {
+         id: this.moreList.id
+      } });
     }
   },
   onLoad(options) {
     this.login();
     this.getBanner();
-    console.log('md555555555555555',new MD5().update('42').digest('hex'))
+    this.getActivityList();
+    this.getMoreList();
+   
   },
   created() {
     
@@ -319,6 +370,11 @@ swiper {
         height: 220rpx;
         border-radius: 15rpx;
         border: 2px solid #efcd6d;
+        img {
+          width: 220rpx;
+          height: 220rpx;
+          border-radius: 15rpx;
+        }
       }
     }
   }

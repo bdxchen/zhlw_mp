@@ -20,8 +20,8 @@
           <div class="position">拍摄总监</div>
           <div class="style">{{item.Cameraman_style}}</div>
           <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe66f;</i>123人预约</div>
-            <div class="haoping"><i class="icon iconfont">&#xe668;</i>123人好评</div>
+            <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div>
+            <div class="haoping"><i class="icon iconfont">&#xec7f;</i>123人好评</div>
           </div>
         </div>
       </view>
