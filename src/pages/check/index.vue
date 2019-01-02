@@ -10,14 +10,14 @@ export default {
     return {}
   },
   onShow() {
-     this.getSetting()
+    this.getSetting()
   },
   onLoad() {
    
   },
   methods: {
     getSetting(){
-      console.log('getSettinggetSetting111')
+     
       let that = this
       wx.getSetting({
         success: function(res){

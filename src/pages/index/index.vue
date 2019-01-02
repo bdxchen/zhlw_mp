@@ -45,7 +45,9 @@ export default {
     card,
     mpButton
   },
-
+  onShow() {
+    console.log('show')
+  },
   methods: {
     testHandle() {
       wx.showModal({

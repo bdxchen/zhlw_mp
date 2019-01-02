@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/main",
     "pages/check/main",
     "pages/getUserInfo/main",
     "pages/index1/main",
@@ -9,7 +10,7 @@
     "pages/bannerList/main",
 
     "pages/cascadeFlow/main",
-    "pages/index/main",
+   
     "pages/designerList/main",
     "pages/appointmentComplete/main",
     "pages/designerInfo/main",

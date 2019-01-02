@@ -27,7 +27,7 @@
               <div class="flowPic" v-for="item in col1" :key="item.id">
                 <image :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
                   <div class="more">...</div>
                 </div>
               </div>
@@ -37,7 +37,7 @@
               <div class="flowPic" v-for="item in col2" :key="item.id">
                 <image :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="like"><i class="icon iconfont">&#xe66c;</i></div>
                   <div class="more">...</div>
                 </div>
               </div>
