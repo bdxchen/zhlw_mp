@@ -70,6 +70,15 @@ export default {
       }
       get(params).then(res=>{ 
         arr.splice(index,1);
+        wx.showModal({
+          content: '取消成功',
+          showCancel: false,
+          success:  (res) => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        });
         console.log('delete_cameraman_time',res)
        
       }) 

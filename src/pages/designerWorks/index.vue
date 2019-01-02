@@ -8,10 +8,10 @@
     <div class="main">
       
       <div class="main-top">
-        <div class="work-wrapper" @click="wxImgShow">
-          <img class="work" :src="image"/>
+        <div class="work-wrapper">
+          <img class="work"  @click.stop="wxImgShow" :src="image"/>
           <!-- <img class="like" src="/static/img/xinxin.png"> -->
-          <div @click="likeClick" class="like" >
+          <div @click.stop="likeClick" class="like" >
            <i class="icon iconfont" :class="{ 'like-active': likeFlag }">&#xe632;</i>
           </div>
         </div>

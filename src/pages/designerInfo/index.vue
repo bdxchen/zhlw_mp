@@ -112,7 +112,7 @@ export default {
     this.Cameraman_id = this.$route.query.Cameraman_id
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
-    //this.getCameramanTime(1);
+   
     
     wx.getStorage({
       key: 'wxInfo',
@@ -162,7 +162,7 @@ export default {
       //this.timeShow = false
     },
     parseDateStatus(arr) {
-      console.log('调整某一天的时间',arr)
+     
       let box = [];
       let timearr = [
         {time:'08:00 - 10:00',time_code: 1},
@@ -202,16 +202,7 @@ export default {
        
       }) 
     },
-    getCameramanTime(Cameraman_id) {
-      let params = {
-        url: `/get_cameraman_time/${Cameraman_id}/`,
-        
-      };
-      get(params).then(res=>{ 
-        console.log(res)
-       
-      }) 
-    },
+   
     postTest() {
       wx.getStorage({
         key: 'userInfo',
@@ -225,6 +216,15 @@ export default {
     postCameramanTime(Cameraman_id,date,time_code,user_id) {
       if(time_code==''||date=='') {
         console.log('时间不完全')
+        wx.showModal({
+          content: '请选择预约时间',
+          showCancel: false,
+          success:  (res) => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        });
         return
       }
       let params = {

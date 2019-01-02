@@ -145,6 +145,14 @@ export default {
       }
       post(params).then(res=>{
         console.log('get_student',res)
+        this.modelName = res.student_name;
+        this.modelPhone = res.student_phone;
+        this.modelSchool = res.student_school;
+        this.modelSpeciality = res.student_speciality;
+        this.modelWechat = res.student_weixin;
+        this.modelSex = res.student_sex;
+
+
       })
     },
     postUserInfo() {
