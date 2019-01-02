@@ -9,8 +9,11 @@ export default {
   data() {
     return {}
   },
+  onShow() {
+     this.getSetting()
+  },
   onLoad() {
-    this.getSetting()
+   
   },
   methods: {
     getSetting(){
