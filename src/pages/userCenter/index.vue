@@ -12,7 +12,7 @@
       
     </div>
     <div class="main">
-      
+    <scroll-view>
      <div class="from-item">
        <div class="item-lable">姓名</div>
        <div class="item-box">
@@ -21,6 +21,7 @@
                 @blur="blurHandle" 
                 @focus="focusHandle" 
                 placeholder="请输入姓名"
+                :disabled="isReadOnly"
                 type="text"/>
        </div>
      </div>
@@ -29,7 +30,7 @@
        <div class="item-box">
          <radio-group class="radio-group" @change="radioChange">
           <label class="radio radio-item" v-for="(item,index) in items" :key="index">
-            <radio :color="red" :value="item.name" :checked="item.checked" />{{item.value}}
+            <radio :disabled="isReadOnly" :color="red" :value="item.name" :checked="item.checked" />{{item.value}}
           </label>
         </radio-group>
        </div>
@@ -39,7 +40,7 @@
       <div class="item-box">
         <input class="ipt" 
               v-model="modelPhone"
-              
+              :disabled="isReadOnly"
               placeholder="请输入手机号"
               type="text"/>
       </div>
@@ -49,7 +50,7 @@
       <div class="item-box">
         <input class="ipt" 
               v-model="modelSchool"
-             
+             :disabled="isReadOnly"
               placeholder="请输入学校名称"
               type="text"/>
       </div>
@@ -59,7 +60,7 @@
       <div class="item-box">
         <input class="ipt" 
               v-model="modelSpeciality"
-             
+             :disabled="isReadOnly"
               placeholder="请输入专业名称"
               type="text"/>
       </div>
@@ -69,9 +70,15 @@
       <div class="item-box">
         <input class="ipt" 
               v-model="modelWechat"
-              
+              :disabled="isReadOnly"
               placeholder="请输入微信"
               type="text"/>
+      </div>
+    </div>
+    <div class="textarea-item">
+      <div class="textarea-lable">个人经历</div>
+      <div class="textarea-box">
+       <textarea fixed  :disabled="isReadOnly" v-model="modelInfo"></textarea>
       </div>
     </div>
     <!-- <div @click="goMyyuyue" class="from-item">
@@ -80,10 +87,11 @@
         
       </div>
     </div> -->
-     <div  @click="postUserInfo" class="complete-btn">
+     <div v-show="!isReadOnly"  @click="postUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">完成</div>
      </div>
+    </scroll-view> 
     </div>
       
     <div  class="bottom">
@@ -103,6 +111,7 @@ export default {
 
   data() {
     return {
+      isReadOnly:true,
       user_id: '',
       modelName: '',
       modelSex: true,
@@ -110,6 +119,7 @@ export default {
       modelSchool: '',
       modelSpeciality: '',
       modelWechat: '',
+      modelInfo: '',
       items: [
        
         {name: false, value: '女'},
@@ -119,6 +129,9 @@ export default {
     };
   },
   onLoad() {
+    if(this.$route.query.Cameraman_id){
+      this.isReadOnly = false
+    }
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
@@ -151,7 +164,7 @@ export default {
         this.modelSpeciality = res.student_speciality;
         this.modelWechat = res.student_weixin;
         this.modelSex = res.student_sex;
-
+        this.modelInfo = res.student_info
 
       })
     },
@@ -166,7 +179,7 @@ export default {
             student_school: this.modelSchool,
             student_speciality: this.modelSpeciality,
             student_weixin: this.modelWechat,
-            student_info: '我是一个test'
+            student_info: this.modelInfo
             
           }
         
@@ -302,7 +315,27 @@ page {
         }
       }
     }
-    
+    .textarea-item {
+      .textarea-lable{
+        font-size: 16px;
+        text-align: center;
+        margin: 5px 0;
+      }
+      .textarea-box {
+        width: 100%;
+        margin: 0 auto;
+        textarea {
+          background: #fcf3db;
+           width:85%;
+           margin: 0 auto;
+          border-radius: 8px;
+          box-sizing: border-box;
+          padding: 10px;
+          font-size:16px;
+          
+        }
+      }
+    }
     .complete-btn {
       margin: 20px auto;
       width: 350rpx;
@@ -335,7 +368,7 @@ page {
   }
   .bottom {
     width: 100%;
-    height: 50px;
+    height: 80rpx;
     position: relative;
     img {
       position: absolute;

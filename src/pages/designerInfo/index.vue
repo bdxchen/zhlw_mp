@@ -10,7 +10,7 @@
         <div class="name">{{designerInfo.Cameraman_name}}</div>
           <div class="position">{{designerInfo.Cameraman_style}}</div>
           <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div>
+            <!-- <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div> -->
             <!-- <div class="haoping"><i class="icon iconfont">&#xec7f;</i>123人好评</div> -->
           </div>
       </div>
@@ -25,12 +25,15 @@
         :duration="800">
         
         <swiper-item v-for="(item, index) in designerImgs"
-                     @click="goBannerInfo(item)" 
+                     @click="goBannerInfo(item)"
+                     class="swiperItem"
                       :key="index">
-            <image  @load="getHeight" 
+            <image  @load="getHeight"
+                    
                     :style="{height:swiperH}"
                     :class="{ 'le-active': nowIdx===index }"  
                     :src="item.image" class="le-img" />
+                 
         </swiper-item>
         
       </swiper> 
@@ -124,6 +127,16 @@ export default {
     
   },
   methods: {
+    likeClick(item) {
+      console.log(item)
+    },
+    wxImgShow(item) {
+      console.log(item)
+      wx.previewImage({
+        current: item.image, // 当前显示图片的http链接
+        urls: [item.image] // 需要预览的图片http链接列表
+      })
+    },
      goBannerInfo(item) {
       console.log(item)
       const path = 'designerWorks/main'
@@ -256,6 +269,7 @@ export default {
                 } });
               } else {
                 console.log('取消')
+
               }
             }
           });
@@ -313,6 +327,7 @@ export default {
           })
           this.time = ''
           this.date = ''
+          this.timeShow = false
         }
         
       }) 
@@ -351,7 +366,7 @@ page {
   height: 100%;
 }
 swiper {
-  margin-top: 50rpx;
+  margin-top: 20rpx;
  
 }
 .content{
@@ -407,6 +422,29 @@ swiper {
     padding-top:15px; 
     flex: 1;
     overflow: auto;
+    .swiperItem {
+      position: relative;
+      .like {
+        position:absolute;
+        width: 100rpx;
+        height: 100rpx;
+        bottom: 0px;
+        right: 0px;
+        margin-left: -60rpx;
+        z-index:2;
+        
+        border-radius: 100rpx;
+        text-align: center;
+        line-height: 100rpx;
+        .icon {
+          font-size: 70rpx;
+          color: #fff;
+        }
+        .like-active{
+          color: #f4c51c;
+        }
+      }
+    }
     .le-img {
       width: 100%;
       display: block;
@@ -421,13 +459,17 @@ swiper {
     .date-wrapper {
       box-sizing: border-box;
       padding: 0 80rpx;
-      margin-top: 50rpx;
+      margin-top: 20rpx;
       width: 100%;
       height: 80rpx;
       line-height: 80rpx;
       // background: wheat;
       // text-align: center;
       color: #366f7e;
+      
+      .picker {
+        border-bottom: 1px solid #366f7e;
+      }
     }
     .time-wrapper {
       box-sizing: border-box;
@@ -439,9 +481,12 @@ swiper {
       // background: wheat;
       // text-align: center;
       color: #366f7e;
+      .picker {
+        border-bottom: 1px solid #366f7e;
+      }
     }
     .designer-info {
-      margin-top: 20px;
+      //margin-top: 20px;
       // display: flex;
       // justify-content: center;
       .name {
@@ -501,7 +546,7 @@ swiper {
   }
   .bottom {
     width: 100%;
-    height: 50px;
+    height: 80rpx;
     position: relative;
     img {
       position: absolute;

@@ -41,10 +41,10 @@
         
     </swiper> 
     <div class="activeimg-wrapper" >
-      <div style="margin-right:-70px" class="active-img" @click="goActive">
+      <div style="margin-right:-40px" class="active-img" @click="goActive">
         <img :src="activityList.img_url"/>
       </div>
-      <div style="margin-left:-70px" class="active-img" @click="goMore">
+      <div style="margin-left:-40px" class="active-img" @click="goMore">
          <img :src="moreList.img_url"/>
       </div>
     </div>
@@ -277,7 +277,7 @@ swiper {
   flex-direction: column;
   .top{
     width: 100%;
-    height: 250rpx;
+    height: 230rpx;
     position: relative;
     display: flex;
     align-items: center;
@@ -338,7 +338,7 @@ swiper {
     }
     .menu-wrapper {
       width: 100%;
-      height: 200rpx;
+      height: 170rpx;
       display: flex;
       flex-direction: row;
       justify-content:space-around;
@@ -366,8 +366,8 @@ swiper {
       justify-content:space-around;
 
       .active-img {
-        width: 220rpx;
-        height: 220rpx;
+        width: 230rpx;
+        height: 230rpx;
         border-radius: 15rpx;
         border: 2px solid #efcd6d;
         img {
@@ -380,7 +380,7 @@ swiper {
   }
   .bottom {
     width: 100%;
-    height: 50px;
+    height: 80rpx;
     position: relative;
     img {
       position: absolute;

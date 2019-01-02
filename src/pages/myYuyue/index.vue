@@ -210,7 +210,7 @@ page {
   }
   .bottom {
     width: 100%;
-    height: 50px;
+    height: 80rpx;
     position: relative;
     .botimg {
       position: absolute;

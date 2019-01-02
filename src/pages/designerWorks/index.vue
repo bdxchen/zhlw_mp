@@ -17,17 +17,7 @@
         </div>
       </div>
        <div class="main-bottom">
-         <div class="btns-wrapper">
-           <div class="download-btn">
-            <img class="btn" src="/static/img/btn-1.png"/>
-            <div class="text">转发</div>
-          </div>
-          <div class="complete-btn">
-            <img class="btn" src="/static/img/btn1.png"/>
-            <div class="text">下载</div>
-          </div>
-          
-        </div>
+         
 
        </div>
       
