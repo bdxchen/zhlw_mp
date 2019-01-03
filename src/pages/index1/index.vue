@@ -113,6 +113,7 @@ export default {
 
   methods: {
     goMyCollection() {
+      this.moreFlag = false
       this.$router.push({ path: `../${'collectionList/main'}`, query: {} });
     },
     moreFlagclick() {
