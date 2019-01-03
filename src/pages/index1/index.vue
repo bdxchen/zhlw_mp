@@ -8,6 +8,12 @@
         </div>
         <open-data class="name" type="userNickName"></open-data>
       </div>
+      <div @click="moreFlagclick" class="moreBtn"><i class="icon iconfont">&#xe696;</i></div>
+      <div v-show="moreFlag" class="moreBox">
+        
+        <div @click="goMyCollection" class="moreItem">我的收藏</div>
+        <button open-type="contact" class="moreItem contbtn">联系客服</button>
+      </div>
     </div>
     <div class="main">
 
@@ -62,6 +68,7 @@ import MD5 from 'md5.js'
 export default {
   data() {
     return {
+      moreFlag: false,
       userInfo: null,
       menuData: [{
         name:'作品',
@@ -105,6 +112,16 @@ export default {
   },
 
   methods: {
+    goMyCollection() {
+      this.$router.push({ path: `../${'collectionList/main'}`, query: {} });
+    },
+    moreFlagclick() {
+      if(this.moreFlag) {
+        this.moreFlag = false
+      } else {
+         this.moreFlag = true
+      }
+    },
     goUserCenter() {
       this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
     },
@@ -154,7 +171,7 @@ export default {
         }
       }
       post(params).then(res=>{ 
-        //console.log('getJwt',res)
+        console.log('getJwt',res)
         
         wx.setStorage({
           key:"jwt",
@@ -173,12 +190,12 @@ export default {
       let that = this;
       wx.login({
         success(res) {
-          //console.log('login',res)
+          console.log('login',res)
           code = res.code
           if (res.code) {
             wx.getUserInfo({
               success(res) {
-                //console.log('getUserInfo',res)
+                console.log('getUserInfo',res)
                 encryptedData = res.encryptedData
                 iv = res.iv
 
@@ -281,6 +298,37 @@ swiper {
     position: relative;
     display: flex;
     align-items: center;
+    .moreBtn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      .icon {
+        font-size: 38px;
+      }
+      
+
+    }
+    .moreBox {
+      background:  rgba(10, 10, 10, 0.5);
+      padding: 5px;
+      border-radius: 5px;
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      
+
+     .contbtn {
+       background: transparent;
+       line-height:1;
+       border: none;
+
+     }
+      .moreItem {
+        padding: 8px;
+        font-size: 14px;
+        color: #fff;
+      }
+    }
     .avatar-wrapper {
       width: 500rpx;
       height: 150rpx;

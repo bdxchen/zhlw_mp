@@ -6,8 +6,9 @@
         <!-- <open-data type="groupName" open-gid="xxxxxx"></open-data> -->
       </div>
     </div>
-    <mp-button @click="testHandle" type="primary" size="large" btnClass="mb15">确定/取消</mp-button>
-    <mp-button @click="testHandle1" type="primary" size="large" btnClass="mb15">提示窗口</mp-button>
+    <mp-button @click="testHandle" type="primary" size="large" btnClass="mb15">确定/取消111</mp-button>
+    <mp-button @click="testHandle1" type="primary" size="large" btnClass="mb15">提示窗口111</mp-button>
+     <div open-type="contact"  >客服</div>
     <div class="usermotto">
       <div class="user-motto">
         <card :text="motto"></card>

@@ -22,7 +22,7 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col1" :key="item.id">
-                <image :src="item.image" :style="{height:item.height + 'rpx'}" />
+                <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
                   <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
                   <div class="more">...</div>
@@ -32,7 +32,7 @@
             <view class="img_item">
               <div style="height: 90rpx"></div>
               <div class="flowPic" v-for="item in col2" :key="item.id">
-                <image :src="item.image" :style="{height:item.height + 'rpx'}" />
+                <image  @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
                   <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
                   <div class="more">...</div>
@@ -97,6 +97,13 @@ export default {
     })
   },
   methods: {
+    wxImgShow(item) {
+      console.log(item)
+      wx.previewImage({
+        current: item.image, // 当前显示图片的http链接
+        urls: [item.image] // 需要预览的图片http链接列表
+      })
+    },
     getUserImg(user_id) {
       let params = {
         url: `/get_student_image/${user_id}/`,

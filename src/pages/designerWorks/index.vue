@@ -47,6 +47,10 @@ export default {
       likeFlag: false
     };
   },
+  onShow() {
+    this.likeFlag = false
+  },
+
   onLoad() {
     this.image = this.$route.query.image
     this.id = this.$route.query.id

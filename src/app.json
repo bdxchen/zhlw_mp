@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/check/main",
     "pages/index1/main",
     "pages/index/main",
-    "pages/check/main",
-    "pages/getUserInfo/main",
     
+    "pages/getUserInfo/main",
+    "pages/collectionList/main",
     "pages/activity/main",
     "pages/designerWorks/main",
     "pages/activityList/main",
@@ -28,6 +29,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f4c51c",
     "navigationBarTitleText": "涩果seg",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4c51c"
   }
 }

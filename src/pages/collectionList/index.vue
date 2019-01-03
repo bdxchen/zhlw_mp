@@ -3,7 +3,7 @@
     <div class="top">
       <image class="topbg" src="/static/img/topbg.png" mode="widthFix"/>
     </div>
-    <div class="title">轮播图列表</div>
+    <div class="title">我的收藏</div>
     <view style="display:none">
       <image v-for="item in images" :key="item.id" :id="item.id" :src="item.image" @load="onImageLoad"></image>
     </view>
@@ -106,7 +106,7 @@ export default {
     },
     getRotationChart() {
       let params = {
-        url: `/get_rotation_chart/`,
+        url: `/get_user_like/`,
       }
       get(params).then(res=>{
         this.myImgs = res
