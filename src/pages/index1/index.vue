@@ -284,10 +284,7 @@ export default {
 page {
   height: 100%;
 }
-swiper {
-  margin-top: 20rpx;
- 
-}
+
 .content{
   width: 100%;
   height: 100%;
@@ -373,7 +370,11 @@ swiper {
     width: 100%;
     flex: 1;
     overflow: auto;
-    
+    position: relative;
+    swiper {
+      margin-top: 20rpx;
+     
+    }
     .le-img {
       width: 100%;
       display: block;
@@ -407,9 +408,11 @@ swiper {
       
     }
     .activeimg-wrapper {
-      margin-top: 50rpx;
+      // position: absolute;
+      // bottom: 5%;
+       margin-top: 50rpx;
       width: 100%;
-      height: 340rpx;
+      height: 230rpx;
       display: flex;
       flex-direction: row;
       justify-content:space-around;
