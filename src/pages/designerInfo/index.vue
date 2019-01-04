@@ -229,15 +229,13 @@ export default {
         console.log('查看某一天的时间',res)
         this.parseDateStatus(res)
         this.timeShow = true
-       
       }) 
     },
-   
+    //预约点击
     postTest() {
       wx.getStorage({
         key: 'userInfo',
         success: (res) => {
-          //console.log(res)
           this.postCameramanTime(this.Cameraman_id,this.date,this.time_code,res.data.user_id)
         }
       })
