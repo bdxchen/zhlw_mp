@@ -110,8 +110,29 @@ export default {
       ]
     };
   },
-
+  onLoad(options) {
+    this.login();
+    this.getBanner();
+    this.getActivityList();
+    this.getMoreList();
+   
+  },
   methods: {
+    getSetting(){
+     
+      let that = this
+      wx.getSetting({
+        success: function(res){
+          console.log('getSetting',res)
+          if (res.authSetting['scope.userInfo']) {
+            //用户已经授权过
+            that.$router.push({ path: `../index1/main`, query: {} });
+          }else{
+            that.$router.push({ path: `../getUserInfo/main`, query: {} });
+          }
+        }
+      })
+    },
     goMyCollection() {
       this.moreFlag = false
       this.$router.push({ path: `../${'collectionList/main'}`, query: {} });
@@ -127,7 +148,7 @@ export default {
       this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
     },
     goBannerList() {
-      console.log(123456)
+      
       this.$router.push({ path: `../${'bannerList/main'}`, query: {
          
       } });
@@ -267,13 +288,7 @@ export default {
       } });
     }
   },
-  onLoad(options) {
-    this.login();
-    this.getBanner();
-    this.getActivityList();
-    this.getMoreList();
-   
-  },
+  
   created() {
     
   }

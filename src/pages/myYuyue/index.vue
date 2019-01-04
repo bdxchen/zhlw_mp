@@ -50,7 +50,11 @@ export default {
     };
   },
   onLoad(options) {
+    console.log('123456')
     
+    
+  },
+  onShow() {
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
@@ -58,30 +62,44 @@ export default {
         this.getMyyuyue(res.data.user_id);
       }
     })
-    
   },
   methods: {
     cancel(item,index,arr) {
-      console.log(arr)
-     
-      let params = {
-        url: `/delete_cameraman_time/${item.id}/`,
-       
-      }
-      get(params).then(res=>{ 
-        arr.splice(index,1);
-        wx.showModal({
-          content: '取消成功',
-          showCancel: false,
-          success:  (res) => {
-            if (res.confirm) {
-              console.log('用户点击确定')
+      wx.showModal({
+        //title: '弹窗标题',
+        content: '您确定要取消您的预约吗？',
+        confirmText: "确定",
+        cancelText: "取消",
+        success:  (res) => {
+          console.log(res);
+          if (res.confirm) {
+            console.log('确定')
+            let params = {
+              url: `/delete_cameraman_time/${item.id}/`,
+            
             }
+            get(params).then(res=>{ 
+              arr.splice(index,1);
+              wx.showModal({
+                content: '取消成功',
+                showCancel: false,
+                success:  (res) => {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  }
+                }
+              });
+              console.log('delete_cameraman_time',res)
+            
+            })
+          } else {
+            console.log('取消')
           }
-        });
-        console.log('delete_cameraman_time',res)
+        }
+      });
+      
+      
        
-      }) 
     },
     getMyyuyue(id) {
       let params = {

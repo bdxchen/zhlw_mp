@@ -78,7 +78,7 @@
     <div class="textarea-item">
       <div class="textarea-lable">个人经历</div>
       <div class="textarea-box">
-       <textarea fixed  :disabled="isReadOnly" v-model="modelInfo"></textarea>
+       <textarea fixed="true" :disabled="isReadOnly" v-model="modelInfo"></textarea>
       </div>
     </div>
     <!-- <div @click="goMyyuyue" class="from-item">

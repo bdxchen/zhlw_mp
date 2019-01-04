@@ -24,9 +24,15 @@ export default {
           console.log('getSetting',res)
           if (res.authSetting['scope.userInfo']) {
             //用户已经授权过
-            that.$router.push({ path: `../index1/main`, query: {} });
+            wx.redirectTo({
+              url: `../index1/main`
+            })
+           // that.$router.push({ path: `../index1/main`, query: {} });
           }else{
-            that.$router.push({ path: `../getUserInfo/main`, query: {} });
+            wx.redirectTo({
+              url: `../getUserInfo/main`
+            })
+            //that.$router.push({ path: `../getUserInfo/main`, query: {} });
           }
         }
       })

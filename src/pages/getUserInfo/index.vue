@@ -25,7 +25,10 @@ export default {
               success: function(res) {
                 console.log(res.userInfo)
                 //用户已经授权过
-                that.$router.push({ path: `../index1/main`, query: {} });
+                wx.redirectTo({
+                  url: `../index1/main`
+                })
+                //that.$router.push({ path: `../index1/main`, query: {} });
               }
             })
           }else{

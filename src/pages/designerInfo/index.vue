@@ -44,8 +44,8 @@
           start="2018-01-01" 
           @change="bindDateChange"> 
                 <p class="picker">
-                        选择预约日期： {{date}}
-                  </p>
+                  选择预约日期： {{date}}
+                </p>
         </picker>
 
       </div>
@@ -112,6 +112,24 @@ export default {
     };
   },
   onLoad(options) {
+    // this.Cameraman_id = this.$route.query.Cameraman_id
+    // this.getDesignerInfo(this.Cameraman_id);
+    // this.getDesignerImg(this.Cameraman_id);
+   
+    
+    // wx.getStorage({
+    //   key: 'wxInfo',
+    //   success: (res) => {
+    //     console.log(res.data)
+    //     this.wxInfo = res.data;
+    //   }
+    // })
+    
+  },
+  onShow() {
+    this.time = ''
+    this.date = ''
+    this.timeShow = false
     this.Cameraman_id = this.$route.query.Cameraman_id
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
@@ -124,7 +142,6 @@ export default {
         this.wxInfo = res.data;
       }
     })
-    
   },
   methods: {
     likeClick(item) {
