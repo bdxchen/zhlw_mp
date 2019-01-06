@@ -438,8 +438,8 @@ page {
         border-radius: 15rpx;
         border: 2px solid #efcd6d;
         img {
-          width: 220rpx;
-          height: 220rpx;
+          width: 100%;
+          height: 100%;
           border-radius: 15rpx;
         }
       }

@@ -130,12 +130,13 @@ page {
        box-sizing: border-box;
        padding: 20rpx;
        width: 80%;
-       height: 80%;
+       height: 120%;
        position: absolute;
-       bottom:-60%;
+       bottom:-90%;
        z-index: 10;
        margin-left: 10%;
        background: #fae29d;
+       overflow: scroll;
      } 
   }
   

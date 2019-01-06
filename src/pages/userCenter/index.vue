@@ -89,7 +89,7 @@
     </div> -->
      <div v-show="!isReadOnly"  @click="postUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
-       <div class="text">完成</div>
+       <div class="text">修改信息</div>
      </div>
     </scroll-view> 
     </div>
@@ -111,7 +111,7 @@ export default {
 
   data() {
     return {
-      isReadOnly:true,
+      isReadOnly:false,
       user_id: '',
       modelName: '',
       modelSex: true,
@@ -129,9 +129,7 @@ export default {
     };
   },
   onLoad() {
-    if(this.$route.query.Cameraman_id){
-      this.isReadOnly = false
-    }
+    
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {

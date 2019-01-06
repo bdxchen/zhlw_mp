@@ -44,14 +44,14 @@
           start="2018-01-01" 
           @change="bindDateChange"> 
                 <p class="picker">
-                  选择预约日期： {{date}}
+                  <text class="icon iconfont">&#xe66a;</text>选择预约日期： {{date}}
                 </p>
         </picker>
 
       </div>
       <div class="time-wrapper">
         <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
-          <view v-if="timeShow" class="picker">选择预约时间： {{time}}</view>
+          <view v-if="timeShow" class="picker"><text class="icon iconfont">&#xe607;</text>选择预约时间： {{time}}</view>
         </picker>
        
       </div>
@@ -129,6 +129,7 @@ export default {
   onShow() {
     this.time = ''
     this.date = ''
+    this.time_code = ''
     this.timeShow = false
     this.Cameraman_id = this.$route.query.Cameraman_id
     this.getDesignerInfo(this.Cameraman_id);
@@ -255,6 +256,7 @@ export default {
         });
         return
       }
+      console.log(time_code,date)
       let params = {
         url: `/edit_cameraman_time/`,
         data: {
@@ -264,6 +266,7 @@ export default {
           user_id: user_id
         }
       };
+      
       post(params).then(res=>{ 
         console.log(res)
         if(res.code==1) {
@@ -342,6 +345,7 @@ export default {
           })
           this.time = ''
           this.date = ''
+          this.time_code = ''
           this.timeShow = false
         }
         
@@ -484,6 +488,10 @@ swiper {
       
       .picker {
         border-bottom: 1px solid #366f7e;
+        .icon {
+          font-size: 22px;
+          margin-right: 5px;
+        }
       }
     }
     .time-wrapper {
@@ -498,6 +506,10 @@ swiper {
       color: #366f7e;
       .picker {
         border-bottom: 1px solid #366f7e;
+        .icon {
+          font-size: 22px;
+          margin-right: 5px;
+        }
       }
     }
     .designer-info {
