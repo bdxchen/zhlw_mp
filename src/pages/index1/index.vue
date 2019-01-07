@@ -13,6 +13,7 @@
         
         <div @click="goMyCollection" class="moreItem">我的收藏</div>
         <button open-type="contact" class="moreItem contbtn">联系客服</button>
+        <div @click="showMyImg"  class="moreItem">展示自我</div>
       </div>
     </div>
     <div class="main">
@@ -118,6 +119,32 @@ export default {
    
   },
   methods: {
+    showMyImg() {
+      console.log(123456)
+      wx.showModal({
+        title: '温馨提示',
+        content: '此功能是上传您的认为优质的摄影作品并且可以在本小程序对外展示',
+        confirmText: "确定",
+        cancelText: "取消",
+        success:  (res) => {
+          console.log(res);
+          if (res.confirm) {
+            wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album'],
+            success(res) {
+              // tempFilePath可以作为img标签的src属性显示图片
+              const tempFilePaths = res.tempFilePaths
+              console.log(res)
+            }
+          })
+          } else {
+            console.log('取消')
+          }
+        }
+      });
+    },
     getSetting(){
      
       let that = this
