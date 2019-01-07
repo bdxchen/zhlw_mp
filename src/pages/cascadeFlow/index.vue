@@ -24,8 +24,8 @@
               <div class="flowPic" v-for="item in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i  class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="more"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
                 </div>
               </div>
             </view>
@@ -34,8 +34,8 @@
               <div class="flowPic" v-for="item in col2" :key="item.id">
                 <image  @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i  class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="more"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
                 </div>
               </div>
             </view>
@@ -97,6 +97,9 @@ export default {
     })
   },
   methods: {
+    makeImg(item) {
+      console.log(item)
+    },
     wxImgShow(item) {
       console.log(item)
       wx.previewImage({
@@ -157,6 +160,7 @@ export default {
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
           console.log(images[i])
+          images[i].imgid = images[i].id
           images[i].id = baseId + "-" + i;
         }
         this.loadingCount = images.length,
@@ -256,6 +260,11 @@ page {
             .more {
               width: 50%;
               float: right;
+              height: 80rpx;
+              line-height: 80rpx;
+              .icon {
+                font-size: 18px;
+              }
             }
           }
         }

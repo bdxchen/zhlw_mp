@@ -21,25 +21,28 @@
           <view style="width:100%">
             <view class="img_item">
               <div style="height: 90rpx"></div>
-              <div class="flowPic" v-for="item in col1" :key="item.id">
+              <div class="flowPic" v-for="(item,index) in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="like"><i @click="deleteLikes(item,index,col1)" class="icon iconfont">&#xe6a5;</i></div>
                   <div class="more">...</div>
                 </div>
               </div>
             </view>
             <view class="img_item">
               <div style="height: 90rpx"></div>
-              <div class="flowPic" v-for="item in col2" :key="item.id">
+              <div class="flowPic" v-for="(item,index) in col2" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
+                  <div class="like"><i @click="deleteLikes(item,index,col2)" class="icon iconfont">&#xe6a5;</i></div>
                   <div class="more">...</div>
                 </div>
               </div>
             </view>
           </view>
+          <div style="text-align:center" v-show="col1.length==0&&col2.length==0" class="tip">
+            暂无收藏
+          </div>
         </scroll-view>
       </swiper-item>
     </swiper>
@@ -97,6 +100,35 @@ export default {
     })
   },
   methods: {
+    deleteLikes(item,index,arr) {
+      console.log(item)
+      wx.showModal({
+        //title: '弹窗标题',
+        content: '确定取消收藏？',
+        confirmText: "确定",
+        cancelText: "取消",
+        success:  (res) => {
+          console.log(res);
+          if (res.confirm) {
+            console.log('确定')
+            let params = {
+              url: '/delete_user_like/',
+              data: {
+                id: item.imgid
+              }
+            }
+            get(params).then(res=>{ 
+              console.log(res)
+              arr.splice(index,1);
+            
+            })
+          } else {
+            console.log('取消')
+          }
+        }
+      });
+      
+    },
     wxImgShow(item) {
       console.log(item)
       wx.previewImage({
@@ -156,7 +188,9 @@ export default {
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
           console.log(images[i])
+          images[i].imgid = images[i].id
           images[i].id = baseId + "-" + i;
+
         }
         this.loadingCount = images.length,
         this.images = images

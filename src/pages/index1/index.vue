@@ -49,10 +49,10 @@
     </swiper> 
     <div class="activeimg-wrapper" >
       <div style="margin-right:-40px" class="active-img" @click="goActive">
-        <img :src="activityList.img_url"/>
+        <!-- <img :src="activityList.img_url"/> -->
       </div>
       <div style="margin-left:-40px" class="active-img" @click="goMore">
-         <img :src="moreList.img_url"/>
+         <!-- <img :src="moreList.img_url"/> -->
       </div>
     </div>
     </div>
