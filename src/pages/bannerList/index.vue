@@ -24,8 +24,8 @@
               <div class="flowPic" v-for="item in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i @click="takeMylike(item)" class="icon iconfont">&#xe711;</i></div>
+                  <!-- <div class="more">...</div> -->
                 </div>
               </div>
             </view>
@@ -34,8 +34,8 @@
               <div class="flowPic" v-for="item in col2" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i @click="takeMylike(item)" class="icon iconfont">&#xe711;</i></div>
+                  <!-- <div class="more">...</div> -->
                 </div>
               </div>
             </view>
@@ -97,6 +97,27 @@ export default {
     })
   },
   methods: {
+    takeMylike(item) {
+     let params = {
+          url: '/make_user_like/',
+          data: {
+            id: item.imgid
+          }
+        }
+        get(params).then(res=>{ 
+          console.log(res)
+          wx.showModal({
+            content: '收藏成功',
+            showCancel: false,
+            success:  (res) => {
+             if (res.confirm) {
+                console.log('用户点击确定')
+             }  
+            }
+          });
+        
+        })
+    },
     wxImgShow(item) {
       console.log(item)
       wx.previewImage({
@@ -156,6 +177,7 @@ export default {
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
           console.log(images[i])
+          images[i].imgid = images[i].id
           images[i].id = baseId + "-" + i;
         }
         this.loadingCount = images.length,

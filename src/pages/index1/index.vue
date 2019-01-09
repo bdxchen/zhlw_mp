@@ -13,7 +13,7 @@
         
         <div @click="goMyCollection" class="moreItem">我的收藏</div>
         <button open-type="contact" class="moreItem contbtn">联系客服</button>
-        <div @click="showMyImg"  class="moreItem">展示自我</div>
+        <!-- <div @click="showMyImg"  class="moreItem">展示自我</div> -->
       </div>
     </div>
     <div class="main">
@@ -30,9 +30,9 @@
             @change="swiperChange"
             :previous-margin="50"
             :next-margin="50"
-            :indicator-dots="true" 
-            :autoplay="false" 
-            :interval="2000" 
+            :indicator-dots="false" 
+            :autoplay="true" 
+            :interval="3000" 
             :style="{height:swiperH}"
             :duration="800">
             
@@ -49,10 +49,10 @@
     </swiper> 
     <div class="activeimg-wrapper" >
       <div style="margin-right:-40px" class="active-img" @click="goActive">
-        <!-- <img :src="activityList.img_url"/> -->
+        <img :src="activityList.img_url"/>
       </div>
       <div style="margin-left:-40px" class="active-img" @click="goMore">
-         <!-- <img :src="moreList.img_url"/> -->
+         <img :src="moreList.img_url"/>
       </div>
     </div>
     </div>

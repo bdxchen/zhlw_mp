@@ -114,19 +114,20 @@ export default {
       isReadOnly:false,
       user_id: '',
       modelName: '',
-      modelSex: true,
+      modelSex: '',
       modelPhone: '',
       modelSchool: '',
       modelSpeciality: '',
       modelWechat: '',
       modelInfo: '',
       items: [
-       
         {name: false, value: '女'},
-        {name: true, value: '男',checked: true},
-        
+        {name: true, value: '男',checked: true}
       ]
     };
+  },
+  onShow() {
+    this.getUserInfo();
   },
   onLoad() {
     
@@ -137,7 +138,7 @@ export default {
         this.user_id = res.data.user_id;
       }
     })
-    this.getUserInfo();
+    
   },
  
   methods: {
@@ -163,6 +164,17 @@ export default {
         this.modelWechat = res.student_weixin;
         this.modelSex = res.student_sex;
         this.modelInfo = res.student_info
+        if(res.student_sex) {//男
+          this.items= [
+            {name: false, value: '女'},
+            {name: true, value: '男',checked: true},
+          ]
+        }else{//女
+          this.items= [
+            {name: false, value: '女',checked: true},
+            {name: true, value: '男'},
+          ]
+        }
 
       })
     },
@@ -208,6 +220,15 @@ export default {
         console.log(params)
       } else {
         console.log('不全')
+        wx.showModal({
+          content: '请填写完全个人信息，谢谢',
+          showCancel: false,
+          success:  (res) => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        });
       }
       
       
@@ -215,9 +236,9 @@ export default {
     },
    
     radioChange(e) {
-      console.log(e)
+      //console.log(e)
       this.modelSex = e.target.value
-      
+       console.log(e.target.value)
     }
   },
 };

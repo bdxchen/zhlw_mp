@@ -406,7 +406,7 @@ swiper {
       border-radius: 100px;
       position: absolute;
       left: 50%;
-      top: 25%;
+      top:15%;
       margin-left: -50px;
     }
     .back {
@@ -542,7 +542,7 @@ swiper {
       }
     }
     .complete-btn {
-      margin: 10px auto;
+      margin: 30px auto 0;
       width: 350rpx;
       height: 100rpx;
       text-align: center;

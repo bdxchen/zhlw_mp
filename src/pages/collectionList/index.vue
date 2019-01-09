@@ -24,8 +24,8 @@
               <div class="flowPic" v-for="(item,index) in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i @click="deleteLikes(item,index,col1)" class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i @click="deleteLikes(item,index,col1)" class="icon iconfont">&#xe632;</i></div>
+                  <!-- <div class="more">...</div> -->
                 </div>
               </div>
             </view>
@@ -34,8 +34,8 @@
               <div class="flowPic" v-for="(item,index) in col2" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i @click="deleteLikes(item,index,col2)" class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more">...</div>
+                  <div class="like"><i @click="deleteLikes(item,index,col2)" class="icon iconfont">&#xe632;</i></div>
+                  <!-- <div class="more">...</div> -->
                 </div>
               </div>
             </view>
@@ -71,7 +71,14 @@ export default {
       col2: []
     };
   },
-
+  onShow() {
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        this.getRotationChart()
+      }
+    })
+  },
   onLoad(options) {
     this.col1H = 0
     this.col2H = 0
@@ -92,12 +99,7 @@ export default {
             this.scrollH = scrollH
         }
     });
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res) => {
-        this.getRotationChart()
-      }
-    })
+    
   },
   methods: {
     deleteLikes(item,index,arr) {

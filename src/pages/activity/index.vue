@@ -8,7 +8,7 @@
       </div>
 
       <div class="active-content">
-       {{content}}
+       <rich-text :nodes="content"></rich-text>
       </div>
     </div>
     <div class="main">

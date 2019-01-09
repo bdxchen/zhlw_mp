@@ -24,8 +24,8 @@
               <div class="flowPic" v-for="item in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i  class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
+                  <div class="like"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
+                  <!-- <div class="more"><i  class="icon iconfont">&#xe645;</i></div> -->
                 </div>
               </div>
             </view>
@@ -34,8 +34,8 @@
               <div class="flowPic" v-for="item in col2" :key="item.id">
                 <image  @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i  class="icon iconfont">&#xe6a5;</i></div>
-                  <div class="more"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
+                  <div class="like"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div>
+                  <!-- <div class="more"><i @click="makeImg(item)" class="icon iconfont">&#xe645;</i></div> -->
                 </div>
               </div>
             </view>
@@ -99,6 +99,31 @@ export default {
   methods: {
     makeImg(item) {
       console.log(item)
+      wx.showModal({
+        title: '温馨提示',
+        content: '此功可将此作品设置为涩果的优质的摄影作品并且可以在本小程序对外展示',
+        confirmText: "确定",
+        cancelText: "取消",
+        success:  (res) => {
+          console.log(res);
+          if (res.confirm) {
+            console.log('确定')
+            let params = {
+              url: `/make_user_picture/`,
+              data: {
+                id: item.imgid
+              }
+            }
+            get(params).then(res=>{
+              console.log('make_user_picture',res)
+            })
+            
+          } else {
+            console.log('取消')
+
+          }
+        }
+      });
     },
     wxImgShow(item) {
       console.log(item)

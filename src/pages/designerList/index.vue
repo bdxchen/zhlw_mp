@@ -13,7 +13,7 @@
       <view style="height: 80rpx"></view>
       <view @click="chooseDesigner(item)" class="designer-list" v-for="item in photoGraphersList" :key="item.id">
         <div class="designer-avatar">
-          <img src="/static/img/avatar.jpg"/>
+          <img :src="item.Cameraman_img"/>
         </div>
         <div class="designer-info">
           <div class="name">{{item.Cameraman_name}}</div>
