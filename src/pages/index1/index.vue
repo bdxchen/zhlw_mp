@@ -32,7 +32,7 @@
             :next-margin="50"
             :indicator-dots="false" 
             :autoplay="true" 
-            :interval="3000" 
+            :interval="5000" 
             :style="{height:swiperH}"
             :duration="800">
             
@@ -48,10 +48,10 @@
         
     </swiper> 
     <div class="activeimg-wrapper" >
-      <div style="margin-right:-40px" class="active-img" @click="goActive">
+      <div style="margin-right:-10px" class="active-img" @click="goActive">
         <img :src="activityList.img_url"/>
       </div>
-      <div style="margin-left:-40px" class="active-img" @click="goMore">
+      <div style="margin-left:-10px" class="active-img" @click="goMore">
          <img :src="moreList.img_url"/>
       </div>
     </div>
@@ -341,7 +341,7 @@ page {
     .moreBtn {
       position: absolute;
       top: 0;
-      right: 0;
+      right: 10px;
       .icon {
         font-size: 38px;
       }
@@ -383,6 +383,7 @@ page {
         width: 140rpx;
         height: 140rpx;
         border-radius: 50%;
+        border:2px solid #fff;
         margin-right:10rpx;
         overflow: hidden;
 
@@ -460,8 +461,8 @@ page {
       justify-content:space-around;
 
       .active-img {
-        width: 230rpx;
-        height: 230rpx;
+        width: 300rpx;
+        height: 260rpx;
         border-radius: 15rpx;
         border: 2px solid #efcd6d;
         img {
