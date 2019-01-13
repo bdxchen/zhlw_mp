@@ -39,6 +39,8 @@
       <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
+              :focus="phoneHandle"   
+              :blur="phoneHandle"
               v-model="modelPhone"
               :disabled="isReadOnly"
               placeholder="请输入手机号"
@@ -142,6 +144,9 @@ export default {
   },
  
   methods: {
+    phoneHandle(e) {
+      console.log(e)
+    },
     goMyyuyue() {
       
       const path = 'myYuyue/main'
@@ -245,14 +250,12 @@ export default {
 </script>
 
 <style lang="scss">
-page {
-  height: 100%;
-}
+
 .content{
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  // height: 100%;
+  // display: flex;
+  // flex-direction: column;
   background: #fff;
   .top{
     width: 100%;
@@ -302,10 +305,10 @@ page {
   }
   
   .main{
-    width: 100%;
+    // width: 100%;
     padding-top:15px; 
-    flex: 1;
-    overflow: auto;
+    // flex: 1;
+    // overflow: auto;
     margin-top: 20px;
     .from-item {
       width:85%;
