@@ -28,11 +28,18 @@
      <div class="from-item">
        <div class="item-lable">性别</div>
        <div class="item-box">
+
          <radio-group class="radio-group" @change="radioChange">
-          <label class="radio radio-item" v-for="(item,index) in items" :key="index">
-            <radio :disabled="isReadOnly" :color="red" :value="item.name" :checked="item.checked" />{{item.value}}
-          </label>
+            <radio class="radio radio-item" v-for="(item,index) in items" :key="index"  :value="item.name" :checked="item.checked">
+                <text>{{item.value}}</text>
+            </radio>
         </radio-group>
+
+         <!-- <radio-group class="radio-group" @change="radioChange">
+          <label class="radio radio-item" v-for="(item,index) in items" :key="index">
+            <radio :disabled="isReadOnly" :value="item.name" :checked="item.checked" />{{item.value}}
+          </label>
+        </radio-group> -->
        </div>
      </div>
     <div class="from-item">
@@ -113,6 +120,7 @@ export default {
 
   data() {
     return {
+      xingbie: '',
       isReadOnly:false,
       user_id: '',
       modelName: '',
@@ -123,9 +131,7 @@ export default {
       modelWechat: '',
       modelInfo: '',
       items: [
-        {name: false, value: '女'},
-        {name: true, value: '男'}
-      ]
+    ]
     };
   },
   onShow() {
@@ -178,7 +184,7 @@ export default {
         this.modelSchool = res.student_school;
         this.modelSpeciality = res.student_speciality;
         this.modelWechat = res.student_weixin;
-        this.modelSex = res.student_sex;
+       
         this.modelInfo = res.student_info
         if(res.student_sex) {//男
           this.items= [
@@ -233,7 +239,7 @@ export default {
           
         }) 
         console.log('提交')
-        console.log(params)
+      
       } else {
         console.log('不全')
         wx.showModal({
@@ -252,9 +258,10 @@ export default {
     },
    
     radioChange(e) {
-      //console.log(e)
-      this.modelSex = e.target.value
-       console.log(e.target.value)
+      //this.xingbie = '123'
+      console.log(this.modelSex)
+      console.log(e.target.value)
+     
     }
   },
 };
@@ -341,6 +348,7 @@ export default {
         float: right;
         .radio-item {
           float: right;
+          margin: 0 10px;
         }
         .ipt {
           text-align: right;
