@@ -28,16 +28,16 @@
      <div class="from-item">
        <div class="item-lable">性别</div>
        <div class="item-box">
-
-         <radio-group class="radio-group" @change="radioChange">
+        
+        <radio-group class="radio-group" @change="radioChange">
             <radio class="radio radio-item" v-for="(item,index) in items" :key="index"  :value="item.name" :checked="item.checked">
                 <text>{{item.value}}</text>
             </radio>
         </radio-group>
 
          <!-- <radio-group class="radio-group" @change="radioChange">
-          <label class="radio radio-item" v-for="(item,index) in items" :key="index">
-            <radio :disabled="isReadOnly" :value="item.name" :checked="item.checked" />{{item.value}}
+          <label class="radio" v-for="(item,index) in items1" :key="index">
+            <radio :value="item.name" :checked="item.checked"/> {{item.value}}
           </label>
         </radio-group> -->
        </div>
@@ -46,7 +46,7 @@
       <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
-              
+            
               @blur="phoneHandle"
               v-model="modelPhone"
               :disabled="isReadOnly"
@@ -87,7 +87,7 @@
     <div class="textarea-item">
       <div class="textarea-lable">个人经历</div>
       <div class="textarea-box">
-       <textarea fixed="true" :disabled="isReadOnly" v-model="modelInfo"></textarea>
+       <textarea  :disabled="isReadOnly" v-model="modelInfo"></textarea>
       </div>
     </div>
     <!-- <div @click="goMyyuyue" class="from-item">
@@ -120,6 +120,12 @@ export default {
 
   data() {
     return {
+      items1: [
+        {name: 'USA', value: '美国'},
+        {name: 'CHN', value: '中国', checked: 'true'},
+        
+      ],
+      phoneFlag: false,
       xingbie: '',
       isReadOnly:false,
       user_id: '',
@@ -130,8 +136,11 @@ export default {
       modelSpeciality: '',
       modelWechat: '',
       modelInfo: '',
+      sexObj: [{name: false, value: '女'},
+            {name: true, value: '男'},],
       items: [
-    ]
+        
+      ]
     };
   },
   onShow() {
@@ -162,7 +171,10 @@ export default {
             }
           }
         });
-      } 
+        this.phoneFlag = false
+      } else {
+        this.phoneFlag = true
+      }
     },
     goMyyuyue() {
       
@@ -184,14 +196,16 @@ export default {
         this.modelSchool = res.student_school;
         this.modelSpeciality = res.student_speciality;
         this.modelWechat = res.student_weixin;
-       
+        this.modelSex = res.student_sex
         this.modelInfo = res.student_info
         if(res.student_sex) {//男
+          //this.items[1].checked= true
           this.items= [
             {name: false, value: '女'},
             {name: true, value: '男',checked: true},
           ]
         }else{//女
+          //this.items[0].checked= true
           this.items= [
             {name: false, value: '女',checked: true},
             {name: true, value: '男'},
@@ -256,11 +270,16 @@ export default {
       
 
     },
-   
+   changeSex(value) {
+     console.log(value)
+     this.modelSex= value
+     
+     
+   },
     radioChange(e) {
-      //this.xingbie = '123'
-      console.log(this.modelSex)
-      console.log(e.target.value)
+     // this.xingbie = '123'
+      
+     this.changeSex(e.target.value)
      
     }
   },
@@ -347,7 +366,8 @@ export default {
         color: #1b4a5d;
         float: right;
         .radio-item {
-          float: right;
+          display: block;
+           float: right;
           margin: 0 10px;
         }
         .ipt {
