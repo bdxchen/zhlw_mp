@@ -130,7 +130,7 @@ export default {
       isReadOnly:false,
       user_id: '',
       modelName: '',
-      modelSex: '',
+      //  modelSex: true,
       modelPhone: '',
       modelSchool: '',
       modelSpeciality: '',
@@ -272,7 +272,7 @@ export default {
     },
    changeSex(value) {
      console.log(value)
-     this.modelSex= value
+     this.modelSex = value
      
      
    },
