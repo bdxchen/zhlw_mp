@@ -39,12 +39,12 @@
       <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
-              :focus="phoneHandle"   
-              :blur="phoneHandle"
+              
+              @blur="phoneHandle"
               v-model="modelPhone"
               :disabled="isReadOnly"
               placeholder="请输入手机号"
-              type="text"/>
+              type="number"/>
       </div>
     </div>
     <div class="from-item">
@@ -124,7 +124,7 @@ export default {
       modelInfo: '',
       items: [
         {name: false, value: '女'},
-        {name: true, value: '男',checked: true}
+        {name: true, value: '男'}
       ]
     };
   },
@@ -145,7 +145,18 @@ export default {
  
   methods: {
     phoneHandle(e) {
-      console.log(e)
+      console.log(e.target.value)
+      if(!(/^1(3|4|5|7|8)\d{9}$/.test(e.target.value))){ 
+        wx.showModal({
+          content: '电话号码格式有误，请重新填写。',
+          showCancel: false,
+          success:  (res) => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        });
+      } 
     },
     goMyyuyue() {
       
@@ -201,7 +212,7 @@ export default {
         }
         postJSON(params).then(res=>{ 
           console.log(res)
-           wx.showModal({
+          wx.showModal({
             content: '提交成功',
             showCancel: false,
             success:  (res) => {
