@@ -323,6 +323,8 @@ export default {
                   success:  (res) => {
                     if (res.confirm) {
                       console.log('用户点击确定')
+                      const path = 'myYuyue/main'
+                      this.$router.push({ path: `../${path}`, query: {} });
                     }
                   }
                 });

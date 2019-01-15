@@ -87,7 +87,7 @@
     <div class="textarea-item">
       <div class="textarea-lable">个人经历</div>
       <div class="textarea-box">
-       <textarea  :disabled="isReadOnly" v-model="modelInfo"></textarea>
+       <textarea :adjust-position="true" :show-confirm-bar="false"  :disabled="isReadOnly" v-model="modelInfo"></textarea>
       </div>
     </div>
     <!-- <div @click="goMyyuyue" class="from-item">
@@ -245,6 +245,9 @@ export default {
                     Cameraman_id: this.$route.query.Cameraman_id,
                   
                   } });
+                }else{
+                  const path = 'index1/main'
+                  this.$router.push({ path: `../${path}`, query: {} });
                 }
 
               }
@@ -272,7 +275,7 @@ export default {
     },
    changeSex(value) {
      console.log(value)
-     this.modelSex = value
+    //  this.modelSex = value
      
      
    },
@@ -349,9 +352,9 @@ export default {
     margin-top: 20px;
     .from-item {
       width:85%;
-      margin: 0 auto;
-      height: 90rpx;
-      line-height: 90rpx;
+      margin: 10px auto;
+      height: 100rpx;
+      line-height: 100rpx;
       font-size: 16px;
       border-bottom: 1px solid #fae29d;
       margin-bottom: 5px;
