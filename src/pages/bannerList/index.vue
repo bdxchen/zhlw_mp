@@ -68,7 +68,9 @@ export default {
       col2: []
     };
   },
-
+  onShow() {
+    this.getRotationChart()
+  },
   onLoad(options) {
     this.col1H = 0
     this.col2H = 0
@@ -89,12 +91,7 @@ export default {
             this.scrollH = scrollH
         }
     });
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res) => {
-        this.getRotationChart()
-      }
-    })
+    
   },
   methods: {
     takeMylike(item) {

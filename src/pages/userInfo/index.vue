@@ -9,97 +9,29 @@
       
     </div>
     <div class="main">
-    
-     <div class="from-item">
-       <div class="item-lable">姓名</div>
-       <div class="item-box">
-         <input class="ipt" 
-                :value="modelName"
-                @input="nameInput"
-                placeholder="请输入姓名"
-                :disabled="isReadOnly"
-                type="text"/>
-       </div>
-     </div>
-     <div class="from-item">
-       <div class="item-lable">性别</div>
-       <div class="item-box">
-        
-        <radio-group class="radio-group radioBox" @change="radioChange">
-            <radio class="radio radio-item" v-for="(item,index) in items" :key="index"  :value="item.name" :checked="item.checked">
-                <text>{{item.value}}</text>
-            </radio>
-        </radio-group>
-
-         <!-- <radio-group class="radio-group" @change="radioChange">
-          <label class="radio" v-for="(item,index) in items1" :key="index">
-            <radio :value="item.name" :checked="item.checked"/> {{item.value}}
-          </label>
-        </radio-group> -->
-       </div>
-     </div>
-    <div class="from-item">
-      <div class="item-lable">手机号</div>
-      <div class="item-box">
-        <input class="ipt" 
-              @input="phoneInput"
-              @blur="phoneHandle"
-              :value="modelPhone"
-              :disabled="isReadOnly"
-              placeholder="请输入手机号"
-              type="number"/>
-      </div>
-    </div>
-    <div class="from-item">
-      <div class="item-lable">学校</div>
-      <div class="item-box">
-        <input class="ipt"
-              @input="schoolInput" 
-              :value="modelSchool"
-              :disabled="isReadOnly"
-              placeholder="请输入学校名称"
-              type="text"/>
-      </div>
-    </div>
-    <div class="from-item">
-      <div class="item-lable">专业</div>
-      <div class="item-box">
-        <input class="ipt" 
-              @input="specialityInput" 
-              :vlue="modelSpeciality"
-             :disabled="isReadOnly"
-              placeholder="请输入专业名称"
-              type="text"/>
-      </div>
-    </div>
-    <div class="from-item">
-      <div class="item-lable">微信</div>
-      <div class="item-box">
-        <input class="ipt"
-              @input="wechatInput" 
-              :value="modelWechat"
-              :disabled="isReadOnly"
-              placeholder="请输入微信"
-              type="text"/>
-      </div>
-    </div>
-    <div class="textarea-item">
-      <div class="textarea-lable">个人经历</div>
-      <div class="textarea-box">
-       <textarea :adjust-position="true" :show-confirm-bar="false"  :disabled="isReadOnly" v-model="modelInfo"></textarea>
-      </div>
-    </div>
-    <!-- <div @click="goMyyuyue" class="from-item">
-      <div class="item-lable">查看我的预约信息</div>
-      <div class="item-box">
+      <div class="userInfo-item">
+        <div class="item-lable">姓名</div>
+        <div class="item-box">
+          <input @input="nameInput" :value="modelName" class="ipt" type="text" placeholder="请输入姓名"/>
+        </div>
         
       </div>
-    </div> -->
-     <div v-show="!isReadOnly"  @click="postUserInfo" class="complete-btn">
+      <div class="userInfo-item">
+        <div class="item-lable">性别</div>
+        <div class="item-box">
+          <radio-group class="radio-group radioBox" @change="radioChange">
+              <radio class="radio radio-item" v-for="(item,index) in sexItems" :key="index"  :value="item.name" :checked="item.checked">
+                  <text>{{item.value}}</text>
+              </radio>
+          </radio-group>
+        </div>
+        
+      </div>
+      <div v-show="!isReadOnly"  @click="testUserInfo" class="complete-btn">
        <img class="btn" src="/static/img/btn1.png"/>
        <div class="text">修改信息</div>
      </div>
-  
+     
     </div>
       
     <div  class="bottom">
@@ -119,7 +51,6 @@ export default {
 
   data() {
     return {
-      
       phoneFlag: false,
       xingbie: '',
       isReadOnly:false,
@@ -131,16 +62,21 @@ export default {
       modelSpeciality: '',
       modelWechat: '',
       modelInfo: '',
-      
-      items: [
+      sexItems: [
         
         {name: true, value: '男'},
         {name: false, value: '女'}
       ],
+      items: [
+        
+        {name: true, value: '男'},
+        {name: false, value: '女'}
+      ]
     };
   },
   onShow() {
     this.getUserInfo();
+    //this.sexTest();
   },
   onLoad() {
     
@@ -155,6 +91,21 @@ export default {
   },
  
   methods: {
+    testUserInfo() {
+      console.log(this.testName)
+    },
+    nameInput(e){
+      // console.log(e.target.value)
+      // this.modelName = e.target.value
+      this.testName = e.target.value
+    },
+    sexTest() {
+      this.sexItems= [
+        {name: true, value: '男',checked: true},
+        {name: false, value: '女'},
+        
+      ]
+    },
     phoneHandle(e) {
       console.log(e.target.value)
       if(!(/^1(3|4|5|7|8)\d{9}$/.test(e.target.value))){ 
@@ -196,14 +147,14 @@ export default {
         this.modelInfo = res.student_info
         if(res.student_sex) {//男
           //this.items[1].checked= true
-          this.items= [
+          this.sexItems= [
             {name: true, value: '男',checked: true},
             {name: false, value: '女'},
             
           ]
         }else{//女
           //this.items[0].checked= true
-          this.items= [
+          this.sexItems= [
             {name: true, value: '男'},
             {name: false, value: '女',checked: true},
             
@@ -213,50 +164,49 @@ export default {
       })
     },
     postUserInfo() {
-      if(this.testName!=""&&this.testPhone!=""&&this.testSchool!=""&&this.testSpeciality!=""&&this.testWechat!="") {
+      if(this.modelName!=""&&this.modelPhone!=""&&this.modelSchool!=""&&this.modelSpeciality!=""&&this.modelWechat!="") {
         let params = {
           url: `/edit_student_info/${this.user_id}/`,
           data: {
-            student_name: this.testName,
+            student_name: this.modelName,
             student_sex: this.modelSex,
-            student_phone: this.testPhone,
-            student_school: this.testSchool,
-            student_speciality: this.testSpeciality,
-            student_weixin: this.testWechat,
+            student_phone: this.modelPhone,
+            student_school: this.modelSchool,
+            student_speciality: this.modelSpeciality,
+            student_weixin: this.modelWechat,
             student_info: this.modelInfo
             
           }
         
         }
-        console.log(params.data)
-        // postJSON(params).then(res=>{ 
-        //   console.log(res)
-        //   wx.showModal({
-        //     content: '提交成功',
-        //     showCancel: false,
-        //     success:  (res) => {
-        //       if (res.confirm) {
-        //         console.log('用户点击确定')
+        postJSON(params).then(res=>{ 
+          console.log(res)
+          wx.showModal({
+            content: '提交成功',
+            showCancel: false,
+            success:  (res) => {
+              if (res.confirm) {
+                console.log('用户点击确定')
 
-        //         if(this.$route.query.Cameraman_id){
-        //           const path = 'designerInfo/main'
-        //           this.$router.push({ path: `../${path}`, query: {
-        //             Cameraman_id: this.$route.query.Cameraman_id,
+                if(this.$route.query.Cameraman_id){
+                  const path = 'designerInfo/main'
+                  this.$router.push({ path: `../${path}`, query: {
+                    Cameraman_id: this.$route.query.Cameraman_id,
                   
-        //           } });
-        //           // wx.redirectTo({
-        //           //   url: `../index1/main?Cameraman_id${this.$route.query.Cameraman_id}`
-        //           // })
-        //         }else{
-        //           const path = 'index1/main'
-        //           this.$router.push({ path: `../${path}`, query: {} });
-        //         }
+                  } });
+                  // wx.redirectTo({
+                  //   url: `../index1/main?Cameraman_id${this.$route.query.Cameraman_id}`
+                  // })
+                }else{
+                  const path = 'index1/main'
+                  this.$router.push({ path: `../${path}`, query: {} });
+                }
 
-        //       }
-        //     }
-        //   });
+              }
+            }
+          });
           
-        // }) 
+        }) 
         console.log('提交')
       
       } else {
@@ -275,26 +225,18 @@ export default {
       
 
     },
+   changeSex(value) {
+     console.log(value)
+     
+     
+     
+   },
     radioChange(e) {
      // this.xingbie = '123'
-      this.modelSex = e.target.value
-    },
-
-    nameInput(e){
-      this.testName = e.target.value
-    },
-    phoneInput(e){
-      this.testPhone = e.target.value
-    },
-    schoolInput(e){
-      this.testSchool = e.target.value
-    },
-    specialityInput(e){
-      this.testSpeciality = e.target.value
-    },
-    wechatInput(e){
-      this.testWechat = e.target.value
-    },
+       this.modelSex = e.target.value
+    
+     
+    }
   },
 };
 </script>
@@ -360,11 +302,11 @@ export default {
     // flex: 1;
     // overflow: auto;
     margin-top: 20px;
-    .from-item {
+    .userInfo-item {
       width:85%;
       margin: 10px auto;
-      height: 100rpx;
-      line-height: 100rpx;
+      height: 90rpx;
+      line-height: 90rpx;
       font-size: 16px;
       border-bottom: 1px solid #fae29d;
       margin-bottom: 5px;
@@ -378,17 +320,9 @@ export default {
         height: 100%;
         color: #1b4a5d;
         float: right;
-        .radioBox {
-          text-align: right;
-        }
-        .radio-item {
-        
-          
-          margin: 0 10px;
-        }
         .ipt {
           text-align: right;
-          height: 100%;
+          height: 90%;
         }
       }
     }

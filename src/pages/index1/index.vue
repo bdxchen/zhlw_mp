@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     showMyImg() {
-      console.log(123456)
+      
       wx.showModal({
         title: '温馨提示',
         content: '此功能是上传您的认为优质的摄影作品并且可以在本小程序对外展示',
@@ -172,7 +172,8 @@ export default {
       }
     },
     goUserCenter() {
-      this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
+     this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
+     // this.$router.push({ path: `../${'userInfo/main'}`, query: {} });
     },
     goBannerList() {
       

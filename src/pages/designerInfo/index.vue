@@ -51,7 +51,7 @@
       </div>
       <div class="time-wrapper">
         <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
-          <view v-if="timeShow" class="picker"><text class="icon iconfont">&#xe607;</text>选择预约时间： {{time}}</view>
+          <view class="picker"><text class="icon iconfont">&#xe607;</text>选择预约时间： {{time}}</view>
         </picker>
        
       </div>

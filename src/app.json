@@ -18,6 +18,7 @@
     "pages/designerInfo/main",
     "pages/expandList/main",
     "pages/userCenter/main",
+    "pages/userInfo/main",
     "pages/counter/main",
     "pages/appointment/main",
     "pages/downloadPic/main",
