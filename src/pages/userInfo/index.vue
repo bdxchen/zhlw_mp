@@ -12,7 +12,8 @@
       <div class="userInfo-item">
         <div class="item-lable">姓名</div>
         <div class="item-box">
-          <input @input="nameInput" :value="modelName" class="ipt" type="text" placeholder="请输入姓名"/>
+          <!-- @input="nameInput" :value="modelName" -->
+          <input  v-model.lazy="modelName" class="ipt" type="text" placeholder="请输入姓名"/>
         </div>
         
       </div>

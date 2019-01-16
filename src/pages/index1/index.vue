@@ -2,6 +2,9 @@
   <div class="content">
     <div class="top">
       <img class="topbg" src="/static/img/topbg.png" />
+      <div class="edit-wrapper">
+        <i class="icon iconfont">&#xe669;</i>
+      </div>
       <div class="avatar-wrapper">
         <div class="avatar" @click="goUserCenter">
           <open-data type="userAvatarUrl"></open-data>
@@ -172,8 +175,8 @@ export default {
       }
     },
     goUserCenter() {
-     this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
-     // this.$router.push({ path: `../${'userInfo/main'}`, query: {} });
+     //this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
+      this.$router.push({ path: `../${'userInfo/main'}`, query: {} });
     },
     goBannerList() {
       
@@ -369,6 +372,16 @@ page {
         font-size: 14px;
         color: #fff;
       }
+    }
+    .edit-wrapper {
+      position: absolute;
+      top: 0px;
+      left: 170rpx;
+      width: 50rpx;
+      height:50rpx;
+      text-align: center;
+      line-height: 50rpx;
+      
     }
     .avatar-wrapper {
       width: 500rpx;

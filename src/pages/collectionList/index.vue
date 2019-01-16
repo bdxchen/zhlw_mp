@@ -24,7 +24,7 @@
               <div class="flowPic" v-for="(item,index) in col1" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i @click="deleteLikes(item,index,col1)" class="icon iconfont">&#xe632;</i></div>
+                  <div class="more"><i @click="deleteLikes(item,index,col1)" class="icon iconfont">&#xe632;</i></div>
                   <!-- <div class="more">...</div> -->
                 </div>
               </div>
@@ -34,7 +34,7 @@
               <div class="flowPic" v-for="(item,index) in col2" :key="item.id">
                 <image @click="wxImgShow(item)" :src="item.image" :style="{height:item.height + 'rpx'}" />
                 <div class="imgbottom">
-                  <div class="like"><i @click="deleteLikes(item,index,col2)" class="icon iconfont">&#xe632;</i></div>
+                  <div class="more"><i @click="deleteLikes(item,index,col2)" class="icon iconfont">&#xe632;</i></div>
                   <!-- <div class="more">...</div> -->
                 </div>
               </div>
@@ -289,6 +289,8 @@ page {
               float: left;
             }
             .more {
+              height: 80rpx;
+              line-height: 80rpx;
               width: 50%;
               float: right;
             }
