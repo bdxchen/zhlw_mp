@@ -3,7 +3,7 @@
     <div class="top">
       <image class="topbg" src="/static/img/topbg.png" mode="widthFix"/>
     </div>
-    <div class="title">预约设计师</div>
+    <div class="title">预约摄影师</div>
     <scroll-view
       scroll-y
       @scrolltoupper="upper"

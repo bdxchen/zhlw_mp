@@ -119,7 +119,9 @@ export default {
     this.getBanner();
     this.getActivityList();
     this.getMoreList();
-   
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
   methods: {
     showMyImg() {
