@@ -45,9 +45,12 @@ export default {
   onLoad(options) {
     let windowHeight = wx.getSystemInfoSync().screenHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().screenWidth // 屏幕的宽度
-    this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx'
+    this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx'  
   },
   methods: {
+    giveLike(item) {
+      console.log(item)
+    },
     chooseDesigner(item) {
       console.log(item)
     
