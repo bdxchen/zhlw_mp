@@ -18,9 +18,9 @@
         @change="swiperChange"
         :previous-margin="50"
         :next-margin="50"
-        :indicator-dots="true" 
-        :autoplay="false" 
-        :interval="2000" 
+        
+        :autoplay="true" 
+        :interval="5000" 
         :style="{height:swiperH}"
         :duration="800">
         
@@ -155,12 +155,11 @@ export default {
         urls: [item.image] // 需要预览的图片http链接列表
       })
     },
-     goBannerInfo(item) {
+    goBannerInfo(item) {
       console.log(item)
-      const path = 'designerWorks/main'
+      const path = 'worksList/main'
       this.$router.push({ path: `../${path}`, query: {
-        id: item.id,
-        image: item.image
+        Cameraman_id: this.Cameraman_id
       } });
     },
     getHeight(e) {

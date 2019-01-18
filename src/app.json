@@ -22,8 +22,8 @@
     "pages/counter/main",
     "pages/appointment/main",
     "pages/downloadPic/main",
-    "pages/myYuyue/main"
-    
+    "pages/myYuyue/main",
+    "pages/worksList/main"
     
   ],
   "window": {

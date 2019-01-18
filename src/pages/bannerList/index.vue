@@ -69,9 +69,10 @@ export default {
     };
   },
   onShow() {
-    this.getRotationChart()
+   
   },
   onLoad(options) {
+    this.getRotationChart()
     this.col1H = 0
     this.col2H = 0
     this.col1 = []

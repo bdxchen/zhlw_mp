@@ -101,7 +101,7 @@ export default {
       console.log(item)
       wx.showModal({
         title: '温馨提示',
-        content: '此功可将此作品设置为涩果的优质的摄影作品并且可以在本小程序对外展示',
+        content: '上传为涩果的优质的摄影作品并且可以在本小程序对外展示',
         confirmText: "确定",
         cancelText: "取消",
         success:  (res) => {
@@ -116,6 +116,18 @@ export default {
             }
             get(params).then(res=>{
               console.log('make_user_picture',res)
+              if(res.code){
+                wx.showModal({
+                  content: '上传成功',
+                  showCancel: false,
+                  success:  (res) => {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                    }
+                  }
+                });
+              }
+              
             })
             
           } else {

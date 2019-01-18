@@ -69,9 +69,10 @@ export default {
     };
   },
   onShow() {
-    this.getRotationChart()
+    
   },
   onLoad(options) {
+    this.getRotationChart(this.$route.query.Cameraman_id)
     this.col1H = 0
     this.col2H = 0
     this.col1 = []
@@ -122,10 +123,11 @@ export default {
         urls: [item.image] // 需要预览的图片http链接列表
       })
     },
-    getRotationChart() {
+    getRotationChart(Cameraman_id) {
       let params = {
-        url: `/get_rotation_chart/`,
-      }
+        url: `/get_cameraman_image/${Cameraman_id}/`,
+        
+      };
       get(params).then(res=>{
         this.myImgs = res
         this.loadImages()

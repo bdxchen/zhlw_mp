@@ -14,8 +14,8 @@
        <div class="item-lable">姓名</div>
        <div class="item-box">
          <input class="ipt" 
-                :value="modelName"
-                @input="nameInput"
+                v-model="modelName"
+                
                 placeholder="请输入姓名"
                 :disabled="isReadOnly"
                 type="text"/>
@@ -24,27 +24,24 @@
      <div class="from-item">
        <div class="item-lable">性别</div>
        <div class="item-box">
-        
-        <radio-group class="radio-group radioBox" @change="radioChange">
+        <picker @change="sexChange" :value="index" :range="sexArray" range-key="value">
+          <view class="picker sexValue"> {{sexValue}}</view>
+        </picker>
+        <!-- <radio-group class="radio-group radioBox" @change="radioChange">
             <radio class="radio radio-item" v-for="(item,index) in items" :key="index"  :value="item.name" :checked="item.checked">
                 <text>{{item.value}}</text>
             </radio>
-        </radio-group>
-
-         <!-- <radio-group class="radio-group" @change="radioChange">
-          <label class="radio" v-for="(item,index) in items1" :key="index">
-            <radio :value="item.name" :checked="item.checked"/> {{item.value}}
-          </label>
         </radio-group> -->
+
        </div>
      </div>
     <div class="from-item">
       <div class="item-lable">手机号</div>
       <div class="item-box">
         <input class="ipt" 
-              @input="phoneInput"
+             
               @blur="phoneHandle"
-              :value="modelPhone"
+              v-model="modelPhone"
               :disabled="isReadOnly"
               placeholder="请输入手机号"
               type="number"/>
@@ -54,8 +51,8 @@
       <div class="item-lable">学校</div>
       <div class="item-box">
         <input class="ipt"
-              @input="schoolInput" 
-              :value="modelSchool"
+               
+              v-model="modelSchool"
               :disabled="isReadOnly"
               placeholder="请输入学校名称"
               type="text"/>
@@ -65,8 +62,8 @@
       <div class="item-lable">专业</div>
       <div class="item-box">
         <input class="ipt" 
-              @input="specialityInput" 
-              :vlue="modelSpeciality"
+              
+              v-model="modelSpeciality"
              :disabled="isReadOnly"
               placeholder="请输入专业名称"
               type="text"/>
@@ -76,8 +73,8 @@
       <div class="item-lable">微信</div>
       <div class="item-box">
         <input class="ipt"
-              @input="wechatInput" 
-              :value="modelWechat"
+              
+              v-model="modelWechat"
               :disabled="isReadOnly"
               placeholder="请输入微信"
               type="text"/>
@@ -125,7 +122,7 @@ export default {
       isReadOnly:false,
       user_id: '',
       modelName: '',
-      //  modelSex: true,
+      modelSex: '',
       modelPhone: '',
       modelSchool: '',
       modelSpeciality: '',
@@ -137,6 +134,11 @@ export default {
         {name: true, value: '男'},
         {name: false, value: '女'}
       ],
+      sexValue: '',
+      sexArray:[
+        {name: true, value: '男'},
+        {name: false, value: '女'}
+      ]
     };
   },
   onShow() {
@@ -155,6 +157,11 @@ export default {
   },
  
   methods: {
+    sexChange(e) {
+      console.log(e)
+      this.sexValue = this.sexArray[e.target.value].value
+      this.modelSex = this.sexArray[e.target.value].name
+    },
     phoneHandle(e) {
       console.log(e.target.value)
       if(!(/^1(3|4|5|7|8)\d{9}$/.test(e.target.value))){ 
@@ -196,18 +203,20 @@ export default {
         this.modelInfo = res.student_info
         if(res.student_sex) {//男
           //this.items[1].checked= true
-          this.items= [
-            {name: true, value: '男',checked: true},
-            {name: false, value: '女'},
+          this.sexValue = '男'
+          // this.items= [
+          //   {name: true, value: '男',checked: true},
+          //   {name: false, value: '女'},
             
-          ]
+          // ]
         }else{//女
           //this.items[0].checked= true
-          this.items= [
-            {name: true, value: '男'},
-            {name: false, value: '女',checked: true},
+          this.sexValue = '女'
+          // this.items= [
+          //   {name: true, value: '男'},
+          //   {name: false, value: '女',checked: true},
             
-          ]
+          // ]
         }
 
       })
@@ -217,46 +226,46 @@ export default {
         let params = {
           url: `/edit_student_info/${this.user_id}/`,
           data: {
-            student_name: this.testName,
+            student_name: this.modelName,
             student_sex: this.modelSex,
-            student_phone: this.testPhone,
-            student_school: this.testSchool,
-            student_speciality: this.testSpeciality,
-            student_weixin: this.testWechat,
+            student_phone: this.modelPhone,
+            student_school: this.modelSchool,
+            student_speciality: this.modelSpeciality,
+            student_weixin: this.modelWechat,
             student_info: this.modelInfo
             
           }
         
         }
         console.log(params.data)
-        // postJSON(params).then(res=>{ 
-        //   console.log(res)
-        //   wx.showModal({
-        //     content: '提交成功',
-        //     showCancel: false,
-        //     success:  (res) => {
-        //       if (res.confirm) {
-        //         console.log('用户点击确定')
+        postJSON(params).then(res=>{ 
+          console.log(res)
+          wx.showModal({
+            content: '提交成功',
+            showCancel: false,
+            success:  (res) => {
+              if (res.confirm) {
+                console.log('用户点击确定')
 
-        //         if(this.$route.query.Cameraman_id){
-        //           const path = 'designerInfo/main'
-        //           this.$router.push({ path: `../${path}`, query: {
-        //             Cameraman_id: this.$route.query.Cameraman_id,
+                if(this.$route.query.Cameraman_id){
+                  const path = 'designerInfo/main'
+                  this.$router.push({ path: `../${path}`, query: {
+                    Cameraman_id: this.$route.query.Cameraman_id,
                   
-        //           } });
-        //           // wx.redirectTo({
-        //           //   url: `../index1/main?Cameraman_id${this.$route.query.Cameraman_id}`
-        //           // })
-        //         }else{
-        //           const path = 'index1/main'
-        //           this.$router.push({ path: `../${path}`, query: {} });
-        //         }
+                  } });
+                  // wx.redirectTo({
+                  //   url: `../index1/main?Cameraman_id${this.$route.query.Cameraman_id}`
+                  // })
+                }else{
+                  const path = 'index1/main'
+                  this.$router.push({ path: `../${path}`, query: {} });
+                }
 
-        //       }
-        //     }
-        //   });
+              }
+            }
+          });
           
-        // }) 
+        }) 
         console.log('提交')
       
       } else {
@@ -378,6 +387,9 @@ export default {
         height: 100%;
         color: #1b4a5d;
         float: right;
+        .sexValue {
+          text-align: right;
+        }
         .radioBox {
           text-align: right;
         }
