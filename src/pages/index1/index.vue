@@ -177,8 +177,8 @@ export default {
       }
     },
     goUserCenter() {
-      //this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
-      this.$router.push({ path: `../${'userInfo/main'}`, query: {} });
+      this.$router.push({ path: `../${'userCenter/main'}`, query: {} });
+      //this.$router.push({ path: `../${'userInfo/main'}`, query: {} });
     },
     goBannerList() {
       

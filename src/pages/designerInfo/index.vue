@@ -4,6 +4,8 @@
       <img class="topbg" src="/static/img/topbg.png" />
       
       <img class="avatar" :src="designerInfo.Cameraman_img"/>
+      <i class="contact-icon iconfont">&#xe668;</i>
+      <button open-type="contact" class="contact-btn"></button>
     </div>
     <div class="main">
       <div class="designer-info">
@@ -51,7 +53,7 @@
       </div>
       <div class="time-wrapper">
         <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
-          <view class="picker"><text class="icon iconfont">&#xe607;</text>选择预约时间： {{time}}</view>
+          <view class="picker"><text class="icon iconfont">&#xe608;</text>选择预约时间： {{time}}</view>
         </picker>
        
       </div>
@@ -401,6 +403,25 @@ swiper {
     position: relative;
     display: flex;
     align-items: center;
+    .contact-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      font-size: 58rpx;
+      text-align: center;
+      line-height: 50px;
+
+    }
+    .contact-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      opacity: 0;
+    }
     .avatar {
       width: 100px;
       height: 100px;
