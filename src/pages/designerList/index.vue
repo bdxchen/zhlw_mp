@@ -11,7 +11,7 @@
       :style="{height:scroll_height}"
       class="scrollview">
       <view style="height: 80rpx"></view>
-      <view @click="chooseDesigner(item)" class="designer-list" v-for="item in photoGraphersList" :key="item.id">
+      <view @click.stop="chooseDesigner(item)" class="designer-list" v-for="(item,index) in photoGraphersList" :key="index">
         <div class="designer-avatar">
           <img :src="item.Cameraman_img"/>
         </div>
@@ -21,7 +21,7 @@
           <div class="style">{{item.Cameraman_style}}</div>
           <div class="number">
             <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div>
-            <div class="haoping"><i class="icon iconfont">&#xec7f;</i>123人好评</div>
+            <div @click.stop="giveLike(item)" class="haoping"><i class="icon iconfont">&#xec7f;</i>{{item.Cameraman_points}}人好评</div>
           </div>
         </div>
       </view>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {get, post} from "@/http/api"
+import {get, post,postJSON} from "@/http/api"
 export default {
   components: {},
   data() {
@@ -47,9 +47,35 @@ export default {
     let windowWidth = wx.getSystemInfoSync().screenWidth // 屏幕的宽度
     this.scroll_height = windowHeight * 750 / windowWidth - 280 - 40 + 'rpx'  
   },
+  onShow() {
+    this.getPhotographersList()
+  },
   methods: {
     giveLike(item) {
-      console.log(item)
+      
+      let params = {
+        url: '/add_cameraman_points/',
+        data:{
+          Cameraman_id:item.Cameraman_id
+        }
+      }
+      post(params).then(res=>{ 
+        console.log('点赞',res)
+        if(res.code==0){
+          item.Cameraman_points++
+        }else if(res.code==2){
+          wx.showModal({
+          content: '您已经给摄影师点过赞了',
+          showCancel: false,
+          success:  (res) => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        });
+        }
+      })
+
     },
     chooseDesigner(item) {
       console.log(item)
@@ -77,9 +103,7 @@ export default {
       console.log('上拉加载！')
     }
   },
-  mounted(){
-    this.getPhotographersList()
-  },
+  
 }
 </script>
 
