@@ -25,6 +25,7 @@
         <div  v-for="(item,index) in menuData" :key="index" class="menu-item">
           <img :src="item.imgUrl" @click="goTargetPath(item.targetPath)" />
           <p>{{item.name}}</p>
+          <div v-show="item.point" class="new-point"></div>
         </div>
        
       </div>
@@ -50,14 +51,14 @@
             </swiper-item>
         
     </swiper> 
-    <div class="activeimg-wrapper" >
+    <!-- <div class="activeimg-wrapper" >
       <div style="margin-right:-10px" class="active-img" @click="goActive">
-        <img :src="activityList.img_url"/>
+        <img :src="activityList.img_url||''"/>
       </div>
       <div style="margin-left:-10px" class="active-img" @click="goMore">
-         <img :src="moreList.img_url"/>
+         <img :src="moreList.img_url||''"/>
       </div>
-    </div>
+    </div> -->
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -77,20 +78,24 @@ export default {
       menuData: [{
         name:'作品',
         imgUrl: '/static/img/zuopin.png',
-        targetPath:'cascadeFlow/main'
+        targetPath:'cascadeFlow/main',
+        point: false
       },{
         name:'预约',
         imgUrl: '/static/img/yuyue.png',
         targetPath: 'myYuyue/main',
+        point: false
         // targetPath:'designerList/main'
       },{
         name:'活动',
         imgUrl: '/static/img/huodong.png',
-        targetPath:'activityList/main'
+        targetPath:'activityList/main',
+        point: false
       },{
         name:'更多',
         imgUrl: '/static/img/gengduo.png',
-        targetPath:'expandList/main'
+        targetPath:'expandList/main',
+        point: false
       }],
       motto: "Hello World",
       swiperH: "", //swiper高度
@@ -210,6 +215,10 @@ export default {
       }
       post(params).then(res=>{
         console.log('get_student',res)
+        
+        this.$set(this.menuData[2],'point',res.new_base_event)
+        this.$set(this.menuData[3],'point',res.new_more_event)
+      
         wx.setStorage({
           key:"userInfo",
           data: res//JSON.stringify(res)
@@ -454,9 +463,21 @@ page {
       align-items: center;
       text-align: center;
       font-size: 14px;
+      
+      
       .menu-item {
         width: 100rpx;
         height: 150rpx;
+        position: relative;
+        .new-point {
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          background: red;
+        }
         img {
           border-radius: 100rpx;
           border: 1px solid #efcd6d;
