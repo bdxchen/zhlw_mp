@@ -258,20 +258,20 @@ export default {
         return
       }
       console.log(time_code,date)
-      let dateCode = date.split('-').join("")
       let params = {
-        url: `/api/pay2/`,
+        url: `/edit_cameraman_time/`,
         data: {
           Cameraman_id: Cameraman_id,
-          date: dateCode,
+          date: date,
           time_code: time_code,
-          
+          user_id: user_id
         }
       };
       
       post(params).then(res=>{ 
         console.log(res)
-        if(res.code ==5) {
+        if(res.code==1) {
+
           wx.showModal({
             //title: '弹窗标题',
             content: '请先完善您的个人信息，才可以预约摄影师。',
@@ -292,48 +292,65 @@ export default {
               }
             }
           });
-        }else{
-          wx.requestPayment({
-            'timeStamp': res.time_stamp.toString(),
-            'nonceStr': res.nonce_str,
-            'package': `prepay_id=${res.prepay_id}`,
-            'signType': 'MD5',
-            'paySign': res.sign,
-            'success': (res) =>{ 
-              console.log('requestPayment',res)
-              wx.showModal({
-                content: '支付并预约成功',
-                showCancel: false,
-                success:  (res) => {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                    const path = 'myYuyue/main'
-                    this.$router.push({ path: `../${path}`, query: {} });
-                  }
-                }
-              });
-              
-            },
-            'fail':(res) =>{ 
-              console.log(res)
-              wx.showModal({
-                content: '取消预约',
-                showCancel: false,
-                success:  (res) => {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                  }
-                }
-              });
+
+          
+        
+        }else if(res.code==0) {
+          let params = {
+            url: '/api/pay/',
+            data: {
+              // code: this.wxInfo.code,
+              // encryptedData: this.wxInfo.encryptedData,
+              // iv: this.wxInfo.iv,
+              Cameraman_id:this.Cameraman_id,
+              id: res.id
             }
+
+          }
+          post(params).then(res => {
+            console.log('支付',res)
+           
+            wx.requestPayment({
+              'timeStamp': res.time_stamp.toString(),
+              'nonceStr': res.nonce_str,
+              'package': `prepay_id=${res.prepay_id}`,
+              'signType': 'MD5',
+              'paySign': res.sign,
+              'success': (res) =>{ 
+                console.log('requestPayment',res)
+                wx.showModal({
+                  content: '支付并预约成功',
+                  showCancel: false,
+                  success:  (res) => {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                      const path = 'myYuyue/main'
+                      this.$router.push({ path: `../${path}`, query: {} });
+                    }
+                  }
+                });
+                
+              },
+              'fail':(res) =>{ 
+                console.log(res)
+                wx.showModal({
+                  content: '取消预约',
+                  showCancel: false,
+                  success:  (res) => {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                    }
+                  }
+                });
+              }
+            })
+
           })
-        }
-    
           this.time = ''
           this.date = ''
           this.time_code = ''
           this.timeShow = false
-        
+        }
         
       }) 
     },
