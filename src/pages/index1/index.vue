@@ -215,9 +215,17 @@ export default {
       }
       post(params).then(res=>{
         console.log('get_student',res)
+        if(res.new_base_event){
+          this.$set(this.menuData[2],'point',false)
+        }else{
+          this.$set(this.menuData[2],'point',true)
+        }
+        if(res.new_more_event){
+          this.$set(this.menuData[3],'point',false)
+        }else{
+          this.$set(this.menuData[3],'point',true)
+        }
         
-        this.$set(this.menuData[2],'point',res.new_base_event)
-        this.$set(this.menuData[3],'point',res.new_more_event)
       
         wx.setStorage({
           key:"userInfo",
