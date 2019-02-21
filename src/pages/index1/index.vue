@@ -51,14 +51,14 @@
             </swiper-item>
         
     </swiper> 
-    <!-- <div class="activeimg-wrapper" >
+    <div v-if="activityList" class="activeimg-wrapper" >
       <div style="margin-right:-10px" class="active-img" @click="goActive">
         <img :src="activityList.img_url||''"/>
       </div>
-      <div style="margin-left:-10px" class="active-img" @click="goMore">
+      <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore">
          <img :src="moreList.img_url||''"/>
       </div>
-    </div> -->
+    </div>
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -215,6 +215,7 @@ export default {
       }
       post(params).then(res=>{
         console.log('get_student',res)
+        //true是不显示红点
         if(res.new_base_event){
           this.$set(this.menuData[2],'point',false)
         }else{

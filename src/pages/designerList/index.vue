@@ -92,7 +92,7 @@ export default {
       }
       get(params).then(res=>{ 
         console.log(res)
-        this.photoGraphersList = res
+        this.photoGraphersList = res.data
       })
     },
     upper() {

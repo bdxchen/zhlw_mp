@@ -72,14 +72,15 @@ export default {
     };
   },
   onShow() {
-    wx.getStorage({
+   
+  },
+  onLoad(options) {
+     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
         this.getRotationChart()
       }
     })
-  },
-  onLoad(options) {
     this.col1H = 0
     this.col2H = 0
     this.col1 = []
@@ -143,6 +144,7 @@ export default {
         url: `/get_user_like/`,
       }
       get(params).then(res=>{
+        
         this.myImgs = res
         this.loadImages()
       })
