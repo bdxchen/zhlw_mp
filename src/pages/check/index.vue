@@ -11,7 +11,9 @@ export default {
   },
   onShow() {
     this.getSetting()
+    console.log('11111111111111111111111')
   },
+  
   onLoad() {
    
   },

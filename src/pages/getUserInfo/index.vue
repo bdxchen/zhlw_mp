@@ -14,7 +14,9 @@ export default {
   data() {
     return {}
   },
-
+  onShow() {
+    console.log('11111111111111111111111')
+  },
   methods: {
     getSetting(){
       let that = this
