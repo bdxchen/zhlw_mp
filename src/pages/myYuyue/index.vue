@@ -11,8 +11,11 @@
           <div class="name-box">摄影师：{{item.name}} </div>
           <div class="time-box">时 间：{{item.date}} {{timeObj[item.time_code]}}</div>
         </div>
-        <div @click="cancel(item,index,arr)" class="btn">
+        <div v-show="item.btnFlag" @click="cancel(item,index,arr)" class="btn">
           取消预约
+        </div>
+        <div v-show="!item.btnFlag" class="btn gray">
+          预约完成
         </div>
       </div>
       <!-- <div class="appointment">
@@ -39,12 +42,19 @@ export default {
   components: {},
   data() {
     return {
-     
+      isShow:false,
+      
       timeObj :{
         1: '08:00 - 10:00',
         2: '10:00 - 12:00',
         3: '14:00 - 16:00',
         4: '16:00 - 18:00'
+      },
+      timeCode :{
+        1: '10:00:00',
+        2: '12:00:00',
+        3: '16:00:00',
+        4: '18:00:00'
       },
       arr: []
     };
@@ -107,6 +117,20 @@ export default {
        
       }
       get(params).then(res=>{ 
+        
+         let currentTime = Date.now();
+         res.forEach((item)=>{
+          //预约时间
+          let yuyueTime = new Date(`${item.date} ${this.timeCode[item.time_code]}`).getTime();
+          
+          if(yuyueTime<currentTime){
+            //已经过了预约的时间
+            item.btnFlag = false
+          }else{
+            //还没有
+            item.btnFlag = true
+          }
+        })
         console.log('111',res)
         this.arr = res
       }) 
@@ -223,6 +247,9 @@ page {
         line-height: 180rpx;
         float: right;
         
+      }
+      .gray {
+        color: #ccc;
       }
     }
   }

@@ -120,12 +120,18 @@ export default {
     };
   },
   onLoad(options) {
-    this.login();
+    //this.login();
     this.getBanner();
     this.getActivityList();
     this.getMoreList();
     wx.showShareMenu({
       withShareTicket: true
+    })
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        this.getUserInfo();
+      }
     })
   },
   methods: {
