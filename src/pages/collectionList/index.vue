@@ -91,7 +91,7 @@ export default {
     let windowHeight = wx.getSystemInfoSync().screenHeight // 屏幕的高度
     let windowWidth = wx.getSystemInfoSync().screenWidth // 屏幕的宽度
     this.scroll_height = windowHeight * 750 / windowWidth - 200 - 100 + 'rpx'
-    console.log(windowWidth, windowHeight)
+   
     wx.getSystemInfo({
         success: (res) => {
             let ww = res.windowWidth;

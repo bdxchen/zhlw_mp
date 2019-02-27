@@ -13,7 +13,7 @@ export default {
   onShow() {
     this.getSetting()
     this.login()
-    console.log('11111111111111111111111')
+    
   },
   
   onLoad() {

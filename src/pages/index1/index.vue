@@ -119,6 +119,14 @@ export default {
       ]
     };
   },
+  onShow() {
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        this.getUserInfo();
+      }
+    })
+  },
   onLoad(options) {
     //this.login();
     this.getBanner();
@@ -127,12 +135,7 @@ export default {
     wx.showShareMenu({
       withShareTicket: true
     })
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res) => {
-        this.getUserInfo();
-      }
-    })
+    
   },
   methods: {
     showMyImg() {
@@ -309,27 +312,27 @@ export default {
     },
     getActivityList() {
       let params = {
-        url: '/get_event_list/',
+        url: '/get_event_list_easy/',
         data: {
           event_type: 'base'
         }
       }
       get(params).then(res=>{ 
         console.log('getActivityList',res)
-        this.activityList = res[0]
+        this.activityList = res.data[0]
       
       })
     },
     getMoreList() {
       let params = {
-        url: '/get_event_list/',
+        url: '/get_event_list_easy/',
         data: {
           event_type: 'more'
         }
       }
       get(params).then(res=>{ 
         console.log('getMoreList',res)
-        this.moreList = res[0]
+        this.moreList = res.data[0]
       
       })
     },
