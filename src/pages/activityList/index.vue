@@ -11,17 +11,18 @@
       :style="{height:scroll_height}"
       class="scrollview">
       <view style="height: 80rpx"></view>
-      <view @click="chooseDesigner(item)" class="designer-list" v-for="item in activityList" :key="item.id">
+      <!-- <view @click="chooseDesigner(item)" class="designer-list" v-for="item in activityList" :key="item.id">
         <div class="designer-avatar">
           <img :src="item.img_url"/>
         </div>
         <div class="designer-info">
           <div class="name">{{item.title}}</div>
-         
-          
-          
         </div>
-      </view>
+      </view> -->
+      <div class="activeList">
+        <div class="bgImg"></div>
+        <div class="content"></div>
+      </div>
     </scroll-view>
     <div class="bottom">
       <image class="botimg" src="/static/img/bottombg.png" mode="widthFix"/>
@@ -125,6 +126,18 @@ page {
   }
   .scrollview {
     margin-top: 50rpx;
+    .activeList{
+      width: 80%;
+      height: 280rpx;
+      margin: 0 auto;
+      .bgImg {
+        width: 80%;
+        height: 280rpx;
+      }
+      .content {
+        background: rgba(0,0,0,0.3)
+      }
+    }
     .designer-list {
       width: 730rpx;
       height: 280rpx;

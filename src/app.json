@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/activityList/main",
     "pages/check/main",
     "pages/index1/main",
     "pages/index/main",
@@ -8,7 +9,7 @@
     "pages/collectionList/main",
     "pages/activity/main",
     "pages/designerWorks/main",
-    "pages/activityList/main",
+    
     "pages/bannerList/main",
 
     "pages/cascadeFlow/main",
