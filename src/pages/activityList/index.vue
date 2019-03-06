@@ -19,9 +19,16 @@
           <div class="name">{{item.title}}</div>
         </div>
       </view> -->
-      <div class="activeList">
-        <div class="bgImg"></div>
-        <div class="content"></div>
+      <div class="activeList" v-for="item in activityList" :key="item.id">
+        <div class="bgImg">
+          <img :src="item.img_url"/>
+        </div>
+        <div class="activeContent" @click="chooseDesigner(item)">
+          <div class="activeTitle">{{item.title}}</div>
+          <div class="activeText">
+            {{item.content}}
+          </div>
+        </div>
       </div>
     </scroll-view>
     <div class="bottom">
@@ -127,15 +134,47 @@ page {
   .scrollview {
     margin-top: 50rpx;
     .activeList{
-      width: 80%;
+      width: 90%;
       height: 280rpx;
       margin: 0 auto;
+      position: relative;
+      margin-bottom: 10px;
       .bgImg {
-        width: 80%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 280rpx;
+        img {
+          width: 100%;
+          height: 100%; 
+        }
       }
-      .content {
-        background: rgba(0,0,0,0.3)
+      .activeContent {
+        padding: 15px 10px;
+        box-sizing: border-box;
+        width: 100%;
+        height: 280rpx;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        color: #fff;
+        background: rgba(0,0,0,0.3);
+        .activeTitle {
+
+        }
+        .activeText {
+          margin-top: 10px;
+          width: 70%;
+          height: 85rpx;
+          font-size: 12px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+        }
       }
     }
     .designer-list {

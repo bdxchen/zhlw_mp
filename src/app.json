@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/activityList/main",
     "pages/check/main",
+    "pages/activityList/main",
+    
     "pages/index1/main",
     "pages/index/main",
     
