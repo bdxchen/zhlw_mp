@@ -56,6 +56,9 @@ export default {
     this.getActivityList();
   },
   methods: {
+    delHtmlTag(str){
+        return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+    },
     chooseDesigner(item) {
       console.log(item)
     
@@ -74,6 +77,9 @@ export default {
       }
       get(params).then(res=>{ 
         console.log(res)
+        res.forEach(item => {
+          item.content = this.delHtmlTag(item.content)
+        });
         this.activityList = res
       
       })

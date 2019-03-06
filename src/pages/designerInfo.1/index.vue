@@ -12,8 +12,9 @@
         <div style="margin-top:5px;" @click="modalShow" class="btn">预约摄影师</div>
         <div style="margin-top:5px;" class="btn">摄影师作品集</div>
     </div>
-    <div @click.stop.self="modalHide" v-show="modalFlag" class="modal-wrapper">
+    <div v-show="modalFlag" class="modal-wrapper">
       <div class="modal">
+        <div @click="modalHide" class="close-modal"><i class="icon iconfont">&#xe603;</i></div>
         <div class="date-wrapper">
           <picker 
             mode="date" 
@@ -487,14 +488,22 @@ swiper {
       right: 0;
       margin: auto;
       width: 90%;
-      height: 200px;
+      height: 210px;
       border-radius: 8px;
       background: #f4c51f;
+      .close-modal {
+        padding: 5px;
+        font-size: 22px;
+        color: #fff;
+        position: absolute;
+        top: -2px;
+        right:0;
+      }
       .date-wrapper {
         font-size: 16px;
         box-sizing: border-box;
         padding: 0 30rpx;
-        margin-top: 35rpx;
+        margin-top: 65rpx;
         width: 100%;
         height: 80rpx;
         line-height: 80rpx;
