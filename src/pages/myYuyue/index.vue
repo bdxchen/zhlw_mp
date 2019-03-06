@@ -60,7 +60,7 @@ export default {
     };
   },
   onLoad(options) {
-    console.log('123456')
+    //console.log('123456')
     
     
   },
@@ -132,7 +132,7 @@ export default {
           }
         })
         console.log('111',res)
-        this.arr = res
+        this.arr = res.reverse()
       }) 
     },
     godesignerList() {

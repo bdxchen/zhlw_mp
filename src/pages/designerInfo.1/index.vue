@@ -7,60 +7,43 @@
       <i class="contact-icon iconfont">&#xe668;</i>
       <button open-type="contact" class="contact-btn"></button>
     </div>
-    <div class="main">
-      <div class="designer-info">
+    <div class="designer-info">
         <div class="name">{{designerInfo.Cameraman_name}}</div>
-          <div class="position">{{designerInfo.Cameraman_style}}</div>
-          <div class="number">
-            <!-- <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>123人预约</div> -->
-            <!-- <div class="haoping"><i class="icon iconfont">&#xec7f;</i>123人好评</div> -->
-          </div>
+        <div style="margin-top:5px;" @click="modalShow" class="btn">预约摄影师</div>
+        <div style="margin-top:5px;" class="btn">摄影师作品集</div>
+    </div>
+    <div @click.capture="modalHide" v-show="modalFlag" class="modal-wrapper">
+      <div class="modal">
+        <div class="date-wrapper">
+          <picker 
+            mode="date" 
+            :value="date" 
+            start="2018-01-01" 
+            @change="bindDateChange"> 
+                  <p class="picker">
+                    <text class="icon iconfont">&#xe66a;</text>选择预约日期： {{date}}
+                  </p>
+          </picker>
+        </div>
+        <div class="time-wrapper">
+          <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
+            <view class="picker"><text class="icon iconfont">&#xe608;</text>选择预约时间： {{time}}</view>
+          </picker>
+        </div>
+        <div @click="postTest" class="complete-btn">预约提交</div>
       </div>
-      <swiper class="swiper"  
-        @change="swiperChange"
-        :previous-margin="50"
-        :next-margin="50"
+    </div>
+    <div class="main">
+      <div class="picture-wrapper">
+        <div class="picture" v-for="(item, index) in designerImgs" :key="index">
+          <img @click="wxImgShow(item)" :src="item.image"/>
+        </div>
         
-        :autoplay="true" 
-        :interval="5000" 
-        :style="{height:swiperH}"
-        :duration="800">
-        
-        <swiper-item v-for="(item, index) in designerImgs"
-                     @click="goBannerInfo(item)"
-                     class="swiperItem"
-                      :key="index">
-            <image  @load="getHeight"
-                    
-                    :style="{height:swiperH}"
-                    :class="{ 'le-active': nowIdx===index }"  
-                    :src="item.image" class="le-img" />
-                 
-        </swiper-item>
-        
-      </swiper> 
-      <div class="date-wrapper">
-        <picker 
-          mode="date" 
-          :value="date" 
-          start="2018-01-01" 
-          @change="bindDateChange"> 
-                <p class="picker">
-                  <text class="icon iconfont">&#xe66a;</text>选择预约日期： {{date}}
-                </p>
-        </picker>
-
-      </div>
-      <div class="time-wrapper">
-        <picker @change="bindTimeChange" @cancel="bindTimeCancel" :value="index" :range="timeArray" range-key="time">
-          <view class="picker"><text class="icon iconfont">&#xe608;</text>选择预约时间： {{time}}</view>
-        </picker>
-       
-      </div>
-      <div @click="postTest" class="complete-btn">
-       <img class="btn" src="/static/img/btn1.png"/>
-       <div class="text">预 约</div>
-     </div>
+      </div>  
+      
+      
+      
+      
       
     </div>
     <div class="bottom">
@@ -80,6 +63,7 @@ export default {
 
   data() {
     return {
+      modalFlag: false,
       date:'',
       index: '',
       time: '',
@@ -147,6 +131,15 @@ export default {
     })
   },
   methods: {
+    modalShow() {
+      this.modalFlag = true
+      
+    },
+    modalHide() {
+      console.log(111111111)
+      this.modalFlag = false
+      
+    },
     likeClick(item) {
       console.log(item)
     },
@@ -258,20 +251,19 @@ export default {
         return
       }
       console.log(time_code,date)
+      let dateCode = date.split('-').join("")
       let params = {
-        url: `/edit_cameraman_time/`,
+        url: `/api/pay2/`,
         data: {
           Cameraman_id: Cameraman_id,
-          date: date,
+          date: dateCode,
           time_code: time_code,
-          user_id: user_id
         }
       };
       
       post(params).then(res=>{ 
         console.log(res)
-        if(res.code==1) {
-
+        if(res.code ==5) {
           wx.showModal({
             //title: '弹窗标题',
             content: '请先完善您的个人信息，才可以预约摄影师。',
@@ -292,65 +284,48 @@ export default {
               }
             }
           });
-
-          
-        
-        }else if(res.code==0) {
-          let params = {
-            url: '/api/pay/',
-            data: {
-              // code: this.wxInfo.code,
-              // encryptedData: this.wxInfo.encryptedData,
-              // iv: this.wxInfo.iv,
-              Cameraman_id:this.Cameraman_id,
-              id: res.id
+        }else{
+          wx.requestPayment({
+            'timeStamp': res.time_stamp.toString(),
+            'nonceStr': res.nonce_str,
+            'package': `prepay_id=${res.prepay_id}`,
+            'signType': 'MD5',
+            'paySign': res.sign,
+            'success': (res) =>{ 
+              console.log('requestPayment',res)
+              wx.showModal({
+                content: '支付并预约成功',
+                showCancel: false,
+                success:  (res) => {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                    const path = 'myYuyue/main'
+                    this.$router.push({ path: `../${path}`, query: {} });
+                  }
+                }
+              });
+              
+            },
+            'fail':(res) =>{ 
+              console.log(res)
+              wx.showModal({
+                content: '取消预约',
+                showCancel: false,
+                success:  (res) => {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  }
+                }
+              });
             }
-
-          }
-          post(params).then(res => {
-            console.log('支付',res)
-           
-            wx.requestPayment({
-              'timeStamp': res.time_stamp.toString(),
-              'nonceStr': res.nonce_str,
-              'package': `prepay_id=${res.prepay_id}`,
-              'signType': 'MD5',
-              'paySign': res.sign,
-              'success': (res) =>{ 
-                console.log('requestPayment',res)
-                wx.showModal({
-                  content: '支付并预约成功',
-                  showCancel: false,
-                  success:  (res) => {
-                    if (res.confirm) {
-                      console.log('用户点击确定')
-                      const path = 'myYuyue/main'
-                      this.$router.push({ path: `../${path}`, query: {} });
-                    }
-                  }
-                });
-                
-              },
-              'fail':(res) =>{ 
-                console.log(res)
-                wx.showModal({
-                  content: '取消预约',
-                  showCancel: false,
-                  success:  (res) => {
-                    if (res.confirm) {
-                      console.log('用户点击确定')
-                    }
-                  }
-                });
-              }
-            })
-
           })
+        }
+    
           this.time = ''
           this.date = ''
           this.time_code = ''
           this.timeShow = false
-        }
+          this.modalFlag = false
         
       }) 
     },
@@ -396,7 +371,7 @@ swiper {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #faecc7;
+  background: #fff;
   .top{
     width: 100%;
     height: 200rpx;
@@ -423,13 +398,13 @@ swiper {
       opacity: 0;
     }
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 100px;
       position: absolute;
       left: 50%;
-      top:15%;
-      margin-left: -50px;
+      top:20%;
+      margin-left: -45px;
     }
     .back {
       
@@ -457,12 +432,154 @@ swiper {
      
     }
   }
+  .designer-info {
+    margin-top: 10px;
+    // display: flex;
+    // justify-content: center;
+    .name {
+      text-align: center;
+    }
+    .btn {
+      width: 90%;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      text-align: center;
+      color: #fff;
+      background: #f4c51f;
+      margin: 0 auto;
+    }
+    .position {
+      text-align: center;
+      font-size: 16px;
+      color:  #959999;
+    }
+    .number {
+      color: #959999;
+      font-size: 16px;
+      .yuyue {
+          text-align: center;
+        }
+      .haoping {
+        float: right;
+        margin-right: 20%;
+      }
+      .icon {
+        display: inline;
+        font-size:38rpx;
+        margin-right:5px;
+      }
+    }
+  }
+  .modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.1);
+    z-index: 50;
+    .modal {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 90%;
+      height: 200px;
+      border-radius: 8px;
+      background: #f4c51f;
+      .date-wrapper {
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        margin-top: 35rpx;
+        width: 100%;
+        height: 80rpx;
+        line-height: 80rpx;
+        // background: wheat;
+        // text-align: center;
+        color: #fff;
+        
+        .picker {
+          box-sizing: border-box;
+          padding: 0 20rpx;
+          border-radius: 5px;
+          border: 1px solid #fff;
+          .icon {
+            font-size: 22px;
+            margin-right: 5px;
+          }
+        }
+      }
+      .time-wrapper {
+        font-size: 16px;
+        margin-top: 20px;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+      
+        width: 100%;
+        height: 80rpx;
+        line-height: 80rpx;
+        // background: wheat;
+        // text-align: center;
+        color: #fff;
+        .picker {
+          box-sizing: border-box;
+          padding: 0 20rpx;
+          border-radius: 5px;
+          border: 1px solid #fff;
+          .icon {
+            font-size: 22px;
+            margin-right: 5px;
+          }
+        }
+      }
+      .complete-btn {
+        background: #fff;
+        margin: 20px auto 0;
+        width: 90%;
+        height: 80rpx;
+        text-align: center;
+        line-height: 80rpx;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        text-align: center;
+        color: #f4c51f;
+        // box-shadow:8rpx 8rpx 8rpx rgba(15,16,15,0.13);
+       
+        
+        
+
+
+      }
+    }
+
+  }
   
   .main{
     width: 100%;
-    padding-top:15px; 
     flex: 1;
     overflow: auto;
+    .picture-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content:space-between;
+      box-sizing: border-box;
+      padding: 5px 20px;
+      
+      .picture {
+        margin: 5px 0;
+        width: 320rpx;
+        height: 320rpx;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
     .swiperItem {
       position: relative;
       .like {
@@ -497,100 +614,9 @@ swiper {
       transform: scale(1);
       z-index: 10
     }
-    .date-wrapper {
-      box-sizing: border-box;
-      padding: 0 80rpx;
-      margin-top: 20rpx;
-      width: 100%;
-      height: 80rpx;
-      line-height: 80rpx;
-      // background: wheat;
-      // text-align: center;
-      color: #366f7e;
-      
-      .picker {
-        border-bottom: 1px solid #366f7e;
-        .icon {
-          font-size: 22px;
-          margin-right: 5px;
-        }
-      }
-    }
-    .time-wrapper {
-      box-sizing: border-box;
-      padding: 0 80rpx;
-     
-      width: 100%;
-      height: 80rpx;
-       line-height: 80rpx;
-      // background: wheat;
-      // text-align: center;
-      color: #366f7e;
-      .picker {
-        border-bottom: 1px solid #366f7e;
-        .icon {
-          font-size: 22px;
-          margin-right: 5px;
-        }
-      }
-    }
-    .designer-info {
-      //margin-top: 20px;
-      // display: flex;
-      // justify-content: center;
-      .name {
-        text-align: center;
-      }
-      .position {
-        text-align: center;
-        font-size: 16px;
-        color:  #959999;
-      }
-      .number {
-        color: #959999;
-        font-size: 16px;
-        .yuyue {
-            text-align: center;
-          }
-        .haoping {
-          float: right;
-          margin-right: 20%;
-        }
-        .icon {
-          display: inline;
-          font-size:38rpx;
-          margin-right:5px;
-        }
-      }
-    }
-    .complete-btn {
-      margin: 30px auto 0;
-      width: 350rpx;
-      height: 100rpx;
-      text-align: center;
-      line-height: 100rpx;
-      
-      // box-shadow:8rpx 8rpx 8rpx rgba(15,16,15,0.13);
-      position: relative;
-      .btn {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 350rpx;
-        height: 100rpx;
-       
-      }
-      .text {
-        width: 200rpx;
-        color: #fff;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        margin-left: -100rpx;
-      }
-
-
-    }
+    
+    
+    
     
   }
   .bottom {

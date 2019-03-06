@@ -80,7 +80,7 @@ export default {
     chooseDesigner(item) {
       console.log(item)
     
-      const path = 'designerInfo/main'
+      const path = 'designerInfo.1/main'
       this.$router.push({ path: `../${path}`, query: {
         Cameraman_id: item.Cameraman_id,
        

@@ -1,23 +1,20 @@
 {
   "pages": [
     "pages/check/main",
+    "pages/designerInfo.1/main",
+    
     "pages/activityList/main",
-    
     "pages/index1/main",
-    "pages/index/main",
-    
     "pages/getUserInfo/main",
     "pages/collectionList/main",
     "pages/activity/main",
     "pages/designerWorks/main",
-    
     "pages/bannerList/main",
-
     "pages/cascadeFlow/main",
-   
     "pages/designerList/main",
     "pages/appointmentComplete/main",
     "pages/designerInfo/main",
+    
     "pages/expandList/main",
     "pages/userCenter/main",
     "pages/userInfo/main",
