@@ -12,7 +12,7 @@
         <div style="margin-top:5px;" @click="modalShow" class="btn">预约摄影师</div>
         <div style="margin-top:5px;" class="btn">摄影师作品集</div>
     </div>
-    <div @click.capture="modalHide" v-show="modalFlag" class="modal-wrapper">
+    <div @click.stop.self="modalHide" v-show="modalFlag" class="modal-wrapper">
       <div class="modal">
         <div class="date-wrapper">
           <picker 
