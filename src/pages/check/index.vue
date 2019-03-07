@@ -6,6 +6,7 @@
 
 <script>
 import {get, post} from "@/http/api";
+import fly from "@/http/config";
 export default {
   data() {
     return {}
@@ -67,7 +68,11 @@ export default {
       }
       post(params).then(res=>{ 
         console.log('getJwt',res)
-        
+        fly.interceptors.request.use((request) => {
+          let req = request;
+          req.headers["Authorization"] = `Bearer ${ res.access }`;
+          return req;
+        });
         wx.setStorage({
           key:"jwt",
           data:res.access,

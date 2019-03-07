@@ -120,12 +120,13 @@ export default {
     };
   },
   onShow() {
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res) => {
-        this.getUserInfo();
-      }
-    })
+    this.getUserInfo();
+    // wx.getStorage({
+    //   key: 'jwt',
+    //   success: (res) => {
+        
+    //   }
+    // })
   },
   onLoad(options) {
     //this.login();

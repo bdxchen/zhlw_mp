@@ -12,18 +12,18 @@ fly.config.timeout = 20000;
 fly.config.baseURL = config.host;
 
 //添加请求拦截器
-wx.getStorage({
-  key: 'jwt',
-  success (res) {
-    fly.interceptors.request.use((request) => {
-      //给所有请求添加自定义header
-      let req = request;
-      // req.headers["X-Tag"] = "flyio";
-      req.headers["Authorization"] = `Bearer ${ res.data }`;
-      return req;
-    });
-  } 
-})
+// wx.getStorage({
+//   key: 'jwt',
+//   success (res) {
+//     fly.interceptors.request.use((request) => {
+//       //给所有请求添加自定义header
+//       let req = request;
+//       // req.headers["X-Tag"] = "flyio";
+//       req.headers["Authorization"] = `Bearer ${ res.data }`;
+//       return req;
+//     });
+//   } 
+// })
 
 //添加响应拦截器，响应拦截器会在then/catch处理之前执行
 fly.interceptors.response.use(

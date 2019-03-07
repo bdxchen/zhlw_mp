@@ -70,6 +70,7 @@ export default {
       time: '',
       time_code: '',
       wxInfo: {},
+      userInfo: {},
       designerInfo: {},
       designerImgs:[],
       timeArray: [
@@ -126,8 +127,15 @@ export default {
     wx.getStorage({
       key: 'wxInfo',
       success: (res) => {
-        console.log(res.data)
+        
         this.wxInfo = res.data;
+      }
+    })
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        
+        this.userInfo = res.data;
       }
     })
   },
@@ -173,6 +181,7 @@ export default {
     bindDateChange(e) {
      
       this.date = e.target.value
+      this.time = ''
       this.getDateStatus(this.Cameraman_id,e.target.value)
     },
     bindTimeChange(e) {
@@ -229,12 +238,9 @@ export default {
     },
     //预约点击
     postTest() {
-      wx.getStorage({
-        key: 'userInfo',
-        success: (res) => {
-          this.postCameramanTime(this.Cameraman_id,this.date,this.time_code,res.data.user_id)
-        }
-      })
+      
+      this.postCameramanTime(this.Cameraman_id,this.date,this.time_code,this.userInfo.user_id)
+       
       
     },
     postCameramanTime(Cameraman_id,date,time_code,user_id) {
