@@ -155,7 +155,7 @@ export default {
       })
     },
     onImageLoad(e) {
-      console.log(e.target.width)
+      
       let imageId = e.target.id;
       let oImgW = e.target.width;         //图片原始宽度
       let oImgH = e.target.height;        //图片原始高度
@@ -189,20 +189,20 @@ export default {
       this.loadingCount = loadingCount;
       this.col1 = col1;
       this.col2 = col2;
-      console.log(this.col1, this.col2)
+      
     },
 
     loadImages() {
         let images = this.myImgs
         let baseId = "img-" + (+new Date());
         for (let i = 0; i < images.length; i++) {
-          console.log(images[i])
+         
           images[i].imgid = images[i].id
           images[i].id = baseId + "-" + i;
         }
         this.loadingCount = images.length,
         this.images = images
-        console.log(this.images)
+       
     }
     
   },

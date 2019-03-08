@@ -4,40 +4,17 @@
       <div class="avatar"><img src="/static/avatar.png" alt=""></div>
       <div class="title">涩果摄影</div>
       <div class="contenttext">此小程序由涩果摄影定制，即将会使用您的公开信息(名称、头像等)进入小程序吗，请您确认。</div>
-      <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1" class="btn">点击进入</button>
+      <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo"  class="btn">点击进入</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {}
-  },
+  
   
   methods: {
-    getSetting(){
-      let that = this
-      wx.getSetting({
-        success: function(res){
-          if (res.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              success: function(res) {
-                console.log(res.userInfo)
-                //用户已经授权过
-                wx.redirectTo({
-                  url: `../index1/main`
-                })
-                //that.$router.push({ path: `../index1/main`, query: {} });
-              }
-            })
-          }else{
-            console.log('用户还未授权过')
-          }
-        }
-      })
-    },
-
+    
     bindGetUserInfo(e) {
       // console.log(e.mp.detail.rawData)
       if (e.mp.detail.rawData){
@@ -48,9 +25,7 @@ export default {
       }
     },
   },
-  mounted() {
-    this.getSetting()
-  }
+  
 };
 </script>
 

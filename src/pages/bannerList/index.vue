@@ -133,7 +133,6 @@ export default {
       })
     },
     onImageLoad(e) {
-      console.log(e.target.width)
       let imageId = e.target.id;
       let oImgW = e.target.width;         //图片原始宽度
       let oImgH = e.target.height;        //图片原始高度
@@ -167,7 +166,6 @@ export default {
       this.loadingCount = loadingCount;
       this.col1 = col1;
       this.col2 = col2;
-      console.log(this.col1, this.col2)
     },
 
     loadImages() {
@@ -180,7 +178,7 @@ export default {
         }
         this.loadingCount = images.length,
         this.images = images
-        console.log(this.images)
+     
     }
     
   },

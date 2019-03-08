@@ -10,21 +10,23 @@
       @scrolltolower="lower"
       :style="{height:scroll_height}"
       class="scrollview">
-      
-      <view @click.stop="chooseDesigner(item)" class="designer-list" v-for="(item,index) in photoGraphersList" :key="index">
-        <div class="designer-avatar">
-          <img :src="item.Cameraman_img"/>
-        </div>
-        <div class="designer-info">
-          <div class="name">{{item.Cameraman_name}}</div>
-          <div class="position">拍摄总监</div>
-          <div class="style">{{item.Cameraman_style}}</div>
-          <div class="number">
-            <div class="yuyue"><i class="icon iconfont">&#xe60c;</i>{{item.Cameraman_yuyue}}人预约</div>
-            <div @click.stop="giveLike(item)" class="haoping"><i class="icon iconfont">&#xec7f;</i>{{item.Cameraman_points}}人好评</div>
+      <div class="designer-wrapper">
+        <view @click.stop="chooseDesigner(item)" class="designer" v-for="(item,index) in photoGraphersList" :key="index">
+          <div class="avatar">
+            <img :src="item.Cameraman_img"/>
           </div>
-        </div>
-      </view>
+          <div class="info">
+            <div class="name">
+              摄影师：{{item.Cameraman_name}}
+            </div>
+            <div class="icon-box">
+              <text class="icon iconfont">&#xe60c;</text>{{item.Cameraman_yuyue}}人预约
+              <text class="icon iconfont">&#xec7f;</text>{{item.Cameraman_points}}人好评
+            </div>
+          </div>
+        </view>
+      </div>
+      
     </scroll-view>
     <div class="bottom">
       <image class="botimg" src="/static/img/bottombg.png" mode="widthFix"/>
@@ -103,7 +105,7 @@ export default {
       console.log('上拉加载！')
     }
   },
-  
+  //
 }
 </script>
 
@@ -116,7 +118,7 @@ page {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #faecc7;
+  background: #fff;
   .title {
     width: 100%;
     color: #fff;
@@ -140,57 +142,48 @@ page {
   .scrollview {
     margin-top: 50rpx;
     padding-top: 80rpx;
-    .designer-list {
-      width: 730rpx;
-      height: 280rpx;
-      margin: 0 auto;
-      box-shadow:10rpx 10rpx 10rpx rgba(15,16,15,0.13);
+   
+    .designer-wrapper {
       display: flex;
       flex-direction: row;
-      margin-bottom: 15px;
-      .designer-avatar {
-        width: 280rpx;
-        height: 280rpx;
-        img {
+      flex-wrap: wrap;
+      justify-content:space-between;
+      box-sizing: border-box;
+      .designer {
+        width: 330rpx;
+        height: 400rpx;
+        margin: 0 auto;
+        box-shadow:10rpx 10rpx 10rpx #ede381;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        .avatar {
           width: 100%;
-          height: 100%;
-        }
-      }
-      .designer-info {
-        flex: 1;
-        background: #fff;
-        .name {
-          font-size: 35rpx;
-          text-align: center;
-          line-height: 80rpx;
-        }
-        .position,.style {
-          font-size: 26rpx;
-          line-height: 50rpx;
-          text-align: center;
-          color: #1b4a5d;
-        }
-        .number {
-          color: #959999;
-          font-size: 25rpx;
-          line-height: 80rpx;
-          .yuyue {
-            float: left;
-            margin-left: 50rpx;
-          }
-          .haoping {
-            float: right;
-            margin-right: 50rpx;
-          }
-          .icon {
-            display: inline;
-            font-size:38rpx;
-            margin-right:5px;
+          height: 290rpx;
+          img {
+            width: 100%;
+            height: 100%;
           }
         }
-        
+        .info{
+          
+          height: 110rpx;
+          .name {
+            height: 50%;
+            font-size: 14px;
+            font-weight: 100;
+
+          }
+          .icon-box {
+            height: 50%;
+            font-size: 12px;
+            font-weight: 100;
+            text-align: right;
+          }
+        }
       }
     }
+    
   }
   .bottom {
     width: 100%;

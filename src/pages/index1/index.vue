@@ -68,7 +68,8 @@
 
 <script>
 import {get, post} from "@/http/api";
-import MD5 from 'md5.js'
+import fly from "@/http/config";
+
 
 export default {
   data() {
@@ -120,16 +121,11 @@ export default {
     };
   },
   onShow() {
-    this.getUserInfo();
-    // wx.getStorage({
-    //   key: 'jwt',
-    //   success: (res) => {
-        
-    //   }
-    // })
+    this.getUserInfo1();
+    
   },
   onLoad(options) {
-    //this.login();
+    this.login();
     this.getBanner();
     this.getActivityList();
     this.getMoreList();
@@ -165,21 +161,7 @@ export default {
         }
       });
     },
-    getSetting(){
-     
-      let that = this
-      wx.getSetting({
-        success: function(res){
-          console.log('getSetting',res)
-          if (res.authSetting['scope.userInfo']) {
-            //用户已经授权过
-            that.$router.push({ path: `../index1/main`, query: {} });
-          }else{
-            that.$router.push({ path: `../getUserInfo/main`, query: {} });
-          }
-        }
-      })
-    },
+    
     goMyCollection() {
       this.moreFlag = false
       this.$router.push({ path: `../${'collectionList/main'}`, query: {} });
@@ -218,7 +200,7 @@ export default {
        this.$router.push({ path: `../${path}`, query: {} });
     },
     getUserInfo() {
-     
+      
       let params = {
         url: '/get_student/'
        
@@ -242,6 +224,31 @@ export default {
           key:"userInfo",
           data: res//JSON.stringify(res)
         })
+      }).catch(res=>{
+        console.log(res)
+      })
+    },
+    getUserInfo1() {
+      
+      let params = {
+        url: '/get_student/'
+       
+      }
+      post(params).then(res=>{
+        console.log('get_student',res)
+        //true是不显示红点
+        if(res.new_base_event){
+          this.$set(this.menuData[2],'point',false)
+        }else{
+          this.$set(this.menuData[2],'point',true)
+        }
+        if(res.new_more_event){
+          this.$set(this.menuData[3],'point',false)
+        }else{
+          this.$set(this.menuData[3],'point',true)
+        }
+      }).catch(res=>{
+        console.log(res)
       })
     },
     getJwt(code,encryptedData,iv) {
@@ -254,8 +261,12 @@ export default {
         }
       }
       post(params).then(res=>{ 
-        console.log('getJwt',res)
-        
+        //console.log('getJwt',res)
+        fly.interceptors.request.use((request) => {
+          let req = request;
+          req.headers["Authorization"] = `Bearer ${ res.access }`;
+          return req;
+        });
         wx.setStorage({
           key:"jwt",
           data:res.access,
@@ -273,12 +284,12 @@ export default {
       let that = this;
       wx.login({
         success(res) {
-          console.log('login',res)
+          
           code = res.code
           if (res.code) {
             wx.getUserInfo({
               success(res) {
-                console.log('getUserInfo',res)
+                
                 encryptedData = res.encryptedData
                 iv = res.iv
 
@@ -307,7 +318,6 @@ export default {
         url: '/get_rotation_chart/',
       }
       get(params).then(res => {
-        console.log('banner',res)
         this.bannerList = res
       })
     },
@@ -319,7 +329,6 @@ export default {
         }
       }
       get(params).then(res=>{ 
-        console.log('getActivityList',res)
         this.activityList = res.data[0]
       
       })
@@ -332,9 +341,7 @@ export default {
         }
       }
       get(params).then(res=>{ 
-        console.log('getMoreList',res)
         this.moreList = res.data[0]
-      
       })
     },
     
@@ -350,9 +357,7 @@ export default {
     }
   },
   
-  created() {
-    
-  }
+ 
 };
 </script>
 

@@ -13,7 +13,7 @@ export default {
   },
   onShow() {
     this.getSetting()
-    this.login()
+    
     
   },
   
@@ -92,11 +92,13 @@ export default {
           console.log('getSetting',res)
           if (res.authSetting['scope.userInfo']) {
             //用户已经授权过
+           
             wx.redirectTo({
               url: `../index1/main`
             })
            // that.$router.push({ path: `../index1/main`, query: {} });
           }else{
+            console.log('用户未授权')
             wx.redirectTo({
               url: `../getUserInfo/main`
             })
