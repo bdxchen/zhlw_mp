@@ -100,6 +100,7 @@ export default {
     };
   },
   onLoad(options) {
+    
     // this.Cameraman_id = this.$route.query.Cameraman_id
     // this.getDesignerInfo(this.Cameraman_id);
     // this.getDesignerImg(this.Cameraman_id);
@@ -120,6 +121,7 @@ export default {
     this.time_code = ''
     this.timeShow = false
     this.Cameraman_id = this.$route.query.Cameraman_id
+    
     this.getDesignerInfo(this.Cameraman_id);
     this.getDesignerImg(this.Cameraman_id);
    
@@ -354,6 +356,7 @@ export default {
       };
       get(params).then(res=>{ 
         this.designerImgs = res
+      
         console.log('摄影师作品',res)
        
       }) 

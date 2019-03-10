@@ -1,26 +1,24 @@
 <template>
   <div class="content">
-    <div class="top">
-      <img class="topbg" src="/static/img/active-1.jpg" />
+    <div class="header">
+      <div class="header-img">
+        <img :src="img"/>
+      </div>
+      <div class="header-title">{{title}}</div>
       
-      <div class="active-title">
-        {{title}}
-      </div>
-
-      <div class="active-content">
-       <rich-text :nodes="content"></rich-text>
-      </div>
     </div>
     <div class="main">
-      
-      
-      
-    </div>
-    <div class="bottom">
-      
-      <img src="/static/img/bottombg.png" />
-      
-      
+      <div class="jianjie">
+        <text>简介</text>
+      </div>
+      <div class="border">
+        <img src="/static/img/border.jpg"/>
+        <div class="triangle"></div>
+      </div>
+      <div class="active-content">
+        <div style="padding:10px 0;">活动简介</div>
+        <rich-text :nodes="content"></rich-text>
+      </div>
     </div>
     
   </div>
@@ -35,6 +33,7 @@ export default {
 
   data() {
     return {
+      img: '',
       title: '',
       content: '',
       date:'',
@@ -47,6 +46,7 @@ export default {
       }
       get(params).then(res=>{ 
         console.log(res)
+        this.img = res.img_url;
         this.title = res.title;
         this.content = res.content;
         
@@ -75,93 +75,73 @@ page {
 .content{
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: #faecc7;
-  .top{
+  
+  .header {
     width: 100%;
-    height:550rpx;
+    height: 340rpx;
+    background:#fff;
+    
     position: relative;
-    display: flex;
-    align-items: center;
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 100px;
-      position: absolute;
-      left: 50%;
-      top: 25%;
-      margin-left: -50px;
-    }
-    .back {
-      
-      width: 80rpx;
-      height: 80rpx;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-
-    }
-    .active-title {
-      padding: 5px 10px;
-      border-top: 2px solid #000;
-      border-bottom: 2px solid #000;
-      margin: 0 auto;
-      z-index: 10;
-    }
-    .title {
-      width: 100%;
-      color: #fff;
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      z-index: 10;
-    }
-    .topbg {
-      width: 100%;
-      height: 100%;
+    .header-img {
       position: absolute;
       top: 0;
       left: 0;
-     
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      img {
+
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .header-title {
+      position: absolute;
+      bottom: 20rpx;
+      right: 30rpx;
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
+    }
+  }
+  .main {
+    margin-top: 13px;
+    .jianjie {
+      height: 50px;
+      line-height: 50px;
+      text {
+        color: #f4c51f;
+        border-bottom: 1px solid #f4c51f;
+        padding-bottom: 8px;
+        margin-left:40px; 
+      }
+    }
+    .border {
+      width: 100%;
+      height: 50rpx;
+      position: relative;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50rpx;
+      }
+      .triangle {
+        position: absolute;
+        top: 0;
+        left: 86rpx;
+        
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 15px 30px 15px;
+        border-color: transparent transparent #fff transparent;
+      }
     }
     .active-content {
-      box-shadow:10rpx 10rpx 10rpx rgba(15,16,15,0.13);
-       box-sizing: border-box;
-       padding: 20rpx;
-       width: 80%;
-       height: 120%;
-       position: absolute;
-       bottom:-90%;
-       z-index: 10;
-       margin-left: 10%;
-       background: #fae29d;
-       overflow: scroll;
-     } 
-  }
-  
-  .main{
-    width: 100%;
-    padding-top:15px; 
-    flex: 1;
-    overflow: auto;
-    position: relative;
-     
-    
-    
-    
-  }
-  .bottom {
-    width: 100%;
-    height: 80rpx;
-    position: relative;
-   
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      padding: 10px 25px;
     }
   }
 }

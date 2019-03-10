@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="main">
-
+      
       <div class="menu-wrapper">
         <div  v-for="(item,index) in menuData" :key="index" class="menu-item">
           <img :src="item.imgUrl" @click="goTargetPath(item.targetPath)" />
@@ -40,25 +40,33 @@
             :style="{height:swiperH}"
             :duration="800">
             
-            <swiper-item v-for="(item, index) in bannerList"
-                          @click="goBannerList"
-                          :key="index">
-                <image  @load="getHeight"
-                        
-                        :style="{height:swiperH}"
-                        :class="{ 'le-active': nowIdx===index }"  
-                        :src="item.image" class="le-img" />
-            </swiper-item>
+        <swiper-item v-for="(item, index) in bannerList"
+                      @click="goBannerList"
+                      :key="index">
+            <image  @load="getHeight"
+                    
+                    :style="{height:swiperH}"
+                    :class="{ 'le-active': nowIdx===index }"  
+                    :src="item.image" class="le-img" />
+        </swiper-item>
         
-    </swiper> 
-    <div v-if="activityList" class="activeimg-wrapper" >
-      <div style="margin-right:-10px" class="active-img" @click="goActive">
-        <img :src="activityList.img_url||''"/>
+      </swiper> 
+      <div v-if="activityList" class="activeimg-wrapper" >
+        <div style="margin-right:-10px" class="active-img" @click="goActive">
+          <img :src="activityList.img_url||''"/>
+        </div>
+        <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore">
+          <img :src="moreList.img_url||''"/>
+        </div>
       </div>
-      <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore">
-         <img :src="moreList.img_url||''"/>
+      <div v-if="activityList" class="activeimg-wrapper" >
+        <div style="margin-right:-10px" class="active-img" @click="goActive1">
+          <img :src="activityList1.img_url||''"/>
+        </div>
+        <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore1">
+          <img :src="moreList1.img_url||''"/>
+        </div>
       </div>
-    </div>
     </div>
     <div class="bottom">
       <img src="/static/img/bottombg.png" />
@@ -67,6 +75,7 @@
 </template>
 
 <script>
+
 import {get, post} from "@/http/api";
 import fly from "@/http/config";
 
@@ -104,6 +113,8 @@ export default {
       bannerList: [],
       activityList:{},
       moreList: {},
+      activityList1:{},
+      moreList1: {},
       images: [
         {
           image: "/static/banner.jpg"
@@ -125,6 +136,9 @@ export default {
     
   },
   onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     this.login();
     this.getBanner();
     this.getActivityList();
@@ -274,7 +288,7 @@ export default {
             this.getUserInfo();
           }
         })
-        
+        wx.hideLoading();
       })
     },
     login() {
@@ -329,7 +343,8 @@ export default {
         }
       }
       get(params).then(res=>{ 
-        this.activityList = res.data[0]
+        this.activityList = res.data[0];
+        this.activityList1 = res.data[1];
       
       })
     },
@@ -342,19 +357,30 @@ export default {
       }
       get(params).then(res=>{ 
         this.moreList = res.data[0]
+        this.moreList1 = res.data[1];
       })
     },
     
-    goActive() {
+    goActive(item) {
       this.$router.push({ path: `../${'activity/main'}`, query: {
         id: this.activityList.id
       } });
     },
-    goMore() {
+    goMore(item) {
       this.$router.push({ path: `../${'activity/main'}`, query: {
          id: this.moreList.id
       } });
-    }
+    },
+    goMore1(item) {
+      this.$router.push({ path: `../${'activity/main'}`, query: {
+         id: this.moreList1.id
+      } });
+    },
+    goActive1(item) {
+      this.$router.push({ path: `../${'activity/main'}`, query: {
+        id: this.activityList1.id
+      } });
+    },
   },
   
  
@@ -514,7 +540,9 @@ page {
     .activeimg-wrapper {
       // position: absolute;
       // bottom: 5%;
-       margin-top: 50rpx;
+
+
+      margin-top: 50rpx;
       width: 100%;
       height: 230rpx;
       display: flex;
@@ -522,14 +550,15 @@ page {
       justify-content:space-around;
 
       .active-img {
-        width: 300rpx;
+        width: 320rpx;
         height: 260rpx;
-        border-radius: 15rpx;
+        border-radius: 10rpx;
         border: 2px solid #efcd6d;
+        overflow: hidden;
         img {
           width: 100%;
           height: 100%;
-          border-radius: 15rpx;
+          
         }
       }
     }

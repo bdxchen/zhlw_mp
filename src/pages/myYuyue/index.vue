@@ -69,6 +69,7 @@ export default {
       key: 'userInfo',
       success: (res) => {
         //console.log(res)
+      
         this.getMyyuyue(res.data.user_id);
       }
     })
@@ -130,9 +131,12 @@ export default {
             //还没有
             item.btnFlag = true
           }
+
+
         })
         console.log('111',res)
         this.arr = res.reverse()
+        
       }) 
     },
     godesignerList() {

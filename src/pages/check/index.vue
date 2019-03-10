@@ -85,7 +85,10 @@ export default {
     },
 
     getSetting(){
-     
+      // wx.showLoading({
+      //   title: '加载中',
+      // })
+
       let that = this
       wx.getSetting({
         success: function(res){

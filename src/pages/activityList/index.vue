@@ -167,9 +167,7 @@ page {
         z-index: 1;
         color: #fff;
         background: rgba(0,0,0,0.3);
-        .activeTitle {
-
-        }
+        
         .activeText {
           margin-top: 10px;
           width: 70%;
