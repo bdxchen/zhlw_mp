@@ -119,14 +119,14 @@ page {
     }
     .border {
       width: 100%;
-      height: 50rpx;
+      height: 40rpx;
       position: relative;
       img {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 50rpx;
+        height: 40rpx;
       }
       .triangle {
         position: absolute;

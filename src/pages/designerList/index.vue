@@ -140,7 +140,9 @@ page {
   .scrollview {
     margin-top: 50rpx;
     padding-top: 80rpx;
+    padding-bottom: 20px;
     .designer-list {
+      
       width: 730rpx;
       height: 280rpx;
       margin: 0 auto;

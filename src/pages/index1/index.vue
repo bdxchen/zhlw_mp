@@ -51,21 +51,44 @@
         </swiper-item>
         
       </swiper> 
-      <div v-if="activityList" class="activeimg-wrapper" >
-        <div style="margin-right:-10px" class="active-img" @click="goActive">
-          <img :src="activityList.img_url||''"/>
+      <div style="margin-top: 40rpx" v-if="activityList" class="activeimg-wrapper" >
+        <div style="margin-right:-8px" class="active-box" @click="goActive">
+          <div class="active-img">
+            <img :src="activityList.img_url||''"/>
+          </div>
+          <div class="active-title">
+            {{activityList.title}}
+          </div>
         </div>
-        <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore">
-          <img :src="moreList.img_url||''"/>
+        <div style="margin-left:-8px" class="active-box" @click="goMore">
+          <div class="active-img">
+            <img :src="moreList.img_url||''"/>
+          </div>
+          <div class="active-title">
+            {{moreList.title}}
+          </div>
         </div>
+        
       </div>
-      <div v-if="activityList" class="activeimg-wrapper" >
-        <div style="margin-right:-10px" class="active-img" @click="goActive1">
-          <img :src="activityList1.img_url||''"/>
+      <div  v-if="activityList" class="activeimg-wrapper" >
+
+        <div style="margin-right:-8px" class="active-box" @click="goActive1">
+          <div class="active-img">
+            <img :src="activityList1.img_url||''"/>
+          </div>
+          <div class="active-title">
+            {{activityList1.title}}
+          </div>
         </div>
-        <div v-if="moreList" style="margin-left:-10px" class="active-img" @click="goMore1">
-          <img :src="moreList1.img_url||''"/>
+        <div style="margin-left:-8px" class="active-box" @click="goMore1">
+          <div class="active-img">
+            <img :src="moreList1.img_url||''"/>
+          </div>
+          <div class="active-title">
+           {{moreList1.title}}
+          </div>
         </div>
+
       </div>
     </div>
     <div class="bottom">
@@ -542,31 +565,46 @@ page {
       // bottom: 5%;
 
 
-      margin-top: 50rpx;
+     
       width: 100%;
-      height: 230rpx;
+      height: 330rpx;
       display: flex;
       flex-direction: row;
       justify-content:space-around;
-
-      .active-img {
-        width: 320rpx;
-        height: 260rpx;
+      .active-box {
+        width: 330rpx;
+        height: 310rpx;
         border-radius: 10rpx;
-        border: 2px solid #efcd6d;
-        overflow: hidden;
-        img {
+        border: 2px solid #eec43c;
+        
+        
+        
+        background: #eec43c;
+        .active-img {
           width: 100%;
-          height: 100%;
-          
+          height: 260rpx;
+          border-radius: 10rpx;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+
+          }
+        }
+        .active-title {
+          font-size: 14px;
+          color: #fff;
         }
       }
+     
+     
     }
   }
   .bottom {
     width: 100%;
     height: 80rpx;
     position: relative;
+    z-index: 10;
     img {
       position: absolute;
       top: 0;
