@@ -418,14 +418,17 @@ page {
 .content{
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  position: relative;
   .top{
     width: 100%;
     height: 230rpx;
-    position: relative;
-    display: flex;
-    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // display: flex;
+    // align-items: center;
     .moreBtn {
       position: absolute;
       top: 0;
@@ -509,9 +512,12 @@ page {
   
   .main{
     width: 100%;
-    flex: 1;
+    // flex: 1;
     overflow: auto;
-    position: relative;
+    position: absolute;
+    top: 230rpx;
+    bottom: 0;
+    padding-bottom: 80rpx;
     swiper {
       margin-top: 20rpx;
      
@@ -603,7 +609,10 @@ page {
   .bottom {
     width: 100%;
     height: 80rpx;
-    position: relative;
+   
+    position: absolute;
+
+    bottom: 0;
     z-index: 10;
     img {
       position: absolute;
