@@ -1,6 +1,9 @@
 <template>
   <div>
-
+    <!-- <div class="logo">
+      <img src="/static/avatar.png" />
+      <text>涩果摄影</text>
+    </div> -->
   </div>
 </template>
 
@@ -120,5 +123,8 @@ export default {
 <style lang="scss">
 page {
   height: 100%;
+}
+.logo {
+  
 }
 </style>

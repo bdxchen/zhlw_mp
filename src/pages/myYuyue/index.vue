@@ -120,9 +120,13 @@ export default {
       get(params).then(res=>{ 
         
          let currentTime = Date.now();
+         console.log(res)
+         console.log(currentTime)
          res.forEach((item)=>{
           //预约时间
-          let yuyueTime = new Date(`${item.date} ${this.timeCode[item.time_code]}`).getTime();
+          let yuyueTime1 = `${item.date} ${this.timeCode[item.time_code]}`.replace(/\-/g, '/')
+          
+          let yuyueTime = new Date(yuyueTime1).getTime();
           
           if(yuyueTime<currentTime){
             //已经过了预约的时间

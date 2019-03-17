@@ -476,7 +476,8 @@ page {
       display: flex;
       align-items: center;
       margin-left: 50rpx;
-      margin-top:-50rpx;
+      margin-top:15rpx;
+
 
       .avatar {
         
