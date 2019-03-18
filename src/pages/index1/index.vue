@@ -51,8 +51,8 @@
         </swiper-item>
         
       </swiper> 
-      <div style="margin-top: 40rpx" v-if="activityList" class="activeimg-wrapper" >
-        <div style="margin-right:-8px" class="active-box" @click="goActive">
+      <div style="margin-top: 40rpx" class="activeimg-wrapper" >
+        <div v-if="activityList" style="margin-right:-8px" class="active-box" @click="goActive">
           <div class="active-img">
             <img :src="activityList.img_url||''"/>
           </div>
@@ -60,7 +60,7 @@
             {{activityList.title}}
           </div>
         </div>
-        <div style="margin-left:-8px" class="active-box" @click="goMore">
+        <div v-if="moreList" style="margin-left:-8px" class="active-box" @click="goMore">
           <div class="active-img">
             <img :src="moreList.img_url||''"/>
           </div>
@@ -70,9 +70,9 @@
         </div>
         
       </div>
-      <div  v-if="activityList" class="activeimg-wrapper" >
+      <div class="activeimg-wrapper" >
 
-        <div style="margin-right:-8px" class="active-box" @click="goActive1">
+        <div v-if="activityList1" style="margin-right:-8px" class="active-box" @click="goActive1">
           <div class="active-img">
             <img :src="activityList1.img_url||''"/>
           </div>
@@ -80,7 +80,7 @@
             {{activityList1.title}}
           </div>
         </div>
-        <div style="margin-left:-8px" class="active-box" @click="goMore1">
+        <div v-if="moreList1" style="margin-left:-8px" class="active-box" @click="goMore1">
           <div class="active-img">
             <img :src="moreList1.img_url||''"/>
           </div>
@@ -134,10 +134,10 @@ export default {
       swiperH: "", //swiper高度
       nowIdx: 0, //当前swiper索引
       bannerList: [],
-      activityList:{},
-      moreList: {},
-      activityList1:{},
-      moreList1: {},
+      activityList:'',
+      moreList: '',
+      activityList1:'',
+      moreList1: '',
       images: [
         {
           image: "/static/banner.jpg"
